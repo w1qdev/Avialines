@@ -1,4 +1,4 @@
-class Flights {
+export class Flights {
     constructor(
         id, 
         flightNumber, 
@@ -14,8 +14,4 @@ class Flights {
         this.flightDuration = flightDuration;
         this.flightPrice = flightPrice;
     }
-
-    get users() {
-        
-    }   
 }

@@ -4,12 +4,12 @@ const { Schema } = mongoose
 
 const PassengerSchema = new Schema({
     id: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
     departureId: {
-        type: Number,
+        type: String,
         required: true
     },
     seatNumber: {

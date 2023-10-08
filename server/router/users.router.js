@@ -1,5 +1,6 @@
 import { Router } from 'express'
 
+
 export const userRouter = Router()
 
 // get post put delete
@@ -14,9 +15,6 @@ userRouter.get("/:id", (req, res) => {
 
 userRouter.post("/create", (req, res) => {
     // TODO: add new user
-    const { username, password } = req.body
-    
-    return res.send({ username, password }).status(200)
 })
 
 userRouter.put("/change", (req, res) => {
