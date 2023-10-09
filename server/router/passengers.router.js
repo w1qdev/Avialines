@@ -5,11 +5,26 @@ import Passenger from "../models/Passenger.js";
 
 export const passengerRouter = Router()
 
-passengerRouter.get('/:id', (req, res) => {
-    // TODO: get all passengers of flight using flightId
+// Getting exists passengers 
+passengerRouter.get('/', async (req, res) => {
+    try {
+        const allPassengers = await Passenger.find()
+
+        if (!allPassengers) {
+            return res.send({ message: "There is no passengers" })
+        }
+
+        return res.send({ 
+            message: "Found some passengers", 
+            body: allPassengers 
+        })
+    } catch (e) {
+        console.log("Some Internal Error", e)
+        return res.send({ message: "Some Internal Error", satus: 500 })
+    }
 })
 
-// create new passenger
+// creating new passenger
 passengerRouter.post('/create', async (req, res) => {
     const { passport } = req.body
 

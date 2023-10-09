@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
-const departureAirportSchema = new Schema({
+const AirportSchema = new Schema({
     airportId: {
         type: Number,
         required: true,
@@ -13,5 +13,5 @@ const departureAirportSchema = new Schema({
     }
 })
 
-const departureAirport = mongoose.model('departureAirport', departureAirportSchema);
-export default departureAirport
+const Airport = mongoose.model('Airport', AirportSchema);
+export default Airport

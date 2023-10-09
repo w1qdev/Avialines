@@ -1,6 +1,16 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose
 
+const CrewSchema = new Schema({
+    fullName: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        required: true
+    }
+})
 
 const DepartureSchema = new Schema({
     id: {
@@ -14,17 +24,14 @@ const DepartureSchema = new Schema({
     },
     departureTime: { 
         type: Date, 
-        default: Date.now,
+        default: Date.now(),
         required: true
     },
     planeId: {
         type: Number,
         required: true
     },
-    сrewCommander: {
-        type: String,
-        required: true
-    }
+    сrew: [CrewSchema]
 })
 
 const Departure = mongoose.model('Departure', DepartureSchema);

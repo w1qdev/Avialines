@@ -3,18 +3,16 @@ const { Schema } = mongoose
 
 
 const FlightSchema = new Schema({
-    id: {
-        type: String,
+    flightNumber: {
+        type: Number,
+        ref: "Departure",
         required: true,
         unique: true
     },
-    flightNumber: {
-        type: String,
-        required: true
-    },
     departureAirportId: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: "departureAirport"
     },
     destinationAirportId: {
         type: String,
@@ -28,6 +26,11 @@ const FlightSchema = new Schema({
         type: Number,
         required: true
     },
+    flightStatus: {
+        type: String,
+        required: true,
+        default: "active"
+    }
 })
 
 const Flight = mongoose.model('Flight', FlightSchema);

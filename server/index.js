@@ -8,9 +8,9 @@ const app = express()
 const port = process.env.PORT || 5000
 
 
-app.use(express.json())
+app.use(express.json()) 
 
-// http://localhost:5000/api/users/create
+// http://localhost:5000/api/flights/create
 app.use('/api/flights', flightRouter)
 app.use('/api/passengers', passengerRouter)
 

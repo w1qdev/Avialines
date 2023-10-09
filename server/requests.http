@@ -33,7 +33,7 @@ POST http://localhost:5000/api/flights/create HTTP/1.1
 content-type: application/json
 
 {
-    "flightNumber": "112234434",
+    "flightNumber": "1",
     "departureAirportId": "1",
     "destinationAirportId": "2",
     "flightDuration": 400,
@@ -55,7 +55,8 @@ content-type: application/json
     "departureAirportId": "1",
     "destinationAirportId": "2",
     "flightDuration": 700,
-    "flightPrice": 5500
+    "flightPrice": 5500,
+    "flightStatus": "active"
 }
 
 ###
@@ -66,7 +67,13 @@ content-type: application/json
     "flightNumber": "112234434"
 }
 
+###
+GET http://localhost:5000/api/passengers/ HTTP/1.1
+content-type: application/json
+
+
+
 
 ### Добавление аэрапортов
-GET http://localhost:5000/api/flights/ HTTP/1.1
+GET http://localhost:5000/api/airports/create HTTP/1.1
 content-type: application/json
