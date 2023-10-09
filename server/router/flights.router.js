@@ -67,8 +67,8 @@ flightRouter.post('/create', async (req, res) => {
 // [PUT] http://localhost:5000/api/flights/change
 flightRouter.put('/change', async (req, res) => {
     try {
-        const { flightNumber } = req.body
-
+        const { flightNumber } = req.body // ABC1234
+        
         const changedFlight = await Flight.findOneAndUpdate(
             { flightNumber }, 
             {...req.body})
