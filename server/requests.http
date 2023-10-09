@@ -1,0 +1,72 @@
+
+### Passengers
+POST http://localhost:5000/api/passengers/create HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Daniel Zemlyanov Ilich",
+    "passport": "5555 342345",
+    "seatNumber": "23b"
+}
+
+
+###
+PUT http://localhost:5000/api/passengers/change HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Daniel Zemlyanov DADA",
+    "passport": "5555 342345",
+    "seatNumber": "23s"
+}
+
+###
+DELETE http://localhost:5000/api/passengers/remove HTTP/1.1
+content-type: application/json
+
+{
+    "passport": "5555 342345"
+}
+
+### Flights
+POST http://localhost:5000/api/flights/create HTTP/1.1
+content-type: application/json
+
+{
+    "flightNumber": "112234434",
+    "departureAirportId": "1",
+    "destinationAirportId": "2",
+    "flightDuration": 400,
+    "flightPrice": 5500
+}
+
+
+### 
+GET http://localhost:5000/api/flights/ HTTP/1.1
+content-type: application/json
+
+
+### 
+PUT http://localhost:5000/api/flights/change HTTP/1.1
+content-type: application/json
+
+{
+    "flightNumber": "112234434",
+    "departureAirportId": "1",
+    "destinationAirportId": "2",
+    "flightDuration": 700,
+    "flightPrice": 5500
+}
+
+###
+DELETE http://localhost:5000/api/flights/remove HTTP/1.1
+content-type: application/json
+
+{
+    "flightNumber": "112234434"
+}
+
+
+### Добавление аэрапортов
+GET http://localhost:5000/api/flights/ HTTP/1.1
+content-type: application/json

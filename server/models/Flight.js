@@ -4,12 +4,12 @@ const { Schema } = mongoose
 
 const FlightSchema = new Schema({
     id: {
-        type: Number,
+        type: String,
         required: true,
         unique: true
     },
     flightNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     departureAirportId: {

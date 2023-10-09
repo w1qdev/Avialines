@@ -13,7 +13,7 @@ const PassengerSchema = new Schema({
         required: true
     },
     seatNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     fullName: {
@@ -21,11 +21,10 @@ const PassengerSchema = new Schema({
         require: true
     },
     passport: {
-        type: String,   // TODO: спросить насчет того, что здесь будет, строка, или числа 
+        type: String,
         required: true 
     }
 })
-
 
 const Passenger = mongoose.model('Passenger', PassengerSchema);
 export default Passenger
