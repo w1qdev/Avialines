@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose;
 
+// Creating Airport Schema
 const AirportSchema = new Schema({
     airportId: {
         type: Number,
@@ -17,5 +18,6 @@ const AirportSchema = new Schema({
     }
 }, {timestamps: true})
 
+// Creating Airport Model
 const Airport = mongoose.model('Airport', AirportSchema);
 export default Airport

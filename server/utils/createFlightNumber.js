@@ -1,8 +1,10 @@
 const getRandomValue = (max) => {
+    // return a random number between max parameter
     return Math.floor(Math.random() * max)
 }
 
 export const createFlightNumber = () => {
+    // return a valid flightNumber like 'ABC1234'
     const alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
                     'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q',
                     'R', 'S', 'T', 'X', 'Y', 'Z']

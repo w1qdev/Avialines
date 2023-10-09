@@ -7,8 +7,8 @@ export const airportRouter = Router()
 
 // [GET] http://localhost:5000/api/airports/
 airportRouter.get('/', async (req, res) => {
-    // Get all exists airplanes
     try {
+        // geting all exists airplanes
         const airports = await Airport.find()
 
         if (!airports) {
@@ -53,7 +53,7 @@ airportRouter.post("/create", async (req, res) => {
         })
     } catch (e) {
         console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error" })
+        return res.send({ message: "Some Internal Error", status: 500 })
     }  
 })
 
@@ -73,7 +73,7 @@ airportRouter.put('/change', async (req, res) => {
         return res.send({ message: `Airport ${chandedAirport.airportName}: ${airportId} changed` })
     } catch (e) {
         console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error" })
+        return res.send({ message: "Some Internal Error", status: 500 })
     }
 })
 
@@ -92,7 +92,7 @@ airportRouter.put('/remove', async (req, res) => {
         return res.send({ message: `airport ${airportId} successfully removed` })
     } catch (e) {
         console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error" })
+        return res.send({ message: "Some Internal Error", status: 500 })
     }
 })
 

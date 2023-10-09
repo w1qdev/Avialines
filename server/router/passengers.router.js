@@ -5,9 +5,10 @@ import Passenger from "../models/Passenger.js";
 
 export const passengerRouter = Router()
 
-// Getting exists passengers 
+// [GET] http://localhost:5000/api/passengers/
 passengerRouter.get('/', async (req, res) => {
     try {
+        // Getting all exists passengers 
         const allPassengers = await Passenger.find()
 
         if (!allPassengers) {
@@ -24,58 +25,74 @@ passengerRouter.get('/', async (req, res) => {
     }
 })
 
-// creating new passenger
+// [POST] http://localhost:5000/api/passengers/create
 passengerRouter.post('/create', async (req, res) => {
-    const { passport } = req.body
+    try {
+        
+        const { passport } = req.body
 
-    const isNewPassenger =  await Passenger.findOne({ "passport": passport })
+        const isNewPassenger =  await Passenger.findOne({ "passport": passport })
 
-    if (isNewPassenger ) {
-        return res.send({ message: "This user already passenger" })
+        if (isNewPassenger ) {
+            return res.send({ message: "This user already passenger" })
+        }
+
+        // creating new passenger
+        const passenger = new Passenger({ 
+            id: uuidv4(),
+            departureId: uuidv4(),
+            ...req.body
+        }) 
+
+        await passenger.save()
+        .then(() => {
+            return res.send({ message: "New user has been successfully created" })
+        })
+        .catch(() => {
+            return res.send({ message: "New user hasn't been successfully created" })
+        })
+    } catch (e) {
+        console.error("Some Internal Error", e)
+        return res.send({ message: "Some Internal Error", status: 500})
     }
-
-    const passenger = new Passenger({ 
-        id: uuidv4(),
-        departureId: uuidv4(),
-        ...req.body
-    }) 
-
-    await passenger.save()
-    .then(() => {
-        return res.send({ message: "New user has been successfully created" })
-    })
-    .catch(() => {
-        return res.send({ message: "New user hasn't been successfully created" })
-    })
-    
 })
 
-// change data about passenger
+// [PUT] http://localhost:5000/api/passengers/change
 passengerRouter.put('/change', async (req, res) => {
-    const { passport, seatNumber } = req.body  
-    // FIXME: Нужно получать только изменяемые данные!
+    try {
+        const { passport, seatNumber } = req.body  
 
-    const existsPassenger = await Passenger.findOneAndUpdate({ "passport": passport }, {
-        seatNumber, ...req.body 
-    })
+        // change data about passenger
+        const existsPassenger = await Passenger.findOneAndUpdate({ "passport": passport }, {
+            seatNumber, ...req.body 
+        })
 
-    if (!existsPassenger) {
-        return res.send({ message: "Something gone wrong" })
-    }
+        if (!existsPassenger) {
+            return res.send({ message: "Something gone wrong" })
+        }
 
-    return res.send({ message: "The user data successfully changed" })
+        return res.send({ message: "The user data successfully changed" })
+    } catch (e) {
+        console.error("Some Internal Error", e)
+        return res.send({ message: "Some Internal Error", status: 500})
+    }  
 })
 
-// remove some passenger
+// [DELETE] http://localhost:5000/api/passengers/remove
 passengerRouter.delete('/remove', async (req, res) => {
-    const { passport } = req.body
+    try {
+        const { passport } = req.body
 
-    const removePassenger = await Passenger.findOneAndRemove({ passport })
+        // remove the passenger
+        const removePassenger = await Passenger.findOneAndRemove({ passport })
 
-    if (!removePassenger) {
-        return res.send({ message: "Something gone wrong, passenger hasn't removed" })
+        if (!removePassenger) {
+            return res.send({ message: "Something gone wrong, passenger hasn't removed" })
+        }
+
+        return res.send({ message: "passenger successfully removed" })  
+    } catch (e) {
+        console.error("Some Internal Error", e)
+        return res.send({ message: "Some Internal Error", status: 500 })
     }
-
-    return res.send({ message: "passenger successfully removed" })
-    
 })

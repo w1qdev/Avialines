@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 const { Schema } = mongoose
 
+
 const CrewSchema = new Schema({
     fullName: {
         type: String,
@@ -11,6 +12,7 @@ const CrewSchema = new Schema({
         required: true
     }
 })
+
 
 const DepartureSchema = new Schema({
     id: {

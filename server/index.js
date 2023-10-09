@@ -1,28 +1,27 @@
 import express from 'express'
-import { flightRouter } from './router/flights.router.js'
-import { passengerRouter } from './router/passengers.router.js'
-import { airportRouter } from './router/airports.router.js'
+import { router } from './router/index.js'
 import { connectToDatabase } from './db/index.js'
 
-
+// creating express app/server
 const app = express()
 const port = process.env.PORT || 5000
 
-
+// enabling application/json headers
 app.use(express.json()) 
 
-// http://localhost:5000/api/flights/create
-app.use('/api/flights', flightRouter)
-app.use('/api/passengers', passengerRouter)
-app.use('/api/airports', airportRouter)
+// http://localhost:5000/api
+app.use('/api/flights', router.flightRouter)
+app.use('/api/passengers', router.passengerRouter)
+app.use('/api/airports', router.airportRouter)
+app.use('/api/plane', router.planeRouter)
+app.use('/api/departure', router.departureRouter)
 
-
-
+// Connecting to the database
 connectToDatabase()
-.then(res => console.log("Connected to database"))
-.catch(err => console.log("Doesn't connected to database"))
+.then(() => console.log("Connected to database"))
+.catch(() => console.log("Doesn't connected to database"))
 
-
+// starting up the server
 app.listen(port, () => {
     console.log("Server has been started...")
 })

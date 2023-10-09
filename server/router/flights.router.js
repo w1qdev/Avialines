@@ -6,7 +6,7 @@ import { createFlightNumber } from "../utils/createFlightNumber.js";
 
 export const flightRouter = Router()
 
-// http://localhost:5000/api/flights/
+// [GET] http://localhost:5000/api/flights/
 flightRouter.get('/', async (req, res) => {
     try {
         const allFlights = await Flight.find()
@@ -25,7 +25,7 @@ flightRouter.get('/', async (req, res) => {
     }  
 })
 
-// http://localhost:5000/api/flights/create
+// [POST] http://localhost:5000/api/flights/create
 flightRouter.post('/create', async (req, res) => {
     try {
         const { departureAirportId } = req.body
@@ -64,7 +64,7 @@ flightRouter.post('/create', async (req, res) => {
     }
 })
 
-// http://localhost:5000/api/flights/change
+// [PUT] http://localhost:5000/api/flights/change
 flightRouter.put('/change', async (req, res) => {
     try {
         const { flightNumber } = req.body
@@ -84,6 +84,7 @@ flightRouter.put('/change', async (req, res) => {
     }
 })
 
+// [DELETE] http://localhost:5000/api/flights/remove
 flightRouter.delete('/remove', async (req, res) => {
     try {
         const { flightNumber } = req.body
@@ -99,5 +100,4 @@ flightRouter.delete('/remove', async (req, res) => {
         console.log("Some internal Error", e)
         return res.send({ message: "Some Internal Error", status: 500 })
     }
-    
 })
