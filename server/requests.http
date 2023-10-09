@@ -9,6 +9,10 @@ content-type: application/json
     "seatNumber": "23b"
 }
 
+###
+GET http://localhost:5000/api/passengers/ HTTP/1.1
+content-type: application/json
+
 
 ###
 PUT http://localhost:5000/api/passengers/change HTTP/1.1
@@ -74,6 +78,24 @@ content-type: application/json
 
 
 
-### Добавление аэрапортов
-GET http://localhost:5000/api/airports/create HTTP/1.1
+### Airports
+POST http://localhost:5000/api/airports/create HTTP/1.1
 content-type: application/json
+
+{
+    "airportName": "Кольцово",
+    "airportPlace": "Екатеринбург"
+}
+
+###
+GET http://localhost:5000/api/airports/ HTTP/1.1
+content-type: application/json
+
+### 
+PUT http://localhost:5000/api/airports/change HTTP/1.1
+content-type: application/json
+
+{
+    "airportId": 1696857507411,
+    "airportPlace": "Москва"
+}

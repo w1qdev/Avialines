@@ -7,7 +7,11 @@ const AirportSchema = new Schema({
         required: true,
         unique: true
     },
-    Name: {
+    airportName: {
+        type: String,
+        required: true
+    },
+    airportPlace: {
         type: String,
         required: true
     }

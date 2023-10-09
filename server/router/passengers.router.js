@@ -40,11 +40,14 @@ passengerRouter.post('/create', async (req, res) => {
         ...req.body
     }) 
 
-    await passenger.save().then(() => {
-        console.log("new passenger saved successfully...")
+    await passenger.save()
+    .then(() => {
+        return res.send({ message: "New user has been successfully created" })
     })
-
-    return res.send({ message: "new user has been successfully created" }).status(200)
+    .catch(() => {
+        return res.send({ message: "New user hasn't been successfully created" })
+    })
+    
 })
 
 // change data about passenger
