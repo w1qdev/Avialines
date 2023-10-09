@@ -8,10 +8,10 @@ export const createFlightNumber = () => {
                     'R', 'S', 'T', 'X', 'Y', 'Z']
     const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-    const flightNumber = ""
+    let flightNumber = ""
 
     for (let i = 0; i <= alphabet.length; i++) {
-        if (flightNumber.length <= 3) {
+        if (flightNumber.length < 3) {
             flightNumber += alphabet[getRandomValue(alphabet.length - 1)]
         } else if (flightNumber.length <= 6) {
             flightNumber += numbers[getRandomValue(numbers.length - 1)]
@@ -20,3 +20,7 @@ export const createFlightNumber = () => {
         }
     }
 }
+
+
+
+

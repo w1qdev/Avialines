@@ -1,6 +1,7 @@
 import { Router } from "express";
 import Flight from "../models/Flight.js";
-import { v4 as uuid } from "uuid"
+import Airport from "../models/Airport.js";
+import { createFlightNumber } from "../utils/createFlightNumber.js";
 
 
 export const flightRouter = Router()
@@ -27,26 +28,38 @@ flightRouter.get('/', async (req, res) => {
 // http://localhost:5000/api/flights/create
 flightRouter.post('/create', async (req, res) => {
     try {
-        const { flightNumber } = req.body
+        const { departureAirportId } = req.body
 
-        const isFlightExists = await Flight.findOne({ flightNumber })
+        // FIXME: maybe this doesn't need here
+        // const isFlightExists = await Flight.findOne({ flightNumber })
         
-        if (isFlightExists) {
-            return res.send({ message: "This flight is already exists" })
+        // if (isFlightExists) {
+        //     return res.send({ message: "This flight is already exists" })
+        // }
+
+        const depAirport = await Airport.findOne({ airportId: departureAirportId })
+
+        if (!depAirport) {
+            return res.send({ message: "This airport doen't exists" })
         }
 
-        const newFlight = new Flight({ ...req.body })
+        const newFlight = new Flight({ 
+            ...req.body,
+            departureAirportId: depAirport._id,
+            flightId: Date.now().valueOf(),
+            flightNumber: createFlightNumber()
+        })
 
         await newFlight.save()
         .then(result => {
             return res.send({ message: "New flight has been seccessfully created" })
         })
         .catch(error => {
-            console.log(error)
+            console.error(error)
             return res.send({ message: "something gone wrong, flight maybe exists" })
         })
     } catch (e) {
-        console.log("Some internal Error", e)
+        console.error("Some internal Error", e)
         return res.send({ message: "Some Internal Error", status: 500 })
     }
 })

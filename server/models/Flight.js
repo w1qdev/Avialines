@@ -3,19 +3,22 @@ const { Schema } = mongoose
 
 
 const FlightSchema = new Schema({
-    flightNumber: {
+    flightId: {
         type: Number,
-        ref: "Departure",
         required: true,
         unique: true
+    },
+    flightNumber: {
+        type: String,
+        required: true,
     },
     departureAirportId: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: "departureAirport"
+        ref: "Airport"
     },
     destinationAirportId: {
-        type: String,
+        type: Number,
         required: true
     },
     flightDuration: {
@@ -31,7 +34,7 @@ const FlightSchema = new Schema({
         required: true,
         default: "active"
     }
-})
+}, {timestamps: true})
 
 const Flight = mongoose.model('Flight', FlightSchema);
 export default Flight
