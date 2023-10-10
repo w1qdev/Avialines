@@ -17,10 +17,6 @@ const PlaneSchema = new Schema({
         required: true,
         max: 512
     },
-    flightRange: {
-        type: String,
-        required: true
-    }
 })
 
 

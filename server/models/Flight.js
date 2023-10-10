@@ -33,6 +33,10 @@ const FlightSchema = new Schema({
         type: String,
         required: true,
         default: "active"
+    },
+    flightRange: {
+        type: String,
+        required: true
     }
 }, {timestamps: true})
 

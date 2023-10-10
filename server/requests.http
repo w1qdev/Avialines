@@ -96,3 +96,43 @@ content-type: application/json
     "airportId": 1696857507411,
     "airportPlace": "Москва"
 }
+
+
+### Departures
+GET http://localhost:5000/api/departures/ HTTP/1.1
+content-type: application/json
+
+
+
+
+
+
+### Planes
+GET http://localhost:5000/api/planes/ HTTP/1.1
+content-type: application/json
+
+###
+POST http://localhost:5000/api/planes/create HTTP/1.1
+content-type: application/json
+
+{
+    "planeType": "BN800",
+    "seatCount": 80
+}
+
+###
+PUT http://localhost:5000/api/planes/change HTTP/1.1
+content-type: application/json
+
+{
+    "id": 1696948058683,
+    "seatCount": 60
+}
+
+###
+DELETE http://localhost:5000/api/planes/remove HTTP/1.1
+content-type: application/json
+
+{
+    "id": 1696948055200
+}

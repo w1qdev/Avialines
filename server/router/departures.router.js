@@ -1,13 +1,19 @@
 import { Router } from "express";
+import Departure from '../models/Departure.js'
+
 
 export const departureRouter = Router()
 
 // [GET] http://localhost:5000/api/departures/
-departureRouter.get('/', (req, res) => {
+departureRouter.get('/', async (req, res) => {
     try {
         // TODO: get all departures
+        const allDepartures = await Departure.find()
 
-
+        return res.send({ 
+            message: "Found some departures", 
+            body: allDepartures 
+        })
     } catch(e) {
         console.log("Some Internal Error", e)
         return res.send({ message: "Some Internal Error", status: 500 })
@@ -18,7 +24,7 @@ departureRouter.get('/', (req, res) => {
 departureRouter.post('/create', (req, res) => {
     try {
         // TODO: create new departure
-
+        const {  } = req.body
 
     } catch(e) {
         console.log("Some Internal Error", e)
