@@ -76,7 +76,14 @@ adminRouter.post('/login', async (req, res) => {
             return res.send({ message: "Full name, password or secret word is uncorrect" })
         }
 
-        return res.send({ message: "Successfully logged in" })
+        const token = jwt.sign({
+            fullName
+        }, process.env.JWT_SECRET, { expiresIn: '325d' })
+
+        const adminData = { fullName, role: admin.role, token }
+
+        return res.send({ message: "Successfully logged in", adminData })
+        // return res.send({ message: "Successfully logged in", adminData })
     } catch (e) {
         console.log("Some Internal Error", e)
         return res.send({ message: "Some Internal error", status: 500 })   
