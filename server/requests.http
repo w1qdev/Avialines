@@ -32,6 +32,11 @@ content-type: application/json
     "passport": "5555 342345"
 }
 
+
+
+
+
+
 ### Flights
 POST http://localhost:5000/api/flights/create HTTP/1.1
 content-type: application/json
@@ -75,6 +80,11 @@ GET http://localhost:5000/api/passengers/ HTTP/1.1
 content-type: application/json
 
 
+
+
+
+
+
 ### Airports
 POST http://localhost:5000/api/airports/create HTTP/1.1
 content-type: application/json
@@ -96,15 +106,6 @@ content-type: application/json
     "airportId": 1696857507411,
     "airportPlace": "Москва"
 }
-
-
-### Departures
-GET http://localhost:5000/api/departures/ HTTP/1.1
-content-type: application/json
-
-
-
-
 
 
 ### Planes
@@ -135,4 +136,48 @@ content-type: application/json
 
 {
     "id": 1696948055200
+}
+
+
+
+### Admin
+GET http://localhost:5000/api/admins/ HTTP/1.1
+content-type: application/json
+
+### 
+POST http://localhost:5000/api/admins/create HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Саша Солдатова",
+    "password": "password1",
+    "secretWord": "hehehe"
+}
+
+### 
+POST http://localhost:5000/api/admins/login HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Землянов Даниил Ильич",
+    "password": "password1",
+    "secretWord": "kotik"
+}
+
+###
+PUT http://localhost:5000/api/admins/change HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Саша Солдатова",
+    "password": "qwertwerwe",
+    "secretWord": "world123"
+}
+
+###
+DELETE http://localhost:5000/api/admins/remove HTTP/1.1
+content-type: application/json
+
+{
+    "id": "6526786cda771e8524f56d4f" 
 }

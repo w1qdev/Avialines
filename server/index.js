@@ -1,6 +1,6 @@
 import express from 'express'
-import { router } from './router/index.js'
 import cors from 'cors'
+import { router } from './router/index.js'
 import { connectToDatabase } from './db/index.js'
 import 'dotenv/config'
 
@@ -21,7 +21,8 @@ app.use('/api/flights', router.flightRouter)
 app.use('/api/passengers', router.passengerRouter)
 app.use('/api/airports', router.airportRouter)
 app.use('/api/planes', router.planeRouter)
-app.use('/api/departures', router.departureRouter)
+// app.use('/api/departures', router.departureRouter)
+app.use('/api/admins', router.adminRouter)
 
 // Connecting to the database
 connectToDatabase()
