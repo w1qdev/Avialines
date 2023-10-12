@@ -4,7 +4,7 @@ import { endpoints } from '../../api';
 import axios from 'axios';
 import { toastError } from '../../utils/toasts';
 import { CircularProgress  } from '@chakra-ui/react'
-
+import { motion } from 'framer-motion'
 
 
 export default function AuthPage() {
@@ -27,10 +27,10 @@ export default function AuthPage() {
                 if (res.data.adminData.token) {
                     localStorage.setItem('token', res.data.adminData.token)
                     localStorage.setItem('admin-type', res.data.adminData.role)
-
+                    localStorage.setItem('fullName', res.data.adminData.fullName)
                 }
                 setIsFetching(prev => !prev)
-                window.location = "/panel"
+                window.location = "/bilets"
             })
             .catch(() => {
                 toastError("Похоже введеные вами данные оказались не верными")

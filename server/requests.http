@@ -149,9 +149,9 @@ POST http://localhost:5000/api/admins/create HTTP/1.1
 content-type: application/json
 
 {
-    "fullName": "Саша Солдатова",
-    "password": "password1",
-    "secretWord": "hehehe"
+    "fullName": "Александра Солдатова",
+    "password": "danilushka",
+    "secretWord": "badumtss"
 }
 
 ### 
@@ -171,7 +171,7 @@ content-type: application/json
 {
     "fullName": "Саша Солдатова",
     "password": "qwertwerwe",
-    "secretWord": "world123"
+    "secretWord": "badumtss"
 }
 
 ###

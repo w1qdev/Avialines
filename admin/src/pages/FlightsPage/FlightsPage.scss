@@ -1,0 +1,72 @@
+.dashboard__container__body {
+    overflow: hidden;
+}
+
+.body__table-head {
+    width: 100%;
+    height: 40px;
+    background-color: rgba(99, 198, 255, 0.096);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .head__row {
+        font-size: 13px;
+        text-align: center;
+
+        &.id {
+            width: 5%;
+        }
+
+        &.flight-number,
+        &.departure-airpor,
+        &.departure-airport,
+        &.destination-airport,
+        &.flight-duration,
+        &.flight-price,
+        &.flight-status {
+            width: 13.5%;
+        }
+    }
+}
+
+.table__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    height: 60px;
+    font-size: 14px;
+    margin: 1px;
+
+    &:hover {
+        background-color: #ececec46;
+    }
+
+    &-text {
+        text-align: center;
+        padding: 10px 0px;
+
+        &.id {
+            width: 5%;
+            font-size: 12px;
+            margin-left: 6px;
+        }
+
+        &.active {
+            color: #3fc543;
+            font-weight: 700;
+        }
+
+        &.flight-number,
+        &.departure-airpor,
+        &.departure-airport,
+        &.destination-airport,
+        &.flight-duration,
+        &.flight-price,
+        &.flight-status {
+            width: 13.5%;
+        }
+    }
+}

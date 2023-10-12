@@ -40,6 +40,7 @@ adminRouter.post('/create', async (req, res) => {
 
         const admin = new Admin({
             ...req.body,
+            id: Date.now().valueOf(),
             password: hasedPassword
         })
 

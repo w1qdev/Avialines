@@ -9,6 +9,13 @@ import './Sidebar.scss'
 
 
 const Sidebar = () => {
+    const fullName = localStorage.getItem('fullName')
+    const adminType = localStorage.getItem('admin-type') === 'mainAdmin' ? (
+        <>Главный администратор</>
+    ) : (
+        <>Администратор</>
+    )
+
     return (
         <>
             <div className="sidebar">
@@ -38,8 +45,8 @@ const Sidebar = () => {
                 </Link>
 
                 <div className="sidebar__admin">
-                    <div className="sidebar__admin-type">Администратор</div>
-                    <div className="sidebar__admin-fullname">Землянов Даниил Ильич</div>
+                    <div className="sidebar__admin-type">{adminType}</div>
+                    <div className="sidebar__admin-fullname">{fullName}</div>
                 </div>
             </div>
             <Outlet />
