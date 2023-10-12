@@ -1,6 +1,24 @@
+import { useEffect, useState } from 'react';
+import { socket } from '../../socket';
 import './FlightsPage.scss'
 
 const FlightsPage = () => {
+
+    const [flights, setFlights] = useState([])
+
+    useEffect(() => {
+        const onConnect = () => {
+            console.log("Connected")
+        }
+
+        socket.on('connect', onConnect)
+
+        return () => {
+            socket.off('connect', onConnect)
+        }
+    }, [])
+
+
     return (
         <div className="dashboard">
             <div className="dashboard__container">

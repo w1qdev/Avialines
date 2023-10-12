@@ -4,8 +4,8 @@ POST http://localhost:5000/api/passengers/create HTTP/1.1
 content-type: application/json
 
 {
-    "fullName": "Daniel Zemlyanov Ilich",
-    "passport": "5555 342345",
+    "fullName": "Daniel Zemlyanov Ilih",
+    "passport": "5555 342343",
     "seatNumber": "23b"
 }
 

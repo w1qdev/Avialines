@@ -2,10 +2,18 @@ import express from 'express'
 import cors from 'cors'
 import { router } from './router/index.js'
 import { connectToDatabase } from './db/index.js'
+import http from 'http'
+import { Server } from 'socket.io'
 import 'dotenv/config'
 
 // creating express app/server
 const app = express()
+const server = http.createServer(app)
+const io = new Server(server, {
+    cors: {
+        origin: process.env.CLIENT_ORIGIN_URI
+    }
+})
 const port = process.env.PORT || 5000
 
 // enabling application/json headers
@@ -29,8 +37,20 @@ connectToDatabase()
 .then(() => console.log("Connected to database"))
 .catch(() => console.log("Doesn't connected to database"))
 
+// starting up the socket io server
+io.on('connection', (socket) => {
+    console.log("an admin connected")
+
+
+    socket.on('disconnect', () => {
+        console.log("admin disconnected")
+    })
+})
+
+
+
 // starting up the server
-app.listen(port, () => {
+server.listen(port, () => {
     console.log("Server has been started...")
 })
 
