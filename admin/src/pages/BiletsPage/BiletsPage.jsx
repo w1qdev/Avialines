@@ -16,6 +16,7 @@ const BiletsPage = () => {
                 </div>
                 <div className="dashboard__container__body">
                     <div className="body__table-head">
+                        
                     </div>
                 </div>
             </div>

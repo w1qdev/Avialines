@@ -4,13 +4,16 @@ import ticketCheck from '../../public/sidebar/check_bilets.svg'
 import plane from '../../public/sidebar/plane.svg'
 import airport from '../../public/sidebar/airport.svg'
 import flight from '../../public/sidebar/flight.svg'
+import admin from '../../public/sidebar/admin.svg'
+
 import './Sidebar.scss'
 
 
 
 const Sidebar = () => {
     const fullName = localStorage.getItem('fullName')
-    const adminType = localStorage.getItem('admin-type') === 'mainAdmin' ? (
+    const adminType = localStorage.getItem('admin-type')
+    const isMainAdmin = adminType === 'mainAdmin' ? (
         <>Главный администратор</>
     ) : (
         <>Администратор</>
@@ -43,9 +46,15 @@ const Sidebar = () => {
                     <img src={airport} alt="Управление аэрапортами" />
                     <div className="text">Аэрапорты</div>
                 </Link>
+                {adminType === "mainAdmin" ? (
+                    <Link to="/admins" className="sidebar__link">
+                        <img src={admin} alt="Управление администраторами" />
+                        <div className="text">Администраторы</div>
+                    </Link>
+                ) : (<>123</>)}
 
                 <div className="sidebar__admin">
-                    <div className="sidebar__admin-type">{adminType}</div>
+                    <div className="sidebar__admin-type">{isMainAdmin}</div>
                     <div className="sidebar__admin-fullname">{fullName}</div>
                 </div>
             </div>

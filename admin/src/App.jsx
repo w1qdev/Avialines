@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import AuthPage from './pages/AuthPage/AuthPage.jsx'
 import PanelPage from './pages/PanelPage/PanelPage.jsx'
 import Sidebar from './layout/Sidebar.jsx';
@@ -9,6 +8,8 @@ import BiletsCheckPage from './pages/biletsCheckPage/BiletsCheckPage.jsx';
 import FlightsPage from './pages/FlightsPage/FlightsPage.jsx';
 import AirportsPage from './pages/AirportsPage/AirportsPage.jsx';
 import PlanesPage from './pages/PlanesPage/PlanesPage.jsx';
+import AdminsPage from './pages/AdminsPage/AdminsPage.jsx';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
                     <Route path='flights' element={<FlightsPage />} />
                     <Route path='airports' element={<AirportsPage />} />
                     <Route path='planes' element={<PlanesPage />} />
+                    <Route path='admins' element={<AdminsPage />} />
                 </Route>
             </Routes>
         </>
