@@ -41,12 +41,13 @@ connectToDatabase()
 io.on('connection', (socket) => {
     console.log("an admin connected")
 
+    
+    
 
     socket.on('disconnect', () => {
         console.log("admin disconnected")
     })
 })
-
 
 
 // starting up the server
