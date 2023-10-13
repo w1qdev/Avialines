@@ -43,7 +43,14 @@ export default function AuthPage() {
 
     return (
         <div className="auth">
-            <div className="auth__container">
+            <motion.div 
+                className="auth__container"
+                // framer-motion
+                initial={{ y: 50, opacity: 0 }} 
+                animate={{ y: 0, opacity: 1 }} 
+                exit={{ y: 50, opacity: 0 }}
+                transition={{ duration: 0.6 }} 
+            >
                 <div className="auth__container__header">
                     <div className="header__company-logo">URTK Avialines</div>
                     <div className="header__container-name">Вход</div>
@@ -82,18 +89,24 @@ export default function AuthPage() {
                         />
                     </div>
 
-                    <button 
+                    <motion.button 
                         className='send-data-button' 
                         onClick={(e) => submitAllData(e)}
                         type='submit'
+                        // framer-motion
+                        whileHover={{ 
+                            scale: 1.02,
+                            transition: { duration: 0.2 }
+                        }}
+                        whileTap={{ scale: 0.99 }}
                         >Войти
-                    </button>
+                    </motion.button>
                 </form>
 
                 <div className="auth__progress" style={ isFetching ? { opacity: 1, zIndex: 1 } : { opacity: 0, zIndex: -1 }}>
                     <CircularProgress isIndeterminate color="green.300" />
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

@@ -1,10 +1,10 @@
 import { Link, Outlet } from "react-router-dom";
-import ticket from '../../public/sidebar/ticket.svg'
-import ticketCheck from '../../public/sidebar/check_bilets.svg'
-import plane from '../../public/sidebar/plane.svg'
-import airport from '../../public/sidebar/airport.svg'
-import flight from '../../public/sidebar/flight.svg'
-import admin from '../../public/sidebar/admin.svg'
+import ticket from '../assets/sidebar/ticket.svg'
+import ticketCheck from '../assets/sidebar/check_bilets.svg'
+import plane from '../assets/sidebar/plane.svg'
+import airport from '../assets/sidebar/airport.svg'
+import flight from '../assets/sidebar/flight.svg'
+import admin from '../assets/sidebar/admin.svg'
 
 import './Sidebar.scss'
 

@@ -43,9 +43,11 @@ flightRouter.post('/create', async (req, res) => {
             return res.send({ message: "This airport doen't exists" })
         }
 
+        console.log(depAirport)
+        // FIXME: I can't create new flight
         const newFlight = new Flight({ 
             ...req.body,
-            departureAirportId: depAirport._id,
+            departureAirportId: depAirport.airportId,
             flightId: Date.now().valueOf(),
             flightNumber: createFlightNumber()
         })

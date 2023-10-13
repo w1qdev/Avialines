@@ -13,9 +13,9 @@ const FlightSchema = new Schema({
         required: true,
     },
     departureAirportId: {
-        type: Schema.Types.ObjectId,
+        type: String, // FIXME: Schema.Types.ObjectId
         required: true,
-        ref: "Airport"
+        // FIXME: ref: "Airport"
     },
     destinationAirportId: {
         type: Number,
@@ -36,7 +36,7 @@ const FlightSchema = new Schema({
     },
     flightRange: {
         type: String,
-        required: true
+        required: false
     }
 }, {timestamps: true})
 
