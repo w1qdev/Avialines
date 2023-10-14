@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { error } from '../utils/chalk.js'
 import Departure from '../models/Departure.js'
 
 
@@ -15,8 +16,8 @@ departureRouter.get('/', async (req, res) => {
             body: allDepartures 
         })
     } catch(e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -27,7 +28,7 @@ departureRouter.post('/create', (req, res) => {
         const {  } = req.body
 
     } catch(e) {
-        console.log("Some Internal Error", e)
+        console.log(error("Some Internal Error", e))
         return res.send({ message: "Some Internal Error", status: 500 })
     }
 })
@@ -39,7 +40,7 @@ departureRouter.put('/change', (req, res) => {
 
 
     } catch(e) {
-        console.log("Some Internal Error", e)
+        console.log(error("Some Internal Error", e))
         return res.send({ message: "Some Internal Error", status: 500 })
     }
 })
@@ -51,7 +52,7 @@ departureRouter.delete('/remove', (req, res) => {
 
 
     } catch(e) {
-        console.log("Some Internal Error", e)
+        console.log(error("Some Internal Error", e))
         return res.send({ message: "Some Internal Error", status: 500 })
     }
 })

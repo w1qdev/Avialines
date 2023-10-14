@@ -1,5 +1,7 @@
 import { Router } from "express";
+import { error } from '../utils/chalk.js'
 import Plane from '../models/Plane.js'
+
 
 export const planeRouter = Router()
 
@@ -11,8 +13,8 @@ planeRouter.get('/', async (req, res) => {
 
         return res.send({ message: "Planes", body: allPlanes })
     } catch(e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -30,12 +32,12 @@ planeRouter.post('/create', async (req, res) => {
             return res.send({ message: `New plane with id ${newPlane.id} successfully changed` })
         })
         .catch(() => {
-            return res.send({ message: "Something gome wrong" })
+            return res.send({ error: "Something gome wrong" })
         })
 
     } catch(e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -48,14 +50,14 @@ planeRouter.put('/change', async (req, res) => {
         const changedPlane = await Plane.findOneAndUpdate({ id }, {...req.body})
 
         if (!changedPlane) {
-            return res.send({ message: "This plane is not exists" })
+            return res.send({ error: "This plane is not exists" })
         }
 
         return res.send({ message: `Plane ${changedPlane.id} successfully created` })
 
     } catch(e) {
         console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -68,13 +70,13 @@ planeRouter.delete('/remove', async (req, res) => {
         const removedPlane = await Plane.findOneAndRemove({ id })
 
         if (!removedPlane) {
-            return res.send({ message: "This plane doesn't exists" })
+            return res.send({ error: "This plane doesn't exists" })
         }
 
         return res.send({ message: `The plane ${removedPlane.id} succeessfully removed` })
     } catch(e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 

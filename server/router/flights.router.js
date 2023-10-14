@@ -1,8 +1,10 @@
 import { Router } from "express";
+import { error } from '../utils/chalk.js'
+import { createFlightNumber } from "../utils/createFlightNumber.js";
 import Flight from "../models/Flight.js";
 import Plane from '../models/Plane.js'
 import Airport from "../models/Airport.js";
-import { createFlightNumber } from "../utils/createFlightNumber.js";
+
 
 
 export const flightRouter = Router()
@@ -13,7 +15,7 @@ flightRouter.get('/', async (req, res) => {
         const allFlights = await Flight.find()
 
         if (!allFlights) {
-            return res.send({ message: "There is no flights now" })
+            return res.send({ error: "There is no flights now" })
         }
 
         return res.send({ 
@@ -21,8 +23,8 @@ flightRouter.get('/', async (req, res) => {
             body: allFlights
         })
     } catch (e) {
-        console.log("Some internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }  
 })
 
@@ -30,8 +32,6 @@ flightRouter.get('/', async (req, res) => {
 flightRouter.post('/create', async (req, res) => {
     try {
         const { departureAirportId, destinationAirportId, planeId } = req.body
-
-        // FIXME: maybe this doesn't need here
 
         const depAirport = await Airport.findOne({ airportId: departureAirportId })
         const desAirport = await Airport.findOne({ airportId: destinationAirportId })
@@ -69,7 +69,7 @@ flightRouter.post('/create', async (req, res) => {
             return res.send({ error: "Что-то пошло не так, возможно такой рейс уже существует" })
         })
     } catch (e) {
-        console.error("Some internal Error", e)
+        console.log(error("Some internal Error", e))
         return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
@@ -84,13 +84,13 @@ flightRouter.put('/change', async (req, res) => {
             {...req.body})
 
         if (!changedFlight) {
-            return res.send({ message: "Not found flight" })
+            return res.send({ error: "Not found flight" })
         }
 
         return res.send({ message: `Flight ${flightNumber} has been successfully changed` })
     } catch (e) {
-        console.log("Some internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -102,12 +102,12 @@ flightRouter.delete('/remove', async (req, res) => {
         const removeFlight = await Flight.findOneAndRemove({ flightNumber })
 
         if (!removeFlight) {
-            return res.send({ message: "This flight is already doesn't exists" })
+            return res.send({ error: "This flight is already doesn't exists" })
         }
 
         return res.send({ message: `Flight ${flightNumber} has been successfully removed` })
     } catch (e) {
-        console.log("Some internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })

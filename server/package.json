@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "web server for urtk avialines",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -22,5 +22,10 @@
     "nodemon": "^3.0.1",
     "socket.io": "^4.7.2",
     "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "jest": "^29.7.0",
+    "supertest": "^6.3.3"
   }
 }

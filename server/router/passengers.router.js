@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { v4 as uuidv4 } from 'uuid';
+import { error } from '../utils/chalk.js'
 import Passenger from "../models/Passenger.js";
 
 
@@ -20,8 +21,8 @@ passengerRouter.get('/', async (req, res) => {
             body: allPassengers 
         })
     } catch (e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", satus: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", satus: 500 })
     }
 })
 
@@ -34,7 +35,7 @@ passengerRouter.post('/create', async (req, res) => {
         const isNewPassenger =  await Passenger.findOne({ "passport": passport })
 
         if (isNewPassenger ) {
-            return res.send({ message: "This user already passenger" })
+            return res.send({ error: "This user already passenger" })
         }
 
         // creating new passenger
@@ -49,11 +50,11 @@ passengerRouter.post('/create', async (req, res) => {
             return res.send({ message: "New user has been successfully created" })
         })
         .catch(() => {
-            return res.send({ message: "New user hasn't been successfully created" })
+            return res.send({ error: "New user hasn't been successfully created" })
         })
     } catch (e) {
-        console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500})
+        console.error(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500})
     }
 })
 
@@ -68,13 +69,13 @@ passengerRouter.put('/change', async (req, res) => {
         })
 
         if (!existsPassenger) {
-            return res.send({ message: "Something gone wrong" })
+            return res.send({ error: "Something gone wrong" })
         }
 
         return res.send({ message: "The user data successfully changed" })
     } catch (e) {
-        console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500})
+        console.error(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500})
     }  
 })
 
@@ -87,12 +88,12 @@ passengerRouter.delete('/remove', async (req, res) => {
         const removePassenger = await Passenger.findOneAndRemove({ passport })
 
         if (!removePassenger) {
-            return res.send({ message: "Something gone wrong, passenger hasn't removed" })
+            return res.send({ error: "Something gone wrong, passenger hasn't removed" })
         }
 
         return res.send({ message: "passenger successfully removed" })  
     } catch (e) {
         console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })

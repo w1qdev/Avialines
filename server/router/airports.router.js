@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { error } from '../utils/chalk.js'
 import Airport from '../models/Airport.js'
 
 
@@ -12,7 +13,7 @@ airportRouter.get('/', async (req, res) => {
         const airports = await Airport.find()
 
         if (!airports) {
-            return res.send({ message: "There is no airports", body: airports })
+            return res.send({ error: "There is no airports", body: airports })
         }
 
         return res.send({
@@ -20,8 +21,8 @@ airportRouter.get('/', async (req, res) => {
             body: airports 
         })
     } catch(e) {
-        console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error" })
+        console.error(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error" })
     }  
 })
 
@@ -34,7 +35,7 @@ airportRouter.post("/create", async (req, res) => {
         const AirportExists = await Airport.findOne({ airportName })
 
         if (AirportExists) {
-            return res.send({ message: `The airport with id: ${AirportExists.airportId} already created` })
+            return res.send({ error: `The airport with id: ${AirportExists.airportId} already created` })
         }
 
         const newAirport = new Airport({
@@ -49,11 +50,11 @@ airportRouter.post("/create", async (req, res) => {
             return res.send({ message: `The airport with id: ${newAirport.airportId} successfully created` })
         })
         .catch(() => {
-            return res.send({ message: "New airport hasn't been successfully created" })
+            return res.send({ error: "New airport hasn't been successfully created" })
         })
     } catch (e) {
-        console.error("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.error(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }  
 })
 
@@ -67,13 +68,13 @@ airportRouter.put('/change', async (req, res) => {
             { ...req.body }) 
         
         if (!chandedAirport) {
-            return res.send({ message: "This airport doesn't exists" })
+            return res.send({ error: "This airport doesn't exists" })
         }
 
         return res.send({ message: `Airport ${chandedAirport.airportName}: ${airportId} changed` })
     } catch (e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
@@ -86,13 +87,13 @@ airportRouter.put('/remove', async (req, res) => {
         const removedAirport = await Airport.findOneAndRemove({ airportId }) 
         
         if (!removedAirport) {
-            return res.send({ message: "This airport doesn't exists" })
+            return res.send({ error: "This airport doesn't exists" })
         }
 
         return res.send({ message: `airport ${airportId} successfully removed` })
     } catch (e) {
-        console.log("Some Internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 
