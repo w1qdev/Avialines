@@ -18,12 +18,12 @@ const FlightSchema = new Schema({
         // FIXME: ref: "Airport"
     },
     destinationAirportId: {
-        type: Number,
+        type: String,
         required: true
     },
     flightDuration: {
         type: Number,
-        required: true
+        required: false // FIXME: add functionality or remove it!!!
     },
     flightPrice: {
         type: Number,
@@ -34,9 +34,9 @@ const FlightSchema = new Schema({
         required: true,
         default: "active"
     },
-    flightRange: {
-        type: String,
-        required: false
+    flightPlane: {
+        type: Number,
+        required: true
     }
 }, {timestamps: true})
 

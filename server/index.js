@@ -3,6 +3,7 @@ import cors from 'cors'
 import { router } from './router/index.js'
 import { connectToDatabase } from './db/index.js'
 import http from 'http'
+import chalk from 'chalk';
 import { Server } from 'socket.io'
 import 'dotenv/config'
 
@@ -34,8 +35,8 @@ app.use('/api/admins', router.adminRouter)
 
 // Connecting to the database
 connectToDatabase()
-.then(() => console.log("Connected to database"))
-.catch(() => console.log("Doesn't connected to database"))
+.then(() => console.log(chalk.blueBright("Connected to database")))
+.catch(() => console.log(chalk.red("Doesn't connected to database")))
 
 // starting up the socket io server
 io.on('connection', (socket) => {
@@ -52,6 +53,6 @@ io.on('connection', (socket) => {
 
 // starting up the server
 server.listen(port, () => {
-    console.log("Server has been started...")
+    console.log(chalk.blue(`Server has been started... \nURL: http://localhost:${port}`))
 })
 

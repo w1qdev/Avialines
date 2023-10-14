@@ -42,11 +42,10 @@ POST http://localhost:5000/api/flights/create HTTP/1.1
 content-type: application/json
 
 {
-    "departureAirportId": 1696858284441,
-    "destinationAirportId": 1696858216580,
-    "flightPrice": 5500,
-    "flightDuration": 600
-}
+    "departureAirportId": "1696858154030",
+    "destinationAirportId": "1696858176913",
+    "planeId": 1696948061468
+}   
 
 
 ### 
@@ -117,7 +116,7 @@ POST http://localhost:5000/api/planes/create HTTP/1.1
 content-type: application/json
 
 {
-    "planeType": "BN800",
+    "planeType": "BN900",
     "seatCount": 80
 }
 

@@ -9,31 +9,48 @@ import {
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
-import { toastError } from '../../utils/toasts.js'
+import { toastError, toastSuccess } from '../../utils/toasts.js'
 
 
-const createFlight = ({ title, popupHandlerFunc }) => {
-
-    const createFlight = (e) => {
-        e.preventDefault()
-    }
+const CreateFlight = ({ title, popupHandlerFunc }) => {
 
     const [responseData, setResponseData] = useState([])
+    const [planesData, setPlanesData] = useState([])
     const [formData, setFormData] = useState({
         departureAirport: "",
+        departureAirportId: "",
         destinationAirport: "",
+        destinationAirportId: "",
+        currentPlane: "",
+        currentPlaneId: "",
         flightPrice: "",
         flightDuration: ""
     })
     const selectAirport = (airport, target) => {
         switch (target) {
             case 'departure':
-                setFormData({ ...formData, departureAirport: `${airport.airportName} - ${airport.airportPlace}` })
+                setFormData({ 
+                    ...formData, 
+                    departureAirport: `${airport.airportName} - ${airport.airportPlace}`,
+                    departureAirportId:  `${airport.airportId}`
+                })
                 break
             case 'destination':
-                setFormData({ ...formData, destinationAirport: `${airport.airportName} - ${airport.airportPlace}` })
-        }        
+                setFormData({ 
+                    ...formData, 
+                    destinationAirport: `${airport.airportName} - ${airport.airportPlace}`, 
+                    destinationAirportId: `${airport.airportId}`
+                })
+        }       
     }
+
+    const selectPlane = (plane) => {
+        setFormData({ 
+            ...formData, 
+            currentPlane: plane.planeType,
+            currentPlaneId: plane.id
+        })
+    } 
 
 
 
@@ -44,7 +61,15 @@ const createFlight = ({ title, popupHandlerFunc }) => {
             setResponseData(res.data.body)
         })
         .catch(() => {
-            toastError("Что-то пошло не так")
+            toastError("Не удалось загрузить список аэрапортов")
+        })
+
+        axios.get("http://localhost:5000/api/planes/")
+        .then(res => {
+            setPlanesData(res.data.body)
+        })
+        .catch(() => {
+            toastError("Не удалось загрузить список доступных самолетов")
         })
 
         const departureAirport = formData.departureAirport
@@ -53,8 +78,26 @@ const createFlight = ({ title, popupHandlerFunc }) => {
         if ((departureAirport != "" && destinationAirport != "") && (departureAirport === destinationAirport)) {
             toastError("Место назначения и вылета одинаковые!")
             setFormData({ ...formData, destinationAirport: "" })
-        }
+        }        
     }, [formData])
+
+
+    const createFlight = async (e) => {
+        e.preventDefault()
+
+        await axios.post('http://localhost:5000/api/flights/create', { 
+            departureAirportId: formData.departureAirportId,
+            destinationAirportId: formData.destinationAirportId,
+            planeId: formData.currentPlaneId,
+        })
+        .then(() => {
+            toastSuccess("Новый рейс успешно создан!")
+        })
+        .catch(err => {
+            console.log(err)
+            toastError("Что-то пошло не так, рейс не был создан")
+        })
+    }
 
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc}>
@@ -131,14 +174,14 @@ const createFlight = ({ title, popupHandlerFunc }) => {
                                 borderRadius={'8px'}
                                 fontWeight={'500'}
                                 >
-                                {formData.destinationAirport ? formData.destinationAirport : "Аэрапорты назначения"}
+                                {formData.currentPlane ? formData.currentPlane : "Самолет рейса"}
                             </MenuButton>
                             <MenuList 
                                 overflow={'auto'}
                                 maxHeight={'230px'}
                                 >
-                                {responseData.length >= 1 && responseData.map((airport) => (
-                                    <MenuItem key={airport.airportId} onClick={() => selectAirport(airport, 'destination')}>{airport.airportName} - {airport.airportPlace}</MenuItem>
+                                {planesData.length >= 1 && planesData.map((plane) => (
+                                    <MenuItem key={plane.id} onClick={() => selectPlane(plane)}>{plane.planeType}</MenuItem>
                                 ))}
                             </MenuList>
                         </Menu>
@@ -157,4 +200,4 @@ const createFlight = ({ title, popupHandlerFunc }) => {
     )
 }
 
-export default createFlight;
+export default CreateFlight;

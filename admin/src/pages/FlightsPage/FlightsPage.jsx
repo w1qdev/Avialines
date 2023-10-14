@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
-import { socket } from '../../socket';
+import TableItem from '../../components/TableItem/TableItem'
 import { toastError } from '../../utils/toasts';
 import axios from 'axios';
 import './FlightsPage.scss'
@@ -69,15 +69,7 @@ const FlightsPage = () => {
                         </div>
 
                         {flights.length >= 1 && flights.map((flight) => (
-                            <div className="table__item" key={flight.flightId}>
-                                <div className="table__item-text id">{flight.flightId}</div>
-                                <div className="table__item-text flight-number">{flight.flightNumber}</div>
-                                <div className="table__item-text departure-airport">{flight.departureAirportId}</div>
-                                <div className="table__item-text destination-airport">{flight.destinationAirportId}</div>
-                                <div className="table__item-text flight-duration">{Math.floor(flight.flightDuration / 60)}</div>
-                                <div className="table__item-text flight-price">{flight.flightPrice}</div>
-                                <div className="table__item-text flight-status active">{flight.flightStatus}</div>
-                            </div>
+                            <TableItem key={flight.flightId} flight={flight} />
                         ))}
                     </div>
                 </div>

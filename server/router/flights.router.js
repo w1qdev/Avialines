@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Flight from "../models/Flight.js";
+import Plane from '../models/Plane.js'
 import Airport from "../models/Airport.js";
 import { createFlightNumber } from "../utils/createFlightNumber.js";
 
@@ -28,29 +29,36 @@ flightRouter.get('/', async (req, res) => {
 // [POST] http://localhost:5000/api/flights/create
 flightRouter.post('/create', async (req, res) => {
     try {
-        const { departureAirportId } = req.body
+        const { departureAirportId, destinationAirportId, planeId } = req.body
 
         // FIXME: maybe this doesn't need here
-        // const isFlightExists = await Flight.findOne({ flightNumber })
-        
-        // if (isFlightExists) {
-        //     return res.send({ message: "This flight is already exists" })
-        // }
 
         const depAirport = await Airport.findOne({ airportId: departureAirportId })
+        const desAirport = await Airport.findOne({ airportId: destinationAirportId })
+        const flightPlane = await Plane.findOne({ id: planeId })
 
-        if (!depAirport) {
-            return res.send({ message: "This airport doen't exists" })
+
+        if (!depAirport || !desAirport) {
+            return res.send({ message: "Одного из аэрапортов не существует" })
         }
 
-        console.log(depAirport)
-        // FIXME: I can't create new flight
-        const newFlight = new Flight({ 
-            ...req.body,
-            departureAirportId: depAirport.airportId,
+        if (!flightPlane) {
+            return res.send({ message: "Этого самолета не существует" })
+        } 
+        if (flightPlane.status === 'busy') {
+            return res.send({ message: "Этот самолет уже занят на рейс" })
+        }
+
+        // TEST FIXME: debug
+        const newFlight = new Flight({
             flightId: Date.now().valueOf(),
-            flightNumber: createFlightNumber()
+            flightNumber: createFlightNumber(),
+            flightPrice: 5000,
+            flightPlane: flightPlane.id,
+            ...req.body
         })
+
+        await Plane.findOneAndUpdate({ id: planeId }, { status: 'busy' }) 
 
         await newFlight.save()
         .then(result => {

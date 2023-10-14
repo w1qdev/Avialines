@@ -17,6 +17,11 @@ const PlaneSchema = new Schema({
         required: true,
         max: 512
     },
+    status: {
+        type: String,
+        required: true,
+        default: 'free'
+    }
 })
 
 
