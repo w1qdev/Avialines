@@ -44,7 +44,8 @@ content-type: application/json
 {
     "departureAirportId": "1696858154030",
     "destinationAirportId": "1696858176913",
-    "planeId": 1696948061468
+    "planeId": 1696948060326,
+    "flightPrice": 100000
 }   
 
 

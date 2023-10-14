@@ -25,9 +25,7 @@ const Popup = ({ title, popupHandlerFunc, children }) => {
                     </div>
                 </div>
 
-                <div className="popup__container__body">
-                    {children}
-                </div>                
+                <div className="popup__container__body">{children}</div>                
             </motion.div>
         </div>
     )

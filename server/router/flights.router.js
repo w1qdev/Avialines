@@ -37,28 +37,28 @@ flightRouter.post('/create', async (req, res) => {
         const desAirport = await Airport.findOne({ airportId: destinationAirportId })
         const flightPlane = await Plane.findOne({ id: planeId })
 
-
         if (!depAirport || !desAirport) {
-            return res.send({ message: "Одного из аэрапортов не существует" })
+            return res.send({ error: "Одного из аэрапортов не существует",  })
         }
 
         if (!flightPlane) {
-            return res.send({ message: "Этого самолета не существует" })
+            return res.send({ error: "Этого самолета не существует" })
         } 
+
         if (flightPlane.status === 'busy') {
-            return res.send({ message: "Этот самолет уже занят на рейс" })
+            return res.send({ error: "Этот самолет уже занят на рейс" })
         }
 
-        // TEST FIXME: debug
         const newFlight = new Flight({
             flightId: Date.now().valueOf(),
             flightNumber: createFlightNumber(),
-            flightPrice: 5000,
             flightPlane: flightPlane.id,
             ...req.body
         })
 
         await Plane.findOneAndUpdate({ id: planeId }, { status: 'busy' }) 
+
+        console.log(newFlight)
 
         await newFlight.save()
         .then(result => {
@@ -66,11 +66,11 @@ flightRouter.post('/create', async (req, res) => {
         })
         .catch(error => {
             console.error(error)
-            return res.send({ message: "something gone wrong, flight maybe exists" })
+            return res.send({ error: "Что-то пошло не так, возможно такой рейс уже существует" })
         })
     } catch (e) {
         console.error("Some internal Error", e)
-        return res.send({ message: "Some Internal Error", status: 500 })
+        return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
 

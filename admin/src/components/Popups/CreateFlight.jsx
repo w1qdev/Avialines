@@ -6,10 +6,12 @@ import {
     MenuItem, 
     Button 
 } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toastError, toastSuccess } from '../../utils/toasts.js'
+import { isDataFilled } from '../../utils/isDataFilled.js'
 
 
 const CreateFlight = ({ title, popupHandlerFunc }) => {
@@ -23,8 +25,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         destinationAirportId: "",
         currentPlane: "",
         currentPlaneId: "",
-        flightPrice: "",
-        flightDuration: ""
+        flightPrice: ""
     })
     const selectAirport = (airport, target) => {
         switch (target) {
@@ -51,8 +52,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             currentPlaneId: plane.id
         })
     } 
-
-
 
 
     useEffect(() => {
@@ -85,13 +84,28 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
     const createFlight = async (e) => {
         e.preventDefault()
 
+        const isFormDataFilled = isDataFilled(formData)
+        console.log(formData)
+
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
+
         await axios.post('http://localhost:5000/api/flights/create', { 
             departureAirportId: formData.departureAirportId,
             destinationAirportId: formData.destinationAirportId,
-            planeId: formData.currentPlaneId,
+            planeId: parseInt(formData.currentPlaneId),
+            flightPrice: parseInt(formData.flightPrice)
         })
-        .then(() => {
-            toastSuccess("Новый рейс успешно создан!")
+        .then((res) => {
+            if (res.data.error) {
+                console.log(res)
+                toastError(res.data.error)
+            } else {
+                console.log(res)
+                toastSuccess("Новый рейс успешно создан!")
+            }
         })
         .catch(err => {
             console.log(err)
@@ -153,12 +167,17 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
 
                 <div className="body__input">
                     <div className="item">
-                        <div className="body__input__title">Длительность полета</div>
+                        <div className="body__input__title">Время посадки</div>
                         <input type="text" placeholder='Длительность полета' />
                     </div>
                     <div className="item">
                         <div className="body__input__title">Цена рейса (эконом)</div>
-                        <input type="number" placeholder='Цена рейса' />
+                        <input 
+                            type="number" 
+                            placeholder='Цена рейса'
+                            value={formData.flightPrice}
+                            onChange={e => setFormData({ ...formData, flightPrice: e.target.value })} 
+                        />
                     </div>
                 </div>
 
@@ -189,11 +208,14 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                 </div>
 
                 <div className="body__lower">
-                    <button 
+                    <motion.button 
                         type='submit'
                         onClick={createFlight}
+                        whileHover={{ scale: 1.02 }}
+                        whileTap={{ scale: 0.99 }}
+                        transition={{ duration: 0.3 }}
                         >Создать новый рейс
-                    </button>
+                    </motion.button>
                 </div>
             </form>
         </Popup>
