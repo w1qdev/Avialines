@@ -14,16 +14,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
-    const isAuthorized = localStorage.getItem('token')
+    const isAuthorized = !!localStorage.getItem('token')
     const routing = isAuthorized ? (
         <>
             <Routes>
                 <Route path="/" element={<Sidebar />}>
-                    <Route index element={<PanelPage />} />
                     <Route path='panel' element={<PanelPage />} />
+                    <Route index path='flights' element={<FlightsPage />} />
                     <Route path='bilets' element={<BiletsPage />} />
                     <Route path='bilets-check' element={<BiletsCheckPage />} />
-                    <Route path='flights' element={<FlightsPage />} />
                     <Route path='airports' element={<AirportsPage />} />
                     <Route path='planes' element={<PlanesPage />} />
                     <Route path='admins' element={<AdminsPage />} />

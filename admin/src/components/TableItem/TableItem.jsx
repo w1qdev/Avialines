@@ -12,7 +12,7 @@ const TableItem = ({ flight }) => {
             <div className="table__item-text departure-airport">{flight.departureAirportId}</div>
             <div className="table__item-text destination-airport">{flight.destinationAirportId}</div>
             <div className="table__item-text flight-duration">{fligthDuration}</div>
-            <div className="table__item-text flight-price">{flight.flightPrice}</div>
+            <div className="table__item-text flight-price">{flight.flightPrice}₽</div>
             <div className="table__item-text flight-status active">{flight.flightStatus}</div>
         </div>
     )
