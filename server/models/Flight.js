@@ -17,9 +17,17 @@ const FlightSchema = new Schema({
         required: true,
         // FIXME: ref: "Airport"
     },
+    departureAirport: {
+        type: String,
+        required: false,
+    },
     destinationAirportId: {
         type: String,
         required: true
+    },
+    destinationAirport: {
+        type: String,
+        required: false
     },
     flightDuration: {
         type: Number,

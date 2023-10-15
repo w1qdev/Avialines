@@ -18,6 +18,7 @@ flightRouter.get('/', async (req, res) => {
             return res.send({ error: "There is no flights now" })
         }
 
+
         return res.send({ 
             message: "Found some flighs", 
             body: allFlights

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { error } from '../utils/chalk.js'
 import Plane from '../models/Plane.js'
+import { getRandomNumber } from "../utils/getRandomNumber.js";
 
 
 export const planeRouter = Router()
@@ -21,15 +22,23 @@ planeRouter.get('/', async (req, res) => {
 // [POST] http://localhost:5000/api/plane/create
 planeRouter.post('/create', async (req, res) => {
     try {
-        // TODO: create new plane
+        const { crew } = req.body
+
+        for (let i = 0; i < crew.length; i++) {
+            crew[i].id = Date.now().valueOf() + getRandomNumber(999)
+        }
+
+        console.log(crew)
+
         const newPlane = new Plane({
             ...req.body,
-            id: Date.now().valueOf()
+            id: Date.now().valueOf(),
+            planeCrew: [...crew]
         })
-        
+
         newPlane.save()
         .then(() => {
-            return res.send({ message: `New plane with id ${newPlane.id} successfully changed` })
+            return res.send({ message: `New plane with id ${newPlane.id} successfully created` })
         })
         .catch(() => {
             return res.send({ error: "Something gome wrong" })

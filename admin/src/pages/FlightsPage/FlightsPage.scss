@@ -1,5 +1,9 @@
 .dashboard__container__body {
-    overflow: hidden;
+    overflow: auto;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
 }
 
 .body__table-head {
@@ -9,6 +13,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 5px;
+
 
     .head__row {
         font-size: 13px;

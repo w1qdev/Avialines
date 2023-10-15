@@ -117,8 +117,13 @@ POST http://localhost:5000/api/planes/create HTTP/1.1
 content-type: application/json
 
 {
-    "planeType": "BN900",
-    "seatCount": 80
+    "planeType": "Ан-28",
+    "seatCount": 17,
+    "crew": [
+        { "fullName": "Землянов Даниил Ильич", "role": "Главный пилот" },
+        { "fullName": "Солдатова Александра Ивановна", "role": "Второй пилот" },
+        { "fullName": "Дружинин Евгений Иванович", "role": "Стюардесса" }
+    ] 
 }
 
 ###

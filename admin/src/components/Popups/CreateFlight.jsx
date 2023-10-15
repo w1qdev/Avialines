@@ -6,8 +6,9 @@ import {
     MenuItem, 
     Button 
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import { endpoints } from '../../api'
+import { motion } from 'framer-motion'
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toastError, toastSuccess } from '../../utils/toasts.js'
@@ -55,7 +56,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/airports/')
+        // 'http://localhost:5000/api/airports/'
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
         .then(res => {
             setResponseData(res.data.body)
         })
@@ -63,7 +65,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             toastError("Не удалось загрузить список аэрапортов")
         })
 
-        axios.get("http://localhost:5000/api/planes/")
+        // http://localhost:5000/api/planes/
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.GET_ALL}`)
         .then(res => {
             setPlanesData(res.data.body)
         })
@@ -94,7 +97,9 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
 
         await axios.post('http://localhost:5000/api/flights/create', { 
             departureAirportId: formData.departureAirportId,
+            departureAirport: formData.departureAirport,
             destinationAirportId: formData.destinationAirportId,
+            destinationAirport: formData.destinationAirport,
             planeId: parseInt(formData.currentPlaneId),
             flightPrice: parseInt(formData.flightPrice)
         })
@@ -105,6 +110,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             } else {
                 console.log(res)
                 toastSuccess("Новый рейс успешно создан!")
+                popupHandlerFunc(prev => !prev)
             }
         })
         .catch(err => {

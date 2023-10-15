@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { endpoints } from '../../api';
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
 import TableItem from '../../components/TableItem/TableItem'
 import { toastError } from '../../utils/toasts';
@@ -13,8 +14,9 @@ const FlightsPage = () => {
 
     const popuphandler = () => setIsOpenPopup(prev => !prev)
 
+
     useEffect(() => {
-        axios.get('http://localhost:5000/api/flights/')
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.FLIGHTS.ROUTE}${endpoints.FLIGHTS.GET_ALL}`)
         .then(res => {
             setFlights(res.data.body)
         })
