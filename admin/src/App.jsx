@@ -1,10 +1,8 @@
 import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import AuthPage from './pages/AuthPage/AuthPage.jsx'
-import PanelPage from './pages/PanelPage/PanelPage.jsx'
 import Sidebar from './layout/Sidebar.jsx';
-import BiletsPage from './pages/BiletsPage/BiletsPage.jsx';
-import BiletsCheckPage from './pages/biletsCheckPage/BiletsCheckPage.jsx';
+import RegisterPassengerPage from './pages/RegisterPassenger/RegisterPassenger.jsx'
 import FlightsPage from './pages/FlightsPage/FlightsPage.jsx';
 import AirportsPage from './pages/AirportsPage/AirportsPage.jsx';
 import PlanesPage from './pages/PlanesPage/PlanesPage.jsx';
@@ -19,10 +17,8 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Sidebar />}>
-                    <Route path='panel' element={<PanelPage />} />
+                    <Route path='register-passenger' element={<RegisterPassengerPage />} />
                     <Route index path='flights' element={<FlightsPage />} />
-                    <Route path='bilets' element={<BiletsPage />} />
-                    <Route path='bilets-check' element={<BiletsCheckPage />} />
                     <Route path='airports' element={<AirportsPage />} />
                     <Route path='planes' element={<PlanesPage />} />
                     <Route path='admins' element={<AdminsPage />} />

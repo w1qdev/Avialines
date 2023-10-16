@@ -1,38 +1,12 @@
 .dashboard__container__body {
-    overflow: auto;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-direction: column;
-}
+    &.flights {
+        overflow: auto;
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: column;
 
-.body__table-head {
-    width: 100%;
-    height: 40px;
-    background-color: rgba(99, 198, 255, 0.096);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-
-
-    .head__row {
-        font-size: 13px;
-        text-align: center;
-
-        &.id {
-            width: 5%;
-        }
-
-        &.flight-number,
-        &.departure-airpor,
-        &.departure-airport,
-        &.destination-airport,
-        &.flight-duration,
-        &.flight-price,
-        &.flight-status {
-            width: 13.5%;
-        }
+        
     }
 }
 

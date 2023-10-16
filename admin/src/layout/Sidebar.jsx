@@ -26,13 +26,9 @@ const Sidebar = () => {
                     URTK Avialines Panel
                 </div>
 
-                <Link to="/bilets" className="sidebar__link">
-                    <img src={ticket} alt="Управление созданием билетов" />
-                    <div className="text">Создание билета</div>
-                </Link>
-                <Link to="/bilets-check" className="sidebar__link">
-                    <img src={ticketCheck} alt="Управление билетами" />
-                    <div className="text">Проверка билетов</div>
+                <Link to="/register-passenger" className="sidebar__link">
+                    <img src={ticket} alt="Регистрация пассажира на рейс" />
+                    <div className="text">Регистарция пассажира</div>
                 </Link>
                 <Link to="/flights" className="sidebar__link">
                     <img src={flight} alt="Управление рейсами" />

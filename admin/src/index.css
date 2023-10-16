@@ -100,7 +100,16 @@ body {
   height: 600px;
   margin-top: -3px;
   border-radius: 8px;
+  display: flex;
+  align-content: flex-start;
+  justify-content: start !important;
+  align-items: stretch;
+  padding: 7px;
+  overflow-x: hidden;
+  flex-wrap: wrap;
+  gap: 10px;
 }
+
 
 .header__title {
   width: 20%;

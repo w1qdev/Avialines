@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { endpoints } from '../../api';
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
-import TableItem from '../../components/TableItem/TableItem'
+import FlightTableItemCard from '../../components/TableItemCard/FlightTableItemCard';
 import { toastError } from '../../utils/toasts';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import axios from 'axios';
@@ -51,18 +51,9 @@ const FlightsPage = () => {
                         </button>
                     </div>
                     <div className="dashboard__container__body">
-                        <div className="body__table-head">
-                            <div className="head__row id">ID</div>
-                            <div className="head__row flight-number">Номер рейса</div>
-                            <div className="head__row departure-airport">Аэрапорт вылета</div>
-                            <div className="head__row destination-airport">Аэрапорт назначения</div>
-                            <div className="head__row flight-duration">Длительность рейса</div>
-                            <div className="head__row flight-price">Цена рейса</div>
-                            <div className="head__row flight-status">Состояние рейса</div>
-                        </div>
 
                         {flights.length >= 1 ? flights.map((flight) => (
-                            <TableItem key={flight.flightId} flight={flight} />
+                            <FlightTableItemCard key={flight.flightId} flight={flight} />
                         )) : (
                             <CircularProgressItem isFetching={isFetching} />
                         )}

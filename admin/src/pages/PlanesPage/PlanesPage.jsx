@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { toastError } from '../../utils/toasts';
 import { endpoints } from '../../api';
-import TableItemCard from '../../components/TableItemCard/TableItemCard';
+import PlaneTableItemCard from '../../components/TableItemCard/PlaneTableItemCard';
 import CreatePlane from '../../components/Popups/CreatePlane';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import './PlanesPage.scss'
@@ -49,7 +49,7 @@ const PlanesPage = () => {
                 </div>
                 <div className="dashboard__container__body planes">
                     {planes.length ? planes.map(plane => (
-                        <TableItemCard key={plane.id} {...plane} />
+                        <PlaneTableItemCard key={plane.id} {...plane} />
                     )) : (
                         <CircularProgressItem 
                             isTransparent={true} 

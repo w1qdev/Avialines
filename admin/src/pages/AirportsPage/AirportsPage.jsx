@@ -1,21 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import './AirportsPage.scss'
+import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
+import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
 import { endpoints } from '../../api';
 import { toastError } from '../../utils/toasts';
+import './AirportsPage.scss'
 
 const AirportsPage = () => {
 
     const [airports, setAirports] = useState([])
+    const [isFetching, setIsFetching] = useState(false)
 
-    axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
-    .then(res => {
-        setAirports(res.data.body)
-    })
-    .catch(err => {
-        console.log(err)
-        toastError("Что-то пошло не так, попробуйте позже")
-    })
+    useEffect(() => {
+        setIsFetching(true)
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
+        .then(res => {
+            setAirports(res.data.body)
+            setIsFetching(false)
+            
+        })
+        .catch(err => {
+            console.log(err)
+            toastError("Что-то пошло не так, попробуйте позже")
+            setIsFetching(false)
+        })
+    }, [])
+
+    console.log(airports)
 
     return (
         <div className="dashboard">
@@ -29,8 +40,16 @@ const AirportsPage = () => {
                     </div>
                     <button className="create-new-button">Добавить аэрапорт</button>
                 </div>
-                <div className="dashboard__container__body">
-                    
+                <div className="dashboard__container__body airport">
+                    {airports.length ? airports.map(airport => (
+                        <AirportTableItemCard key={airport.airportId} {...airport} />
+                    )) : (
+                        null // TODO: Показать, что самолетов нет (создать компонент)
+                    )}
+
+                    {isFetching ? (
+                        <CircularProgressItem isFetching={isFetching} />
+                    ) : null}
                 </div>
             </div>
         </div>
