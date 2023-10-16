@@ -14,7 +14,7 @@ import './TableItemCard.scss'
 const TableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {
 
     const crewItems = planeCrew.map(crew => {
-        return <MenuItem style={{ zIndex: "1000" }} key={crew.id} >{crew.fullName} ({crew.role})</MenuItem>
+        return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
     })
 
     const currentStatus = status === 'free' ? 'Свободен' : 'Занят (в рейсе)'
@@ -51,10 +51,11 @@ const TableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {
                 </tr>
             </table>
 
-            <Menu>
+            <Menu>   
                 <MenuButton
                     as={Button}
                     rightIcon={<ChevronDownIcon />}
+                    textAlign={'left'}
                 >
                     Экипаж
                 </MenuButton>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { endpoints } from '../../api';
 import axios from 'axios';
 import { toastError } from '../../utils/toasts';
-import { CircularProgress  } from '@chakra-ui/react'
+import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import { motion } from 'framer-motion'
 
 
@@ -103,9 +103,7 @@ export default function AuthPage() {
                     </motion.button>
                 </form>
 
-                <div className="auth__progress" style={ isFetching ? { opacity: 1, zIndex: 1 } : { opacity: 0, zIndex: -1 }}>
-                    <CircularProgress isIndeterminate color="green.300" />
-                </div>
+                <CircularProgressItem isFetching={isFetching} />
             </motion.div>
         </div>
     )

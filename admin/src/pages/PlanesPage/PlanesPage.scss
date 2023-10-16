@@ -1,6 +1,8 @@
 
 .dashboard__container__body {
 
+    position: relative;
+
     &.planes {
         padding: 10px;
         align-items: start;
@@ -22,7 +24,8 @@
     flex-direction: column;
     border-radius: 8px;
     margin-bottom: 20px;
-    
+    z-index: 0;
+
     &:hover {
         
         .body__item__tools {
