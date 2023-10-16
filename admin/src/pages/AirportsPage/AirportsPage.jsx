@@ -4,6 +4,7 @@ import CircularProgressItem from '../../components/CircularProgress/CircularProg
 import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
 import { endpoints } from '../../api';
 import { toastError } from '../../utils/toasts';
+import { motion } from 'framer-motion';
 import './AirportsPage.scss'
 
 const AirportsPage = () => {
@@ -26,11 +27,14 @@ const AirportsPage = () => {
         })
     }, [])
 
-    console.log(airports)
-
     return (
         <div className="dashboard">
-            <div className="dashboard__container">
+            <motion.div 
+                className="dashboard__container"
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 10, opacity: 0 }}    
+            >
                 <div className="dashboard__container__header">
                     <div className="header__title">
                         <div className='title'>Аэрапорты</div>
@@ -51,7 +55,7 @@ const AirportsPage = () => {
                         <CircularProgressItem isFetching={isFetching} />
                     ) : null}
                 </div>
-            </div>
+            </motion.div>
         </div>
     )
 }

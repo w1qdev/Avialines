@@ -18,7 +18,6 @@ flightRouter.get('/', async (req, res) => {
             return res.send({ error: "There is no flights now" })
         }
 
-
         return res.send({ 
             message: "Found some flighs", 
             body: allFlights
@@ -58,8 +57,6 @@ flightRouter.post('/create', async (req, res) => {
         })
 
         await Plane.findOneAndUpdate({ id: planeId }, { status: 'busy' }) 
-
-        console.log(newFlight)
 
         await newFlight.save()
         .then(result => {

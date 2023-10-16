@@ -1,6 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
 import ticket from '../assets/sidebar/ticket.svg'
-import ticketCheck from '../assets/sidebar/check_bilets.svg'
 import plane from '../assets/sidebar/plane.svg'
 import airport from '../assets/sidebar/airport.svg'
 import flight from '../assets/sidebar/flight.svg'
@@ -28,7 +27,7 @@ const Sidebar = () => {
 
                 <Link to="/register-passenger" className="sidebar__link">
                     <img src={ticket} alt="Регистрация пассажира на рейс" />
-                    <div className="text">Регистарция пассажира</div>
+                    <div className="text">Регистрация пассажира</div>
                 </Link>
                 <Link to="/flights" className="sidebar__link">
                     <img src={flight} alt="Управление рейсами" />

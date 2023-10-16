@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { toastError } from '../../utils/toasts';
 import { endpoints } from '../../api';
+import { motion } from 'framer-motion'
 import PlaneTableItemCard from '../../components/TableItemCard/PlaneTableItemCard';
 import CreatePlane from '../../components/Popups/CreatePlane';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
@@ -33,32 +34,37 @@ const PlanesPage = () => {
         <>
             {isOpenPopup ? <CreatePlane title="Добавление нового самолета" popupHandlerFunc={setIsOpenPopup} /> : null}
             <div className="dashboard">
-            <div className="dashboard__container">
-                <div className="dashboard__container__header">
-                    <div className="sections">
-                        <div className='button'>Самолеты</div>
-                        <div className='button'>placeholder</div>
+                <motion.div 
+                    className="dashboard__container"
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }} 
+                >
+                    <div className="dashboard__container__header">
+                        <div className="sections">
+                            <div className='button'>Самолеты</div>
+                            <div className='button'>placeholder</div>
+                        </div>
+                        <div className="search">
+                            <input type="text" placeholder='Поиск самолета (id, название)' />
+                        </div>
+                        <button 
+                            className="create-new-button"
+                            onClick={() => setIsOpenPopup(prev => !prev)}    
+                        >Добавить самолет</button>
                     </div>
-                    <div className="search">
-                        <input type="text" placeholder='Поиск самолета (id, название)' />
+                    <div className="dashboard__container__body planes">
+                        {planes.length ? planes.map(plane => (
+                            <PlaneTableItemCard key={plane.id} {...plane} />
+                        )) : (
+                            <CircularProgressItem 
+                                isTransparent={true} 
+                                isFetching={isFetching} 
+                            />
+                        )}
                     </div>
-                    <button 
-                        className="create-new-button"
-                        onClick={() => setIsOpenPopup(prev => !prev)}    
-                    >Добавить самолет</button>
-                </div>
-                <div className="dashboard__container__body planes">
-                    {planes.length ? planes.map(plane => (
-                        <PlaneTableItemCard key={plane.id} {...plane} />
-                    )) : (
-                        <CircularProgressItem 
-                            isTransparent={true} 
-                            isFetching={isFetching} 
-                        />
-                    )}
-                </div>
+                </motion.div>
             </div>
-        </div>
         </>
        
     )

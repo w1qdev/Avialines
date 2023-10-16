@@ -7,8 +7,8 @@ const FlightTableItemCard = ({ flight }) => {
     const flightStatus = {
         'active': ['active', 'В рейсе'],
         'landed': ['landed', 'Приземлился'],
-        'expected': ['expected', 'Ожидается'],
-        'free': ['free', 'Свободен']
+        'load': ['load', 'Загрузка'],
+        'expected': ['expected', 'Ожидается']
     }
 
     const [status, setStatus] = useState(flightStatus[flight.flightStatus])

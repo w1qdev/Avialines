@@ -88,6 +88,15 @@
                 width: 100%
             }
         }
+
+        tr {
+            td {
+                &:first-child {
+                    width: 40%;
+                }
+            }
+            
+        }
     }
 
     &__tools {
@@ -153,9 +162,9 @@
             color: #ff8c00;
         }
 
-        &.free {
-            border-color: #1f2effb1;
-            color: #1f2effb1;
+        &.load {
+            border-color: #ff1f1fb1;
+            color: #ff1f1fb1;
         }
     }
 }

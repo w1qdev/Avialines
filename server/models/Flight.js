@@ -40,7 +40,7 @@ const FlightSchema = new Schema({
     flightStatus: {
         type: String,
         required: true,
-        default: "free"
+        default: "active"
     },
     flightPlane: {
         type: Number,

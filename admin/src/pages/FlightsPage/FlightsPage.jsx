@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { endpoints } from '../../api';
+import { motion } from 'framer-motion'
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
 import FlightTableItemCard from '../../components/TableItemCard/FlightTableItemCard';
 import { toastError } from '../../utils/toasts';
@@ -35,7 +36,12 @@ const FlightsPage = () => {
         <>
             {isOpenPopup && <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsOpenPopup} />}
             <div className="dashboard">
-                <div className="dashboard__container">
+                <motion.div 
+                    className="dashboard__container"
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }} 
+                >
                     <div className="dashboard__container__header">
                         <div className="sections">
                             <div className='button'>Активные рейсы</div>
@@ -58,7 +64,7 @@ const FlightsPage = () => {
                             <CircularProgressItem isFetching={isFetching} />
                         )}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </>
 
