@@ -19,6 +19,29 @@ planeRouter.get('/', async (req, res) => {
     }
 })
 
+planeRouter.get('/free', async (req, res) => {
+    try {
+        const freePlanes = await Plane.find({ status: 'free' });
+
+        return res.send({ message: "Planes", body: freePlanes })
+    } catch (e) {
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
+    }
+})
+
+planeRouter.get('/busy', async (req, res) => {
+    try {
+        const busyPlanes = await Plane.find({ status: 'busy' });
+
+        return res.send({ message: "Planes", body: busyPlanes })
+    } catch (e) {
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
+    }
+})
+
+
 // [POST] http://localhost:5000/api/plane/create
 planeRouter.post('/create', async (req, res) => {
     try {

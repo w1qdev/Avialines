@@ -43,10 +43,9 @@ airportRouter.post("/create", async (req, res) => {
             ...req.body
         })
 
-        console.log(newAirport)
-
         await newAirport.save()
         .then(() => {
+            
             return res.send({ message: `The airport with id: ${newAirport.airportId} successfully created` })
         })
         .catch(() => {

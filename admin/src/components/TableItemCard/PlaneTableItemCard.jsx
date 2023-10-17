@@ -22,19 +22,19 @@ const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => 
         <TableItemCard >
             <tbody>
                 <tr>
-                    <td>Тип:</td>
+                    <td>Тип</td>
                     <td>{planeType}</td>
                 </tr>
                 <tr>
-                    <td>Вмещаемость:</td>
+                    <td>Вмещаемость</td>
                     <td>{seatCount} мест</td>
                 </tr>
                 <tr>
-                    <td>Занято: </td>
+                    <td>Занято</td>
                     <td> мест</td>
                 </tr>
                 <tr>
-                    <td>Свободно:</td>
+                    <td>Свободно</td>
                     <td> места</td>
                 </tr>
             </tbody>
@@ -65,7 +65,7 @@ const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => 
 
             <tbody className='status'>
                 <tr>
-                    <td>Статус:</td>
+                    <td>Статус</td>
                     <Tooltip hasArrow label='Текущий статус самолета' bg='#2c2c2c' color='#fff' placement='top'>
                         <td className={`status-type ${status === 'free' ? 'free' : 'busy'}`}>
                             <span>{currentStatus}</span>

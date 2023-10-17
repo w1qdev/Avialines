@@ -29,9 +29,9 @@ const FlightSchema = new Schema({
         type: String,
         required: false
     },
-    flightDuration: {
+    flightDuration: {   // FIXME: add functionality or remove it!!!
         type: Number,
-        required: false // FIXME: add functionality or remove it!!!
+        required: false 
     },
     flightPrice: {
         type: Number,
@@ -40,7 +40,7 @@ const FlightSchema = new Schema({
     flightStatus: {
         type: String,
         required: true,
-        default: "active"
+        default: "load"
     },
     flightPlane: {
         type: Number,

@@ -4,8 +4,10 @@ import CircularProgressItem from '../../components/CircularProgress/CircularProg
 import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
 import { endpoints } from '../../api';
 import { toastError } from '../../utils/toasts';
+import { socket } from '../../socket.js';
 import { motion } from 'framer-motion';
 import './AirportsPage.scss'
+
 
 const AirportsPage = () => {
 
@@ -14,18 +16,42 @@ const AirportsPage = () => {
 
     useEffect(() => {
         setIsFetching(true)
-        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
-        .then(res => {
-            setAirports(res.data.body)
+
+        const onAirportsData = (data) => {
+            console.log(data)
+        }
+
+        const response = (data) => {
+            if (data.body.length) {
+                setAirports(data.body)
+            }
             setIsFetching(false)
-            
-        })
-        .catch(err => {
-            console.log(err)
-            toastError("Что-то пошло не так, попробуйте позже")
-            setIsFetching(false)
-        })
+        }
+
+        socket.on('airportsResponse', response)
+        socket.emit('airportsDataGet', onAirportsData)
+
+        return () => {
+            socket.off('airportsResponse', response);
+            socket.off('airportsDataGet', onAirportsData);
+        }
     }, [])
+
+
+    // useEffect(() => {
+    //     setIsFetching(true)
+    //     axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
+    //     .then(res => {
+    //         setAirports(res.data.body)
+    //         setIsFetching(false)
+            
+    //     })
+    //     .catch(err => {
+    //         console.log(err)
+    //         toastError("Что-то пошло не так, попробуйте позже")
+    //         setIsFetching(false)
+    //     })
+    // }, [])
 
     return (
         <div className="dashboard">

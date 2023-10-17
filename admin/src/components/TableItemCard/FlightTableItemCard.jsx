@@ -17,7 +17,7 @@ const FlightTableItemCard = ({ flight }) => {
         <TableItemCard>
             <tbody>
                 <tr>
-                    <td>Номер рейса:</td>
+                    <td>Номер рейса</td>
                     <td>{flight.flightNumber}</td>
                 </tr>
                 <tr>

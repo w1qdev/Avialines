@@ -19,7 +19,9 @@ export const endpoints = {
         CREATE: "/create",
         REMOVE: "/remove",
         CHANGE: "/change",
-        GET_ALL: "/"
+        GET_ALL: "/",
+        GET_FREE: '/free',
+        GET_BUSY: '/busy'
     },
     AIRPORTS: {
         ROUTE: "/api/airports",

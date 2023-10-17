@@ -7,6 +7,7 @@ import {
     Button 
 } from '@chakra-ui/react'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import { socket } from '../../socket'
 import { endpoints } from '../../api'
 import { motion } from 'framer-motion'
 import axios from 'axios'
@@ -54,7 +55,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         })
     } 
 
-
     useEffect(() => {
         // 'http://localhost:5000/api/airports/'
         axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
@@ -66,7 +66,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         })
 
         // http://localhost:5000/api/planes/
-        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.GET_ALL}`)
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.GET_FREE}`)
         .then(res => {
             setPlanesData(res.data.body)
         })
@@ -88,7 +88,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         e.preventDefault()
 
         const isFormDataFilled = isDataFilled(formData)
-        console.log(formData)
 
         if (isFormDataFilled) {
             toastError("Кажется, вы что-то не указали")
@@ -105,12 +104,11 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         })
         .then((res) => {
             if (res.data.error) {
-                console.log(res)
                 toastError(res.data.error)
             } else {
-                console.log(res)
                 toastSuccess("Новый рейс успешно создан!")
                 popupHandlerFunc(prev => !prev)
+                socket.emit('isFlightsUpdate', { status: true })
             }
         })
         .catch(err => {
