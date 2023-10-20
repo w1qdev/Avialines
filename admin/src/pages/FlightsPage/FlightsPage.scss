@@ -1,12 +1,8 @@
 .dashboard__container__body {
     &.flights {
-        overflow: auto;
-        display: flex;
-        justify-content: start;
-        align-items: center;
-        flex-direction: column;
-
-        
+        .body__item {
+            width: 32.5%;
+        }
     }
 }
 

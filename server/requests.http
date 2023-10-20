@@ -44,7 +44,7 @@ content-type: application/json
 {
     "departureAirportId": "1696858154030",
     "destinationAirportId": "1696858176913",
-    "planeId": 1696948060326,
+    "planeId": 1697444715773,
     "flightPrice": 100000
 }   
 
@@ -72,15 +72,13 @@ DELETE http://localhost:5000/api/flights/remove HTTP/1.1
 content-type: application/json
 
 {
-    "flightNumber": "ABK4607"
+    "flightNumber": "NPP7230"
 }
 
-###
+
+### Passengers
 GET http://localhost:5000/api/passengers/ HTTP/1.1
 content-type: application/json
-
-
-
 
 
 

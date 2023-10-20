@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { endpoints } from '../../api';
 import { motion } from 'framer-motion'
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
 import FlightTableItemCard from '../../components/TableItemCard/FlightTableItemCard';
 import { toastError } from '../../utils/toasts';
+import NoItems from '../../components/NoItems/NoItems';
 import { socket } from '../../socket.js';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import axios from 'axios';
@@ -12,16 +12,36 @@ import './FlightsPage.scss'
 
 const FlightsPage = () => {
 
+    const [searchValue, setSearchValue] = useState('')
     const [flights, setFlights] = useState([])
+    const [unChangedFlighs, setUnChangedFligths] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const [isOpenPopup, setIsOpenPopup] = useState(false)
 
     const popuphandler = () => setIsOpenPopup(prev => !prev)
+    const searchHandler = (e) => {
+        setSearchValue(e.target.value)
+    
+        const filteredFlights = unChangedFlighs.filter(flight => {
+            const FoundByName = flight.flightNumber.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPlace = flight.departureAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPrice = flight.flightPrice.toString().includes(e.target.value)
+            if (FoundByName || FoundByPlace || FoundByPrice) return true
+        })
+
+        if (filteredFlights[0] != false) {
+            console.log(flights)
+            setFlights([...filteredFlights])
+        }
+
+        if (e.target.value === '') {
+            socket.emit('flightsDataGet', {})
+        }
+    }
 
 
     useEffect(() => {
         setIsFetching(true)
-
 
         const onUpdate = () => {
             socket.emit('flightsDataGet', onFlightsData)
@@ -34,6 +54,7 @@ const FlightsPage = () => {
         const response = (data) => {
             if (data.body.length) {
                 setFlights(data.body)
+                setUnChangedFligths(data.body)
             }
             setIsFetching(false)
         }
@@ -80,7 +101,12 @@ const FlightsPage = () => {
                             <div className='button'>Завершенные рейсы</div>
                         </div>
                         <div className="search">
-                            <input type="text" placeholder='Поиск рейса (id, имя пассажира, данные паспорта)' />
+                            <input 
+                                type="text" 
+                                placeholder='Поиск рейса (Номер рейса, место пасадки, цена)'
+                                value={searchValue} 
+                                onChange={searchHandler}
+                            />
                         </div>
                         <button 
                             className="create-new-button"
@@ -88,13 +114,20 @@ const FlightsPage = () => {
                             >Создать новый рейс
                         </button>
                     </div>
-                    <div className="dashboard__container__body">
+                    <div className="dashboard__container__body flights">
 
                         {flights.length >= 1 ? flights.map((flight) => (
-                            <FlightTableItemCard key={flight.flightId} flight={flight} />
+                            <FlightTableItemCard key={flight.id} flight={flight} />
                         )) : (
-                            <CircularProgressItem isFetching={isFetching} />
+                            <NoItems 
+                                title='Рейсов не найдено 🤨' 
+                                socketEmitEndpoint="isFlightsUpdate" 
+                            />
                         )}
+
+                        { isFetching ? (
+                            <CircularProgressItem isFetching={isFetching} />
+                        ) : (null) }
                     </div>
                 </motion.div>
             </div>

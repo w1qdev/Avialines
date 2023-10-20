@@ -75,11 +75,14 @@ flightRouter.post('/create', async (req, res) => {
 // [PUT] http://localhost:5000/api/flights/change
 flightRouter.put('/change', async (req, res) => {
     try {
-        const { flightNumber } = req.body // ABC1234
+        const { flightNumber } = req.body
         
-        const changedFlight = await Flight.findOneAndUpdate(
-            { flightNumber }, 
-            {...req.body})
+        const changedFlight = await Flight.findOneAndUpdate({ 
+            flightNumber 
+        }, 
+        {
+            ...req.body
+        })
 
         if (!changedFlight) {
             return res.send({ error: "Not found flight" })
@@ -93,14 +96,23 @@ flightRouter.put('/change', async (req, res) => {
 })
 
 // [DELETE] http://localhost:5000/api/flights/remove
-flightRouter.delete('/remove', async (req, res) => {
+flightRouter.delete('/remove/:flightNumber', async (req, res) => {
     try {
-        const { flightNumber } = req.body
-
+        const flightNumber = req.params.flightNumber
         const removeFlight = await Flight.findOneAndRemove({ flightNumber })
+
+        const flightPlane = await Plane.findOneAndUpdate({ 
+            id: removeFlight.flightPlane 
+        }, {
+            status: 'free'
+        })
 
         if (!removeFlight) {
             return res.send({ error: "This flight is already doesn't exists" })
+        }
+
+        if (!flightPlane) {
+            return res.send({ error: "Something gone wrong" })
         }
 
         return res.send({ message: `Flight ${flightNumber} has been successfully removed` })

@@ -149,3 +149,47 @@
         }
     }
 }
+
+
+.remove-item {
+    width: 100%;
+    height: 100%;
+
+
+    &__info {
+        margin-bottom: 50px;
+        font-size: 18px;
+    }
+
+    &__buttons {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: end;
+
+        .button {
+            width: 160px;
+            height: 50px;
+            border-radius: 8px;
+            background-color: #bfbfbf22;
+            transition: 0.2s linear background-color;
+
+            &.cancel {
+                margin-right: 20px;
+
+                &:hover {
+                    background-color: #bfbfbf37;
+                }
+            }
+
+            &.remove {
+                background-color: #ff7070;
+                color: #ffffff;
+
+                &:hover {
+                    background-color: #ff5353;
+                }
+            }
+        }
+    }
+}

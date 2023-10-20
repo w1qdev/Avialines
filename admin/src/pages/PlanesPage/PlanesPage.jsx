@@ -55,7 +55,7 @@ const PlanesPage = () => {
                     </div>
                     <div className="dashboard__container__body planes">
                         {planes.length ? planes.map(plane => (
-                            <PlaneTableItemCard key={plane.id} {...plane} />
+                            <PlaneTableItemCard key={plane.planeId} {...plane} />
                         )) : (
                             <CircularProgressItem 
                                 isTransparent={true} 

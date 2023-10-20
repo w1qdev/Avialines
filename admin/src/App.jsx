@@ -7,7 +7,6 @@ import FlightsPage from './pages/FlightsPage/FlightsPage.jsx';
 import AirportsPage from './pages/AirportsPage/AirportsPage.jsx';
 import PlanesPage from './pages/PlanesPage/PlanesPage.jsx';
 import AdminsPage from './pages/AdminsPage/AdminsPage.jsx';
-import { endpoints } from './api/index.js';
 import 'react-toastify/dist/ReactToastify.css';
 
 
