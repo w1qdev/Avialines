@@ -16,9 +16,10 @@ const FlightsPage = () => {
     const [flights, setFlights] = useState([])
     const [unChangedFlighs, setUnChangedFligths] = useState([])
     const [isFetching, setIsFetching] = useState(false)
-    const [isOpenPopup, setIsOpenPopup] = useState(false)
+    const [isCreateFlightOpenPopup, setIsCreateFlightOpenPopup] = useState(false)
 
-    const popuphandler = () => setIsOpenPopup(prev => !prev)
+
+    const popuphandler = () => setIsCreateFlightOpenPopup(prev => !prev)
     const searchHandler = (e) => {
         setSearchValue(e.target.value)
     
@@ -87,7 +88,7 @@ const FlightsPage = () => {
 
     return (
         <>
-            {isOpenPopup && <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsOpenPopup} />}
+            {isCreateFlightOpenPopup ? <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsCreateFlightOpenPopup} /> : null}
             <div className="dashboard">
                 <motion.div 
                     className="dashboard__container"

@@ -17,7 +17,6 @@ const CrewSchema = new Schema({
 })
 
 
-
 const PlaneSchema = new Schema({
     id: {
         type: Number,
@@ -32,6 +31,14 @@ const PlaneSchema = new Schema({
         type: Number,
         required: true,
         max: 512
+    },
+    freeSeatCount: {
+        type: Number,
+        required: false, // TODO: Switch to true when functionality done
+    },
+    busySeatCount: {
+        type: Number,
+        required: false // TODO: Switch to true when functionality done
     },
     status: {
         type: String,

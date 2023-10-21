@@ -173,3 +173,37 @@
     opacity: 0.2;
 }
 
+
+.search__result__item {
+    width: 49.3%;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px 0px #e4e4e4;
+
+    tr {
+        height: 30px;
+        font-size: 14px;
+    }
+
+    .td__info {
+        padding-left: 20px;
+        font-weight: 700;
+
+        &.active {
+            color: #7d7d7d;
+        }
+
+        &.landed {
+            color: #35AA3A;
+        }
+
+        &.exprected {
+            color: #ff8c00;
+        }
+
+        &.load {
+            color: #ff1f1fb1;
+        }
+    }
+}

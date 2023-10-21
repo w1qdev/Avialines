@@ -10,6 +10,7 @@ import {
     Stepper,
     Box
   } from '@chakra-ui/react'
+import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
@@ -27,7 +28,26 @@ const steps = [
 
 const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
 
-    const formDataHandler = (e) => setFormData({...formData, [e.target.name]: e.target.value})
+    const [isValid, setIsValid] = useState({
+        fullName: false,
+        passportSeries: false,
+        passportNumber: false,
+        visitPurpose: false
+    })
+    const formDataHandler = (e) => {
+        const inputName = e.target.name
+        const inputValue = e.target.value
+
+        setFormData({...formData, [inputName]: inputValue})
+
+        // Validation
+        if (registerFormValidator(inputName, inputValue)) {
+            setIsValid({...isValid, [inputName]: true})
+        } else {
+            setIsValid({...isValid, [inputName]: false})
+        }
+    }
+
 
     if (currentStepIndex === 0) {
         return (
@@ -36,7 +56,7 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                     <div className="form__item__inner"> 
                         <div className="label">Фамилия, Имя и Отчество пассажира</div>
                         <input 
-                            className='input' 
+                            className={`input ${isValid.fullName ? 'valid' : ''}`}
                             type="text" 
                             placeholder='Иванов Иван Иванович'
                             name='fullName'
@@ -48,21 +68,21 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                         <div className="label">Введите паспортные данные пассажира</div>
                         <div className="multi">
                             <input 
-                                className='input' 
-                                type="text" 
+                                className={`input ${isValid.passportSeries ? 'valid' : ''}`}
+                                type="number" 
                                 placeholder='Серия XXXX'
                                 style={{ width: '49%' }}
-                                name='passportSerial' 
+                                name='passportSeries' 
                                 value={formData.passportSeries}
                                 onChange={formDataHandler}
                             />
                             <input 
-                                className='input' 
-                                type="text" 
+                                className={`input ${isValid.passportNumber ? 'valid' : ''}`}
+                                type="number" 
                                 placeholder='Номер XXXXXX' 
                                 style={{ width: '49%' }}
                                 name='passportNumber'
-                                value={formData.passwportNumber}
+                                value={formData.passportNumber}
                                 onChange={formDataHandler}  
                             />
                         </div>
@@ -73,7 +93,7 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                     <div className="form__item__inner">
                         <div className="label">Введите цель визита (опционально)</div>
                         <input 
-                            className='input' 
+                            className={`input ${isValid.visitPurpose ? 'valid' : ''}`} 
                             type="text" 
                             placeholder='Цель визита'
                             name='visitPurpose'
@@ -86,8 +106,6 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
         )
     } else if (currentStepIndex === 1) {
 
-        console.log(flights)
-
         return (
             <motion.form 
                 className='form section-2'
@@ -99,9 +117,9 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                     <input className='input' type="text" placeholder='Поиск рейса (id, Номер рейса, и др.)' />
                 </div>
                 <div className="search__result">
-                    {flights.length ? flights.map(flight => {
+                    {flights.length ? flights.map(flight => (
                         <RegisterPassengerFlightsCard key={flight._id} {...flight} />
-                    }) 
+                    )) 
                         : null // TODO: NoItems component
                     }
                 </div>
@@ -115,7 +133,9 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 10, opacity: 0 }} 
             >
-            section 3
+            
+            РЕЗУЛЬТАТЫ
+
             </motion.form>
         )
     }

@@ -1,15 +1,9 @@
 import TableItemCard from './TableItemCard'
 import { useState } from 'react'
+import { flightStatus } from '../../utils/flightsStatus.js'
 import './TableItemCard.scss'
 
 const FlightTableItemCard = ({ flight }) => {
-
-    const flightStatus = {
-        'active': ['active', 'В рейсе'],
-        'landed': ['landed', 'Приземлился'],
-        'load': ['load', 'Загрузка'],
-        'expected': ['expected', 'Ожидается']
-    }
 
     const [status, setStatus] = useState(flightStatus[flight.flightStatus])
 

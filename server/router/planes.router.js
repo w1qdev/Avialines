@@ -51,8 +51,6 @@ planeRouter.post('/create', async (req, res) => {
             crew[i].id = Date.now().valueOf() + getRandomNumber(999)
         }
 
-        console.log(crew)
-
         const newPlane = new Plane({
             ...req.body,
             id: Date.now().valueOf(),

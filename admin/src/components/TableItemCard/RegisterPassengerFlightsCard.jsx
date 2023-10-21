@@ -1,6 +1,10 @@
 import './TableItemCard.scss'
+import { flightStatus as flStatus } from '../../utils/flightsStatus';
 
 const RegisterPassengerFlightsCard = ({ flightNumber, departureAirport, destinationAirport, flightPrice, flightStatus }) => {
+
+    const currentStatus = flStatus[flightStatus]
+
     return(
         <div className="search__result__item">
             <tbody>
@@ -22,7 +26,7 @@ const RegisterPassengerFlightsCard = ({ flightNumber, departureAirport, destinat
                 </tr>
                 <tr>
                     <td className='td__title'>Состояние рейса</td>
-                    <td className='td__info'>{flightStatus}</td>
+                    <td className={`td__info ${currentStatus[0]}`}>{currentStatus[1]}</td>
                 </tr>
             </tbody>
         </div>
