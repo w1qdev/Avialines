@@ -65,6 +65,8 @@ adminRouter.post('/login', async (req, res) => {
     try {
         const { fullName, password, secretWord } = req.body
 
+        console.log(req.body)
+
         const admin = await Admin.findOne({ fullName })
 
         if (!admin) {

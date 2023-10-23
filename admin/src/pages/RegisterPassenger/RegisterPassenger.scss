@@ -41,8 +41,16 @@
 
 
                 .input {
-                    transition: 0.2s linear background-color;
-                    
+                    transition: 0.2s linear background-color, 0.2s linear border-color;
+
+                    &:hover {
+                        border-color: #d5d5d5;
+                    } 
+                
+                    &:focus {
+                        border-color: #6c82ff;
+                    } 
+
                     &.valid {
                         background-color: rgba(34, 255, 0, 0.056);
                         border-color: rgba(34, 255, 0, 0.29);
@@ -88,8 +96,8 @@
                 &__item {
                     border-radius: 12px;
                     border: 2px dashed transparent;
-                    transition: 0.2s linear background-color;
                     cursor: pointer;
+                    transition: 0.2s linear background-color, 0.2s linear border-color;
 
                     &:hover {
                         background-color: #f7fff5;
@@ -153,12 +161,4 @@
     border-radius: 8px;
     border: 1px solid transparent;
     transition: 0.2s linear border-color; 
-
-    &:hover {
-        border-color: #d5d5d5;
-    } 
-
-    &:focus {
-        border-color: #6c82ff;
-    } 
 }

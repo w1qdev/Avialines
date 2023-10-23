@@ -24,7 +24,10 @@ const Sidebar = () => {
                 <div className="sidebar__logo">
                     URTK Avialines Panel
                 </div>
-
+                <Link to="/panel" className="sidebar__link">
+                    <img src={ticket} alt="Главная панель" />
+                    <div className="text">Главная панель</div>
+                </Link>
                 <Link to="/register-passenger" className="sidebar__link">
                     <img src={ticket} alt="Регистрация пассажира на рейс" />
                     <div className="text">Регистрация пассажира</div>
@@ -41,12 +44,16 @@ const Sidebar = () => {
                     <img src={airport} alt="Управление аэрапортами" />
                     <div className="text">Аэрапорты</div>
                 </Link>
+                <Link to="/passengers" className="sidebar__link">
+                    <img src={airport} alt="Управление пассажирами" />
+                    <div className="text">Управление пассажирами</div>
+                </Link>
                 {adminType === "mainAdmin" ? (
                     <Link to="/admins" className="sidebar__link">
                         <img src={admin} alt="Управление администраторами" />
                         <div className="text">Администраторы</div>
                     </Link>
-                ) : (<>123</>)}
+                ) : null}
 
                 <div className="sidebar__admin">
                     <div className="sidebar__admin-type">{isMainAdmin}</div>

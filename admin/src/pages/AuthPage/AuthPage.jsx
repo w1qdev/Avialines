@@ -1,6 +1,6 @@
 import './AuthPage.scss'
 import { useState } from 'react';
-import { endpoints } from '../../api';
+import { endpoints } from '../../api/index.js';
 import axios from 'axios';
 import { toastError } from '../../utils/toasts';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
@@ -17,10 +17,9 @@ export default function AuthPage() {
 
     const submitAllData = (e) => {
         e.preventDefault()
-
         if (formData.fullName && formData.password && formData.secretWord) {
             setIsFetching(prev => !prev)
-            axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS_ROUTE}${endpoints.ADMIN_LOGIN}`,
+            axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.LOGIN}`,
             { ...formData }
             )
             .then(res => {
@@ -30,7 +29,7 @@ export default function AuthPage() {
                     localStorage.setItem('fullName', res.data.adminData.fullName)
                 }
                 setIsFetching(prev => !prev)
-                window.location = "/bilets"
+                window.location = "/register-passenger"
             })
             .catch(() => {
                 toastError("Похоже введеные вами данные оказались не верными")
@@ -52,7 +51,7 @@ export default function AuthPage() {
                 transition={{ duration: 0.6 }} 
             >
                 <div className="auth__container__header">
-                    <div className="header__company-logo">URTK Avialines</div>
+                    <div className="header__company-logo">URTK Airlines</div>
                     <div className="header__container-name">Вход</div>
                 </div>
 

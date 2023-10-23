@@ -15,8 +15,9 @@ import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
-import './RegisterPassenger.scss'
 import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
+import './RegisterPassenger.scss'
+
 
 
 const steps = [
@@ -134,7 +135,9 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 exit={{ y: 10, opacity: 0 }} 
             >
             
-            РЕЗУЛЬТАТЫ
+                <div className="result">
+                    РЕЗУЛЬТАТЫ
+                </div>
 
             </motion.form>
         )

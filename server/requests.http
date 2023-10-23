@@ -152,9 +152,9 @@ POST http://localhost:5000/api/admins/create HTTP/1.1
 content-type: application/json
 
 {
-    "fullName": "Александра Солдатова",
-    "password": "danilushka",
-    "secretWord": "badumtss"
+    "fullName": "Иванов Иван Иванович",
+    "password": "Ivan",
+    "secretWord": "Ivan"
 }
 
 ### 

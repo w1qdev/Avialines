@@ -29,7 +29,6 @@ passengerRouter.get('/', async (req, res) => {
 // [POST] http://localhost:5000/api/passengers/create
 passengerRouter.post('/create', async (req, res) => {
     try {
-        
         const { passport } = req.body
 
         const isNewPassenger =  await Passenger.findOne({ "passport": passport })
