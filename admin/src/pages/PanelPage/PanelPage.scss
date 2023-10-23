@@ -1,4 +1,45 @@
-.panel {
-    margin-left: 332px;
-    padding: 5px;
+.panel__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &__item {
+        background-color: rgb(227, 227, 227);
+        border-radius: 8px;
+        margin-bottom: 10px;
+        overflow: hidden;
+        
+
+        &.item-1 {
+            width: 60%;
+            height: 50vh;
+        }
+
+        &.item-2 {
+            width: 39%;
+            height: 50vh;
+        }
+
+        &.item-3 {
+            width: 60%;
+            height: 42vh;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .item {
+                width: 49%;
+                height: 100%;
+                background-color: #626262;
+            }
+        }
+
+        &.item-4 {
+            width: 39%;
+            height: 42vh;
+        }
+    }
 }

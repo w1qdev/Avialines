@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import NoItems from '../../components/NoItems/NoItems'
 import { useState } from 'react'
 import './PassengersPage.scss'
 
@@ -34,7 +35,10 @@ const PassengersPage = () => {
                         </button>
                     </div>
                     <div className="dashboard__container__body">
-
+                        <NoItems 
+                            title="Пассажиров не найдено 😔"
+                            
+                        />
                     </div>
                 </motion.div>
             </div>

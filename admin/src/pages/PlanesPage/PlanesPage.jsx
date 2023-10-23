@@ -4,6 +4,7 @@ import { socket } from '../../socket';
 import PlaneTableItemCard from '../../components/TableItemCard/PlaneTableItemCard';
 import CreatePlane from '../../components/Popups/CreatePlane';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
+import NoItems from '../../components/NoItems/NoItems';
 import './PlanesPage.scss'
 
 const PlanesPage = () => {
@@ -18,9 +19,10 @@ const PlanesPage = () => {
         setSearchValue(e.target.value)
     
         const filteredPlanes = unChangedPlanes.filter(plane => {
-            const FoundByName = plane.planeType.toLowerCase().includes(e.target.value.toLowerCase())
-            const FoundByPlaceCount = plane.seatCount.toString().includes(e.target.value)
-            if (FoundByName || FoundByPlaceCount) return true
+            const foundByName = plane.planeType.toLowerCase().includes(e.target.value.toLowerCase())
+            const foundByPlaceCount = plane.seatCount.toString().includes(e.target.value)
+
+            if (foundByName || foundByPlaceCount) return true
         })
 
         if (filteredPlanes[0] != false) {
@@ -98,11 +100,19 @@ const PlanesPage = () => {
                                 {...plane} 
                             />
                         )) : (
+                            <NoItems 
+                                title="Самолеты не найдены 😔"
+                                UpdateButton={true}
+                                socketEmitEndpoint='isPlanesUpdate'
+                            />
+                        )}
+
+                        {isFetching ? (
                             <CircularProgressItem 
                                 isTransparent={true} 
                                 isFetching={isFetching} 
                             />
-                        )}
+                        ) : null}
                     </div>
                 </motion.div>
             </div>

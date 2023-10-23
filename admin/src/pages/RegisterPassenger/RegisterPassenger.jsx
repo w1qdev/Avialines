@@ -119,7 +119,8 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                             setFormData={setFormData}
                         />
                     )) 
-                        : <NoItems 
+                        : 
+                        <NoItems 
                             title="Рейсов не найдено 😔"
                             UpdateButton={false}
                         />
