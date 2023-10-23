@@ -17,7 +17,7 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId }) => {
         })
         .then(res => {
             toastSuccess("Успешное удаление!")
-            socket.emit('isFlightsUpdate', { status: true }) // FIXME: НЕ ОБНОВЛЯЕТ СОСТОЯНИЕ СТРАНИЦЫ
+            socket.emit('isFlightsUpdate', { status: true })
             cancelRemoveItem()
         })
         .catch(err => {

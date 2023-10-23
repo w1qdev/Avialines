@@ -17,6 +17,23 @@ const CrewSchema = new Schema({
 })
 
 
+const SeatPlace = new Schema({
+    id: {
+        type: Number,
+        required: true
+    },
+    seatName: {
+        type: String,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: 'free'
+    }
+}) 
+
+
 const PlaneSchema = new Schema({
     id: {
         type: Number,
@@ -45,7 +62,8 @@ const PlaneSchema = new Schema({
         required: true,
         default: 'free'
     },
-    planeCrew: [CrewSchema]
+    planeCrew: [CrewSchema],
+    seatPlaces: [SeatPlace]
 })
 
 

@@ -1,7 +1,4 @@
-const getRandomValue = (max) => {
-    // return a random number between max parameter
-    return Math.floor(Math.random() * max)
-}
+import { getRandomNumber } from "./getRandomNumber.js"
 
 export const createFlightNumber = () => {
     // return a valid flightNumber like 'ABC1234'
@@ -14,9 +11,9 @@ export const createFlightNumber = () => {
 
     for (let i = 0; i <= alphabet.length; i++) {
         if (flightNumber.length < 3) {
-            flightNumber += alphabet[getRandomValue(alphabet.length - 1)]
+            flightNumber += alphabet[getRandomNumber(alphabet.length - 1)]
         } else if (flightNumber.length <= 6) {
-            flightNumber += numbers[getRandomValue(numbers.length - 1)]
+            flightNumber += numbers[getRandomNumber(numbers.length - 1)]
         } else {
             return flightNumber;
         }

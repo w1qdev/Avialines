@@ -70,7 +70,7 @@ body {
   border: 1px solid #546fff;
 }
 .dashboard__container__header .search {
-  width: 40%;
+  width: 60%;
 }
 .dashboard__container__header .search input {
   padding: 6px 20px;
@@ -119,6 +119,7 @@ body {
 
 .header__title .title {
   text-align: center;
+  line-height: 1.1;
   width: 100%;
   padding: 20px 0px;
   font-size: 20px;

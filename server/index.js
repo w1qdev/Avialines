@@ -60,6 +60,12 @@ io.on('connection', (socket) => {
         }  
     })
 
+    socket.on('isAirportsUpdate', (req) => {
+        if (req.status) {
+            socket.emit('airportsUpdate')
+        }
+    })
+
 
     // ADMINS
     socket.on('adminsDataGet', async (req) => {
@@ -136,6 +142,12 @@ io.on('connection', (socket) => {
             console.log(error("Some Internal Error", e))
             return res.send({ error: "Some Internal Error", status: 500 })
         }        
+    })
+
+    socket.on('isPlanesUpdate', (req) => {
+        if (req.status) {
+            socket.emit('planesUpdate')
+        }
     })
 
 

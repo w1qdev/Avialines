@@ -160,5 +160,14 @@
     padding: 5px 15px;
     border-radius: 8px;
     border: 1px solid transparent;
-    transition: 0.2s linear border-color; 
+    transition: 0.2s linear border-color;
+
+
+    &:hover {
+        border-color: #d5d5d5;
+    } 
+
+    &:focus {
+        border-color: #6c82ff;
+    } 
 }

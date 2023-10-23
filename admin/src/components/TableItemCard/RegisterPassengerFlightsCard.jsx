@@ -1,12 +1,33 @@
 import './TableItemCard.scss'
 import { flightStatus as flStatus } from '../../utils/flightsStatus';
 
-const RegisterPassengerFlightsCard = ({ flightNumber, departureAirport, destinationAirport, flightPrice, flightStatus }) => {
+const RegisterPassengerFlightsCard = ({ 
+        flightNumber, 
+        departureAirport, 
+        destinationAirport, 
+        flightPrice, 
+        flightStatus,
+        formData,
+        setFormData
+    }) => {
 
+    const clickHandler = () => {
+        setFormData({...formData, flightInfo: {
+            flightNumber,
+            departureAirport, 
+            destinationAirport, 
+            flightPrice,
+            flightStatus
+        }})
+    }
+    
     const currentStatus = flStatus[flightStatus]
 
     return(
-        <div className="search__result__item">
+        <div 
+            className="search__result__item"
+            onClick={clickHandler}
+        >
             <tbody>
                 <tr>
                     <td className='td__title'>Номер рейса</td>

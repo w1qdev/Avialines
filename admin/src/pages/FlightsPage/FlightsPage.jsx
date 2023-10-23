@@ -6,7 +6,6 @@ import { toastError } from '../../utils/toasts';
 import NoItems from '../../components/NoItems/NoItems';
 import { socket } from '../../socket.js';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
-import axios from 'axios';
 import './FlightsPage.scss'
 
 
@@ -31,7 +30,6 @@ const FlightsPage = () => {
         })
 
         if (filteredFlights[0] != false) {
-            console.log(flights)
             setFlights([...filteredFlights])
         }
 
@@ -71,21 +69,6 @@ const FlightsPage = () => {
         }
     }, [])
 
-
-    // useEffect(() => {
-    //     setIsFetching(true)
-    //     axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.FLIGHTS.ROUTE}${endpoints.FLIGHTS.GET_ALL}`)
-    //     .then(res => {
-    //         setFlights(res.data.body)
-    //         setIsOpenPopup(false)
-    //     })
-    //     .catch(() => {
-    //         toastError("Что-то пошло не так")
-    //         setIsOpenPopup(false)
-    //     })
-    // }, [])
-
-
     return (
         <>
             {isCreateFlightOpenPopup ? <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsCreateFlightOpenPopup} /> : null}
@@ -97,9 +80,8 @@ const FlightsPage = () => {
                     exit={{ y: 10, opacity: 0 }} 
                 >
                     <div className="dashboard__container__header">
-                        <div className="sections">
-                            <div className='button'>Активные рейсы</div>
-                            <div className='button'>Завершенные рейсы</div>
+                        <div className="header__title">
+                            <div className='title'>Рейсы</div>
                         </div>
                         <div className="search">
                             <input 
@@ -121,7 +103,7 @@ const FlightsPage = () => {
                             <FlightTableItemCard key={flight.id} flight={flight} />
                         )) : (
                             <NoItems 
-                                title='Рейсов не найдено 🤨' 
+                                title='Рейсов не найдено 😔' 
                                 socketEmitEndpoint="isFlightsUpdate" 
                             />
                         )}

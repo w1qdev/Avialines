@@ -33,7 +33,7 @@
         text-align: center;
 
         &:hover {
-            background-color: #2e2e2e;
+            background-color: #982bff; // old: #2e2e2e
         }
 
         img {
@@ -41,7 +41,7 @@
             height: 23px;
         }
 
-        .text {
+        .title {
             margin-left: 20px;
         }
     }

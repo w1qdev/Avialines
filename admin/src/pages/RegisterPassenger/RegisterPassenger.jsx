@@ -14,6 +14,7 @@ import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
+import NoItems from '../../components/NoItems/NoItems'
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
 import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
 import './RegisterPassenger.scss'
@@ -35,6 +36,7 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
         passportNumber: false,
         visitPurpose: false
     })
+
     const formDataHandler = (e) => {
         const inputName = e.target.name
         const inputValue = e.target.value
@@ -89,20 +91,6 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                         </div>
                     </div>
                 </div>
-
-                <div className="form__item">
-                    <div className="form__item__inner">
-                        <div className="label">Введите цель визита (опционально)</div>
-                        <input 
-                            className={`input ${isValid.visitPurpose ? 'valid' : ''}`} 
-                            type="text" 
-                            placeholder='Цель визита'
-                            name='visitPurpose'
-                            value={formData.visitPurpose}
-                            onChange={formDataHandler}  
-                        />
-                    </div>
-                </div>
             </form>
         )
     } else if (currentStepIndex === 1) {
@@ -115,13 +103,26 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 exit={{ y: 10, opacity: 0 }} 
             >                    
                 <div className="search__item">
-                    <input className='input' type="text" placeholder='Поиск рейса (id, Номер рейса, и др.)' />
+                    <input 
+                        className='input' 
+                        type="text" 
+                        placeholder='Поиск рейса' 
+
+                    />
                 </div>
                 <div className="search__result">
                     {flights.length ? flights.map(flight => (
-                        <RegisterPassengerFlightsCard key={flight._id} {...flight} />
+                        <RegisterPassengerFlightsCard 
+                            key={flight._id} 
+                            {...flight} 
+                            formData={formData}
+                            setFormData={setFormData}
+                        />
                     )) 
-                        : null // TODO: NoItems component
+                        : <NoItems 
+                            title="Рейсов не найдено 😔"
+                            UpdateButton={false}
+                        />
                     }
                 </div>
             </motion.form>
@@ -153,15 +154,23 @@ const RegisterPassengerPage = () => {
     const [flights, setFlights] = useState([])
     const [formData, setFormData] = useState({
         fullName: '',
-        passportSerial: '',
+        passportSeries: '',
         passportNumber: '',
-        visitPurpose: '',
         flightInfo: null
     })
     
     const buttonText = currentStepIndex >= 2 ? "Завершить" : "Продолжить"
 
-    const nextStep = () => setCurrentStepIndex(prev => prev + 1 <= 3 ? prev + 1 : prev)
+    const nextStep = () => setCurrentStepIndex(prev => {
+
+        const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
+        if (prev + 1 <= 3 && isPassengerDataFilled) {
+            return prev + 1
+        } else {
+            return prev
+        }
+    
+    })
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
 
     useEffect(() => {
@@ -218,7 +227,6 @@ const RegisterPassengerPage = () => {
                                 <StepTitle>{step.title}</StepTitle>
                                 <StepDescription>{step.description}</StepDescription>
                             </Box>
-
                             <StepSeparator />
                         </Step>
                     ))}

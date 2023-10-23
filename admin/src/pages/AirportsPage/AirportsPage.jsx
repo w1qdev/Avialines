@@ -1,21 +1,44 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
-import { endpoints } from '../../api';
-import { toastError } from '../../utils/toasts';
 import { socket } from '../../socket.js';
 import { motion } from 'framer-motion';
+import NoItems from '../../components/NoItems/NoItems';
 import './AirportsPage.scss'
 
 
 const AirportsPage = () => {
 
     const [airports, setAirports] = useState([])
+    const [unChangedAirports, setUnChangedAirports] = useState([])
     const [isFetching, setIsFetching] = useState(false)
+    const [searchValue, setSearchValue] = useState('')
+
+    const searchHandler = (e) => {
+        setSearchValue(e.target.value)
+    
+        const filteredAirports = unChangedAirports.filter(airport => {
+            const FoundByName = airport.airportName.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPlace = airport.airportPlace.toLowerCase().includes(e.target.value.toLowerCase())
+            if (FoundByName || FoundByPlace) return true
+        })
+
+        if (filteredAirports[0] != false) {
+            setAirports([...filteredAirports])
+        }
+
+        if (e.target.value === '') {
+            socket.emit('airportsDataGet', {})
+        }
+    }
+
 
     useEffect(() => {
         setIsFetching(true)
+
+        const onUpdate = () => {
+            socket.emit('airportsDataGet', onAirportsData)
+        }
 
         const onAirportsData = (data) => {
             console.log(data)
@@ -24,34 +47,22 @@ const AirportsPage = () => {
         const response = (data) => {
             if (data.body.length) {
                 setAirports(data.body)
+                setUnChangedAirports(data.body)
             }
             setIsFetching(false)
         }
 
-        socket.on('airportsResponse', response)
-        socket.emit('airportsDataGet', onAirportsData)
+        socket.on('airportsResponse', response);
+        socket.on('airportsUpdate', onUpdate)
+        socket.emit('airportsDataGet', onAirportsData);
 
         return () => {
             socket.off('airportsResponse', response);
+            socket.off('airportsUpdate', onUpdate);
             socket.off('airportsDataGet', onAirportsData);
         }
     }, [])
 
-
-    // useEffect(() => {
-    //     setIsFetching(true)
-    //     axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
-    //     .then(res => {
-    //         setAirports(res.data.body)
-    //         setIsFetching(false)
-            
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //         toastError("Что-то пошло не так, попробуйте позже")
-    //         setIsFetching(false)
-    //     })
-    // }, [])
 
     return (
         <div className="dashboard">
@@ -65,8 +76,13 @@ const AirportsPage = () => {
                     <div className="header__title">
                         <div className='title'>Аэрапорты</div>
                     </div>
-                    <div className="search" style={{ width: "60%" }}>
-                        <input type="text" placeholder='Поиск аэрапорта (id)' />
+                    <div className="search">
+                        <input 
+                            type="text" 
+                            placeholder='Поиск аэрапорта' 
+                            value={searchValue}
+                            onChange={searchHandler}
+                        />
                     </div>
                     <button className="create-new-button">Добавить аэрапорт</button>
                 </div>
@@ -74,9 +90,10 @@ const AirportsPage = () => {
                     {airports.length ? airports.map(airport => (
                         <AirportTableItemCard key={airport.airportId} {...airport} />
                     )) : (
-                        null // TODO: Показать, что самолетов нет (создать компонент)
+                        <NoItems 
+                            title="Аэрапортов не найдено 😔"
+                        />
                     )}
-
                     {isFetching ? (
                         <CircularProgressItem isFetching={isFetching} />
                     ) : null}

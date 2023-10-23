@@ -17,8 +17,8 @@ const PassengersPage = () => {
                     exit={{ y: 10, opacity: 0 }} 
                 >
                     <div className="dashboard__container__header">
-                        <div className="sections">
-                            <div className='button'>Пассажиры</div>
+                        <div className="header__title">
+                            <div className='title'>Управление пассажирами</div>
                         </div>
                         <div className="search">
                             <input 
@@ -30,7 +30,7 @@ const PassengersPage = () => {
                         </div>
                         <button 
                             className="create-new-button"
-                            >Добавить нового пассажира
+                            >Добавить пассажира
                         </button>
                     </div>
                     <div className="dashboard__container__body">

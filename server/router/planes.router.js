@@ -2,6 +2,7 @@ import { Router } from "express";
 import { error } from '../utils/chalk.js'
 import Plane from '../models/Plane.js'
 import { getRandomNumber } from "../utils/getRandomNumber.js";
+import { getPlanePlaces } from "../utils/getPlanePlaces.js";
 
 
 export const planeRouter = Router()
@@ -54,7 +55,7 @@ planeRouter.post('/create', async (req, res) => {
         const newPlane = new Plane({
             ...req.body,
             id: Date.now().valueOf(),
-            planeCrew: [...crew]
+            planeCrew: [...crew],
         })
 
         newPlane.save()
