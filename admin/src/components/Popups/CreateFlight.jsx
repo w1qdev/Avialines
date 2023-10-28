@@ -14,6 +14,7 @@ import axios from 'axios'
 import { useState, useEffect } from 'react'
 import { toastError, toastSuccess } from '../../utils/toasts.js'
 import { isDataFilled } from '../../utils/isDataFilled.js'
+import { getCurrentMonthName } from '../../utils/getCurrentMonthName'
 
 
 const CreateFlight = ({ title, popupHandlerFunc }) => {
@@ -27,7 +28,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         destinationAirportId: "",
         currentPlane: "",
         currentPlaneId: "",
-        flightPrice: ""
+        flightPrice: "",
+        date: ""
     })
     const selectAirport = (airport, target) => {
         switch (target) {
@@ -94,13 +96,20 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             return
         } 
 
+        const date = new Date()
+
+        const timestamp = `${date.getDate()} ${getCurrentMonthName(date.getMonth())} ${date.getFullYear()}`
+
         await axios.post('http://localhost:5000/api/flights/create', { 
             departureAirportId: formData.departureAirportId,
             departureAirport: formData.departureAirport,
             destinationAirportId: formData.destinationAirportId,
             destinationAirport: formData.destinationAirport,
             planeId: parseInt(formData.currentPlaneId),
-            flightPrice: parseInt(formData.flightPrice)
+            flightPrice: parseInt(formData.flightPrice),
+            date: formData.date,
+            adminFullName: localStorage.getItem('fullName'),
+            timestamp
         })
         .then((res) => {
             if (res.data.error) {
@@ -171,8 +180,13 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
 
                 <div className="body__input">
                     <div className="item">
-                        <div className="body__input__title">Время посадки</div>
-                        <input type="text" placeholder='Длительность полета' />
+                        <div className="body__input__title">Время посадки на рейс</div>
+                        <input 
+                            className='date'
+                            type="date" 
+                            value={formData.date}
+                            onChange={e => setFormData({ ...formData, date: e.target.value })}
+                        />
                     </div>
                     <div className="item">
                         <div className="body__input__title">Цена рейса (эконом)</div>

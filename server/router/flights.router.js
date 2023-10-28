@@ -4,6 +4,7 @@ import { createFlightNumber } from "../utils/createFlightNumber.js";
 import Flight from "../models/Flight.js";
 import Plane from '../models/Plane.js'
 import Airport from "../models/Airport.js";
+import saveAdminActions from "../db/saveAdminActions.js";
 
 
 
@@ -49,8 +50,10 @@ flightRouter.post('/create', async (req, res) => {
             return res.send({ error: "Этот самолет уже занят на рейс" })
         }
 
+        const id = Date.now().valueOf()
+
         const newFlight = new Flight({
-            flightId: Date.now().valueOf(),
+            flightId: id,
             flightNumber: createFlightNumber(),
             flightPlane: flightPlane.id,
             ...req.body
@@ -59,7 +62,10 @@ flightRouter.post('/create', async (req, res) => {
         await Plane.findOneAndUpdate({ id: planeId }, { status: 'busy' }) 
 
         await newFlight.save()
-        .then(result => {
+        .then(async result => {
+            
+            saveAdminActions(req.body.adminFullName, `Создание нового рейса: ${newFlight.flightId}`, req.body.timestamp)
+
             return res.send({ message: "New flight has been seccessfully created" })
         })
         .catch(error => {
@@ -80,13 +86,13 @@ flightRouter.put('/change', async (req, res) => {
         const changedFlight = await Flight.findOneAndUpdate({ 
             flightNumber 
         }, 
-        {
-            ...req.body
-        })
+        { ...req.body })
 
         if (!changedFlight) {
             return res.send({ error: "Not found flight" })
         }
+
+        // saveAdminActions(req.body.adminFullName, `Изменение данных рейса: ${flightNumber}`, req.body.timestamp)
 
         return res.send({ message: `Flight ${flightNumber} has been successfully changed` })
     } catch (e) {

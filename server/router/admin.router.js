@@ -3,6 +3,7 @@ import { error } from '../utils/chalk.js'
 import Admin from '../models/Admin.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import AdminActions from '../models/AdminActions.js'
 
 
 export const adminRouter = Router()
@@ -17,6 +18,17 @@ adminRouter.get('/', async (req, res) => {
     } catch (e) {
         console.log(error(`Some Internal Error ${e}`))
         return res.send({ error: "Some Internal Error" })
+    }
+})
+
+// [GET] http://localhost:3000/api/admin/actions
+adminRouter.get('/actions', async (req, res) => {
+    try {
+        const allActions = await AdminActions.find()
+
+        return res.send({ body: allActions })
+    } catch (e) {
+
     }
 })
 
@@ -91,7 +103,6 @@ adminRouter.post('/login', async (req, res) => {
         console.log(error("Some Internal Error", e))
         return res.send({ error: "Some Internal error", status: 500 })   
     }
-    
 })
 
 
@@ -141,3 +152,5 @@ adminRouter.delete('/remove', async (req, res) => {
         return res.send({ error: "Some Internal Error", status: 500 })
     }
 })
+
+

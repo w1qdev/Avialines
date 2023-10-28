@@ -7,7 +7,12 @@ const Popup = ({ title, popupHandlerFunc, children }) => {
     const popupHandler = () => popupHandlerFunc(prev => !prev)
 
     return (
-        <div className="popup" onClick={popupHandler}>
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="popup" 
+            onClick={popupHandler}
+        >
             <motion.div 
                 className="popup__container" 
                 onClick={e => e.stopPropagation()}
@@ -27,7 +32,7 @@ const Popup = ({ title, popupHandlerFunc, children }) => {
 
                 <div className="popup__container__body">{children}</div>                
             </motion.div>
-        </div>
+        </motion.div>
     )
 }   
 
