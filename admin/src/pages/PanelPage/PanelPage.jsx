@@ -58,11 +58,11 @@ export default function PanelPage() {
                             </div>
                             <div className="info__item">
                                 <div className="info__item__number">234</div>
-                                <div className="info__item__description">Общее число рейсов</div>
+                                <div className="info__item__description"></div>
                             </div>
                             <div className="info__item">
                                 <div className="info__item__number">234</div>
-                                <div className="info__item__description">Общее число рейсов</div>
+                                <div className="info__item__description"></div>
                             </div>
                         </div>
 

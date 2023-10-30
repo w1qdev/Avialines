@@ -13,16 +13,16 @@ import TableItemCard from './TableItemCard'
 import { ChevronDownIcon } from '@chakra-ui/icons'
 import './TableItemCard.scss'
 
-const PlaneTableItemCard = ({ planeId, planeType, seatCount, status, planeCrew }) => {
+const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {
 
     const crewItems = planeCrew.map(crew => {
-        return <MenuItem zIndex={'100'} key={planeId} >{crew.fullName} ({crew.role})</MenuItem>
+        return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
     })
 
     const currentStatus = status === 'free' ? 'Свободен' : 'Занят (в рейсе)'
 
     return (
-        <TableItemCard >
+        <TableItemCard itemId={id} itemCategory="planes" >
             <tbody>
                 <tr>
                     <td>Тип</td>

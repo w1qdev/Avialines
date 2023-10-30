@@ -1,19 +1,19 @@
 import { motion } from 'framer-motion'
-import { endpoints } from '../../api'
 import { toastSuccess, toastError } from '../../utils/toasts'
 import { socket } from '../../socket.js'
 import axios from 'axios'
 import Popup from './Popup'
+import { itemCategories } from '../../utils/itemCategories.js'
 import './Popup.scss'
 
 
-const RemoveItem = ({ title, popupHandlerFunc, itemId }) => {
+const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
 
     const cancelRemoveItem = () => popupHandlerFunc(prev => !prev)
 
     const removeItem = () => {
-        axios.delete(`${endpoints.SERVER_ORIGIN_URI}${endpoints.FLIGHTS.ROUTE}${endpoints.FLIGHTS.REMOVE}/${itemId}`, {
-            flightNumber: itemId
+        axios.delete(`${itemCategories[itemCategory]}/${itemId}`, {
+            itemId
         })
         .then(res => {
             toastSuccess("Успешное удаление!")

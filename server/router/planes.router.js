@@ -93,12 +93,12 @@ planeRouter.put('/change', async (req, res) => {
 })
 
 // [delete] http://localhost:5000/api/plane/remove
-planeRouter.delete('/remove', async (req, res) => {
+planeRouter.delete('/remove/:planeId', async (req, res) => {
     try {
         // TODO: remove plane
-        const { id } = req.body
+        const planeId = req.params.planeId
 
-        const removedPlane = await Plane.findOneAndRemove({ id })
+        const removedPlane = await Plane.findOneAndRemove({ id: planeId })
 
         if (!removedPlane) {
             return res.send({ error: "This plane doesn't exists" })

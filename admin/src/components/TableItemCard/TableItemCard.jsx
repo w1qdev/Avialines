@@ -7,18 +7,18 @@ import { useState } from 'react'
 import './TableItemCard.scss'
 
 
-const TableItemCard = ({ children, itemId }) => {
+const TableItemCard = ({ children, itemId, itemCategory }) => {
 
     const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false)
     const [isEditFlightOpenPopup, setIsEditFlightOpenPopup] = useState(false)
 
     const removePopupHandler = () => setIsRemovePopupOpen(prev => !prev)
     const editPopupHandler = () => setIsEditFlightOpenPopup(prev => !prev)
-
+    
     return (
         <>
             {isEditFlightOpenPopup ? <EditFlight title="Редактирование рейса" popupHandlerFunc={setIsEditFlightOpenPopup} /> : null}
-            {isRemovePopupOpen ? (<RemoveItem itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
+            {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
             <div className="body__item">
 
                 <div className="body__item__tools">

@@ -34,7 +34,6 @@ app.use('/api/flights', router.flightRouter)
 app.use('/api/passengers', router.passengerRouter)
 app.use('/api/airports', router.airportRouter)
 app.use('/api/planes', router.planeRouter)
-// app.use('/api/departures', router.departureRouter)
 app.use('/api/admins', router.adminRouter)
 
 

@@ -4,6 +4,7 @@ import AirportTableItemCard from '../../components/TableItemCard/AirportTableIte
 import { socket } from '../../socket.js';
 import { motion } from 'framer-motion';
 import NoItems from '../../components/NoItems/NoItems';
+import CreateAirport from '../../components/Popups/CreateAirport';
 import './AirportsPage.scss'
 
 
@@ -13,6 +14,10 @@ const AirportsPage = () => {
     const [unChangedAirports, setUnChangedAirports] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const [searchValue, setSearchValue] = useState('')
+    const [isCreateAirportPopupOpen, setIsCreateAirportPopupOpen] = useState(false)
+
+
+    const popupHandler = () => setIsCreateAirportPopupOpen(prev => !prev)
 
     const searchHandler = (e) => {
         setSearchValue(e.target.value)
@@ -65,41 +70,48 @@ const AirportsPage = () => {
 
 
     return (
-        <div className="dashboard">
-            <motion.div 
-                className="dashboard__container"
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 10, opacity: 0 }}    
-            >
-                <div className="dashboard__container__header">
-                    <div className="header__title">
-                        <div className='title'>Аэрапорты</div>
+        <>
+            {isCreateAirportPopupOpen ? <CreateAirport title="Добавление аэрапорта" popupHandlerFunc={popupHandler} /> : null}
+            <div className="dashboard">
+                <motion.div 
+                    className="dashboard__container"
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }}    
+                >
+                    <div className="dashboard__container__header">
+                        <div className="header__title">
+                            <div className='title'>Аэрапорты</div>
+                        </div>
+                        <div className="search">
+                            <input 
+                                type="text" 
+                                placeholder='Поиск аэрапорта' 
+                                value={searchValue}
+                                onChange={searchHandler}
+                            />
+                        </div>
+                        <button 
+                            className="create-new-button"
+                            onClick={popupHandler}
+                            >Добавить аэрапорт
+                        </button>
                     </div>
-                    <div className="search">
-                        <input 
-                            type="text" 
-                            placeholder='Поиск аэрапорта' 
-                            value={searchValue}
-                            onChange={searchHandler}
-                        />
+                    <div className="dashboard__container__body airport">
+                        {airports.length ? airports.map(airport => (
+                            <AirportTableItemCard key={airport.airportId} {...airport} />
+                        )) : (
+                            <NoItems 
+                                title="Аэрапортов не найдено 😔"
+                            />
+                        )}
+                        {isFetching ? (
+                            <CircularProgressItem isFetching={isFetching} />
+                        ) : null}
                     </div>
-                    <button className="create-new-button">Добавить аэрапорт</button>
-                </div>
-                <div className="dashboard__container__body airport">
-                    {airports.length ? airports.map(airport => (
-                        <AirportTableItemCard key={airport.airportId} {...airport} />
-                    )) : (
-                        <NoItems 
-                            title="Аэрапортов не найдено 😔"
-                        />
-                    )}
-                    {isFetching ? (
-                        <CircularProgressItem isFetching={isFetching} />
-                    ) : null}
-                </div>
-            </motion.div>
-        </div>
+                </motion.div>
+            </div>
+        </>
     )
 }
 

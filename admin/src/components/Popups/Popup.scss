@@ -36,7 +36,11 @@
                 border-radius: 50%;
                 background-color: rgb(249, 249, 249);
                 cursor: pointer;
-                
+                transition: 0.2s linear background-color;
+
+                &:hover {
+                    background-color: rgb(240, 240, 240);
+                }
             }
         }
 

@@ -64,7 +64,7 @@ flightRouter.post('/create', async (req, res) => {
         await newFlight.save()
         .then(async result => {
             
-            saveAdminActions(req.body.adminFullName, `Создание нового рейса: ${newFlight.flightId}`, req.body.timestamp)
+            saveAdminActions(req.body.adminFullName, `Создание нового рейса: ${newFlight.flightNumber}`, req.body.timestamp)
 
             return res.send({ message: "New flight has been seccessfully created" })
         })
@@ -102,10 +102,10 @@ flightRouter.put('/change', async (req, res) => {
 })
 
 // [DELETE] http://localhost:5000/api/flights/remove
-flightRouter.delete('/remove/:flightNumber', async (req, res) => {
+flightRouter.delete('/remove/:itemId', async (req, res) => {
     try {
-        const flightNumber = req.params.flightNumber
-        const removeFlight = await Flight.findOneAndRemove({ flightNumber })
+        const itemId = req.params.itemId
+        const removeFlight = await Flight.findOneAndRemove({ flightNumber: itemId })
 
         const flightPlane = await Plane.findOneAndUpdate({ 
             id: removeFlight.flightPlane 
@@ -121,7 +121,7 @@ flightRouter.delete('/remove/:flightNumber', async (req, res) => {
             return res.send({ error: "Something gone wrong" })
         }
 
-        return res.send({ message: `Flight ${flightNumber} has been successfully removed` })
+        return res.send({ message: `Flight ${itemId} has been successfully removed` })
     } catch (e) {
         console.log(error("Some internal Error", e))
         return res.send({ error: "Some Internal Error", status: 500 })
