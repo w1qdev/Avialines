@@ -1,4 +1,8 @@
 import { motion } from "framer-motion";
+import { isDataFilled } from "../../utils/isDataFilled";
+import { toastError, toastSuccess } from "../../utils/toasts";
+import { endpoints } from '../../api/index';
+import axios from "axios";
 import { useState } from "react";
 
 
@@ -7,10 +11,26 @@ const EditAirportsContent = ({ data }) => {
 
     const [formData, setFormData] = useState({...data})
 
-    const saveChanges = (e) => {
+    const saveChanges = async (e) => {
         e.preventDefault()
 
+        const isFormDataFilled = isDataFilled(formData)
 
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
+
+        const newAirportData = { ...formData }
+
+        await axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.CHANGE}`, newAirportData)
+        .then(res => {
+            if (res.data.error) {
+                toastError(res.data.error)
+            } else {
+                toastSuccess("Данные Аэрапорта успешно изменены!")
+            }
+        })
     }
     
     return (
@@ -26,7 +46,7 @@ const EditAirportsContent = ({ data }) => {
                     />
                 </div>
                 <div className="item">
-                    <div className="body__input__title">Местоположение аэрапорта</div>
+                    <div className="body__input__title">Местоположение аэрапорта (город)</div>
                     <input 
                         type="text" 
                         placeholder='Местоположение аэрапорта'

@@ -24,14 +24,12 @@ const EditAdminsContent = ({ data }) => {
         if (isFormDataFilled) {
             toastError("Кажется, вы что-то не указали")
             return
-        } 
-
-        const newAdminData = {
-            ...data, 
-            role: formData.role
         }
 
-        console.log(newAdminData)
+        const newAdminData = {
+            ...formData, 
+            role: formData.role
+        }
 
         await axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.CHANGE}`, newAdminData)
         .then(res => {

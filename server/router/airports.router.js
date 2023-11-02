@@ -79,9 +79,11 @@ airportRouter.put('/change', async (req, res) => {
 
 
 // [DELETE] http://localhost:5000/api/airports/remove
-airportRouter.put('/remove', async (req, res) => {
+airportRouter.delete('/remove/:airportId', async (req, res) => {
     try {
-        const { airportId } = req.body
+        const { airportId } = req.params
+
+        console.log(airportId)
 
         const removedAirport = await Airport.findOneAndRemove({ airportId }) 
         

@@ -1,14 +1,59 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import NoItems from '../../components/NoItems/NoItems'
-import { useState } from 'react'
+import PassengerTableItemCard from '../../components/TableItemCard/PassengerTableItemCard'
+import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
+import { socket } from '../../socket'
+import { useState, useEffect } from 'react'
 import './PassengersPage.scss'
 
 const PassengersPage = () => {
 
+    const [isFetching, setIsFetching] = useState(false)
+    const [passengers, setPassengers] = useState([])
+    const [unChangedPassengers, setUnChangedPassengers] = useState([])
     const [searchValue, setSearchValue] = useState('')
 
-    const searchHandler = (e) => setSearchValue(e.target.value)
+    const searchHandler = (e) => {
+        setSearchValue(e.target.value)
+        
+        // const filteredAdmins = unChangedAdmins.filter(admin => {
+        //     const FoundByFullName = admin.fullName.toLowerCase().includes(e.target.value.toLowerCase())
+        //     if (FoundByFullName) return true
+        // })
+    }
+
+
+    useEffect(() => {
+        setIsFetching(true)
+
+        const onUpdate = () => {
+            socket.emit('passengersDataGet', onPassengersData)
+        }
+
+        const onPassengersData = (data) => {
+            console.log(data)
+        }
+
+        const response = (data) => {
+            if (data.body.length) {
+                setPassengers(data.body)
+                setUnChangedPassengers(data.body)
+            }
+
+            setIsFetching(false)
+        }
+
+        socket.on('passengersResponse', response);
+        socket.on('passengersUpdate', onUpdate)
+        socket.emit('passengersDataGet', onPassengersData);
+
+        return () => {
+            socket.off('passengersResponse', response);
+            socket.off('passengersUpdate', onUpdate);
+            socket.off('passengersDataGet', onPassengersData);
+        }
+    }, [])
 
     return (
         <div className="dashboard">
@@ -40,10 +85,15 @@ const PassengersPage = () => {
                         </Link>
                     </div>
                     <div className="dashboard__container__body">
-                        <NoItems 
-                            title="Пассажиров не найдено 😔"
-                            
-                        />
+                        {passengers.length ? passengers.map(passenger => (
+                            <PassengerTableItemCard key={passenger._id} {...passenger} />
+                        )) : (
+                            <NoItems 
+                                title="Пассажиров не найдено 😔"
+                            />
+                        )}
+
+                        {isFetching ? <CircularProgressItem isFetching={isFetching} /> : null}
                     </div>
                 </motion.div>
             </div>

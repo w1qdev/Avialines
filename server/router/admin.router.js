@@ -138,11 +138,7 @@ adminRouter.delete('/remove/:id', async (req, res) => {
         // TODO: remove admin [only main admin]
         const { id } = req.params
 
-        console.log(id)
-
         const removedAdmin = await Admin.findOneAndRemove({ id })
-
-        console.log(removedAdmin)
 
         if (!removedAdmin) {
             return res.send({ error: "Admin not exists" })

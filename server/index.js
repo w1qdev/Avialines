@@ -86,22 +86,26 @@ io.on('connection', (socket) => {
             socket.emit('adminsUpdate')
         }
     })
-  
+
 
     // FLIGHTS
     socket.on('flightsDataGet', async (req) => {
         // TODO: Get all flights data
         try {
             const allFlights = await Flight.find()
-    
+            
+            
             if (!allFlights) {
                 socket.emit('flightsResponse', { error: "There is no flighs now" })
                 return
             }
-            
+
+            const flightPlaneType = await Plane.findOne({ id: allFlights.flightPlane })
+
             socket.emit('flightsResponse', { 
                 message: "There is no flighs now", 
                 body: allFlights 
+                
             }) 
         } catch (e) {
             console.log(error("Some internal Error", e))
@@ -134,6 +138,12 @@ io.on('connection', (socket) => {
         } catch (e) {
             console.log(error("Some Internal Error", e))
             socket.emit('passengersResponse', { error: "Some Internal Error", satus: 500 })
+        }
+    })
+
+    socket.on('passengersUpdate', (req) => {
+        if (req.status) {
+            socket.emit('passengersUpdate')
         }
     })
 

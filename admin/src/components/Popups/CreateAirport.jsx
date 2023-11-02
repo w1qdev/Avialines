@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { toastError } from "../../utils/toasts";
+import { isDataFilled } from "../../utils/isDataFilled";
 import Popup from "./Popup";
 
 const CreateAirport = ({ title, popupHandlerFunc }) => {
@@ -12,7 +14,12 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
     const createAirport = async (e) => {
         e.preventDefault()
 
+        const isFormDataFilled = isDataFilled(formData)
 
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
     }
 
     return (
@@ -25,7 +32,7 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
                         <input 
                             className='input'
                             type="text" 
-                            placeholder="Пароль"
+                            placeholder="Название аэрапорта"
                             value={formData.airportName}
                             onChange={e => setFormData({ ...formData, airportName: e.target.value })}
                         />
@@ -34,7 +41,7 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
                         <div className="body__input__title">Введите местоположение аэрапорта (город)</div>
                         <input 
                             type="text" 
-                            placeholder='Секретное слово'
+                            placeholder='Местоположение аэрапорта'
                             value={formData.airportPlace}
                             onChange={e => setFormData({ ...formData, airportPlace: e.target.value })} 
                         />
@@ -48,10 +55,11 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}
-                        >Создать новый аэрапорт
+                        >Добавить новый аэрапорт
                     </motion.button>
                 </div>
             </form>
+
         </Popup>
     )
 }

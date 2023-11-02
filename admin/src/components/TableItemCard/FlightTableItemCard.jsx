@@ -24,6 +24,10 @@ const FlightTableItemCard = ({ flight }) => {
                     <td>{flight.destinationAirport}</td>
                 </tr>
                 <tr>
+                    <td>Самолет рейса</td>
+                    <td>{flight.flightPlaneType}</td>
+                </tr>
+                <tr>
                     <td>Длительность рейса</td>
                     <td>{flight.flightDuration}</td>
                 </tr>
@@ -43,4 +47,4 @@ const FlightTableItemCard = ({ flight }) => {
     )
 }
 
-export default FlightTableItemCard
+export default FlightTableItemCard;

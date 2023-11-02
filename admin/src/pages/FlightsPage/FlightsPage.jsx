@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion'
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
 import FlightTableItemCard from '../../components/TableItemCard/FlightTableItemCard';
-import { toastError } from '../../utils/toasts';
 import NoItems from '../../components/NoItems/NoItems';
 import { socket } from '../../socket.js';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
@@ -24,9 +23,17 @@ const FlightsPage = () => {
     
         const filteredFlights = unChangedFlighs.filter(flight => {
             const FoundByName = flight.flightNumber.toLowerCase().includes(e.target.value.toLowerCase())
-            const FoundByPlace = flight.departureAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByDepartureAirport = flight.departureAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundBydestinationAirport = flight.destinationAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPlaneType = flight.flightPlaneType.toLowerCase().includes(e.target.value.toLowerCase())
             const FoundByPrice = flight.flightPrice.toString().includes(e.target.value)
-            if (FoundByName || FoundByPlace || FoundByPrice) return true
+            if (
+                FoundByName || 
+                FoundByDepartureAirport || 
+                FoundByPrice || 
+                FoundBydestinationAirport ||
+                FoundByPlaneType
+            ) return true
         })
 
         if (filteredFlights[0] != false) {
@@ -53,6 +60,7 @@ const FlightsPage = () => {
         const response = (data) => {
             if (data.body.length) {
                 setFlights(data.body)
+                console.log(data.body)
                 setUnChangedFligths(data.body)
             }
             setIsFetching(false)

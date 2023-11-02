@@ -21,7 +21,10 @@ flightRouter.get('/', async (req, res) => {
 
         return res.send({ 
             message: "Found some flighs", 
-            body: allFlights
+            body: {
+                ...allFlights,
+                flightPlaneType
+            }
         })
     } catch (e) {
         console.log(error("Some internal Error", e))
@@ -37,6 +40,8 @@ flightRouter.post('/create', async (req, res) => {
         const depAirport = await Airport.findOne({ airportId: departureAirportId })
         const desAirport = await Airport.findOne({ airportId: destinationAirportId })
         const flightPlane = await Plane.findOne({ id: planeId })
+
+        
 
         if (!depAirport || !desAirport) {
             return res.send({ error: "Одного из аэрапортов не существует",  })
@@ -56,6 +61,7 @@ flightRouter.post('/create', async (req, res) => {
             flightId: id,
             flightNumber: createFlightNumber(),
             flightPlane: flightPlane.id,
+            flightPlaneType: flightPlane.planeType,
             ...req.body
         })
 
