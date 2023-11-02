@@ -46,6 +46,7 @@
                     color: #343434;
                     font-weight: 800;
                     text-align: start;
+                    line-height: 1.1;
                 }
 
                 .plane_id {
@@ -206,5 +207,16 @@
         &.load {
             color: #ff1f1fb1;
         }
+    }
+}
+
+
+.role {
+    &.main {
+        color: #ff6a008d !important;
+    }
+
+    &.sub {
+        color: #35AA3A8d !important;
     }
 }

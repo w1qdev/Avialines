@@ -2,8 +2,11 @@ import TableItemCard from './TableItemCard';
 import './TableItemCard.scss'
 
 const AirportTableItemCard = ({ airportName, airportPlace }) => {
+
+    const airportData = { airportName, airportPlace }
+
     return (
-        <TableItemCard itemCategory="airports" >
+        <TableItemCard data={airportData} itemCategory="airports" >
             <tbody>
                 <tr>
                     <td>Название аэрапорта:</td>

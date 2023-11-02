@@ -111,19 +111,19 @@ adminRouter.put('/change', async (req, res) => {
     try {
         // TODO: change admin data
         // FIXME: Admin data not changing
-        const { id, password, fullName } = req.body
+        let { id, fullName, role } = req.body
+        role = role === 'Главный администратор' ? 'mainAdmin' : 'subAdmin'
 
-        const admin = await Admin.findOne({ fullName })
+        const admin = await Admin.findOne({ id })
         
         if (!admin) {
             return res.send({ error: "Admin not found" })
         }
 
-        // const passwordCheck = await bcrypt.compare(password, admin.password)
-        const salt = await bcrypt.genSalt(10);
-        const HashedPassword = await bcrypt.hash(password, salt)
-
-        await Admin.findOneAndUpdate({ _id: id }, { ...req.body, password: HashedPassword })
+        await Admin.findOneAndUpdate({ id }, {
+            fullName,
+            role
+        })
 
         return res.send({ message: "Admin found, changes successfully applied" })
     } catch (e) {
@@ -133,12 +133,14 @@ adminRouter.put('/change', async (req, res) => {
 })
 
 // [DELETE] http://localhost:3000/api/admins/remove
-adminRouter.delete('/remove', async (req, res) => {
+adminRouter.delete('/remove/:id', async (req, res) => {
     try {
         // TODO: remove admin [only main admin]
-        const { id } = req.body
+        const { id } = req.params
 
-        const removedAdmin = await Admin.findOneAndRemove({ _id: id })
+        console.log(id)
+
+        const removedAdmin = await Admin.findOneAndRemove({ id })
 
         console.log(removedAdmin)
 

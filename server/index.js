@@ -7,6 +7,7 @@ import Airport from './models/Airport.js'
 import Flight from './models/Flight.js'
 import Plane from './models/Plane.js'
 import Passenger from './models/Passenger.js'
+import Admin from './models/Admin.js'
 import { Server } from 'socket.io'
 import http from 'http'
 import 'dotenv/config'
@@ -59,6 +60,7 @@ io.on('connection', (socket) => {
         }  
     })
 
+
     socket.on('isAirportsUpdate', (req) => {
         if (req.status) {
             socket.emit('airportsUpdate')
@@ -76,6 +78,12 @@ io.on('connection', (socket) => {
         } catch (e) {
             console.log(error(`Some Internal Error ${e}`))
             socket.emit('adminsResponse', { error: "Some Internal Error" })
+        }
+    })
+
+    socket.on('isAdminsUpdate', (req) => {
+        if (req.status) {
+            socket.emit('adminsUpdate')
         }
     })
   

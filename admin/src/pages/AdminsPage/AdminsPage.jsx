@@ -2,8 +2,11 @@ import { motion } from 'framer-motion';
 import NoItems from '../../components/NoItems/NoItems';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import './AdminsPage.scss'
+import AdminTableItemCard from '../../components/TableItemCard/AdminTableItemCard';
 import CreateAdmin from '../../components/Popups/CreateAdmin';
-import { useState } from 'react';
+import { socket } from '../../socket.js';
+import { useState, useEffect } from 'react';
+
 
 
 
@@ -11,14 +14,59 @@ const AdminsPage = () => {
 
     const [searchValue, setSearchValue] = useState('')
     const [admins, setAdmins] = useState([])
+    const [unChangedAdmins, setUnchangedAdmins] = useState([])
     const [isFetching, setIsFetching] = useState(false)
     const [isCreateAdminPopupOpen, setIsCreateAdminPopupOpen] = useState(false)
 
     const popupHandler = () => setIsCreateAdminPopupOpen(prev => !prev)
 
     const searchHandler = (e) => {
-        console.log(e)
+        setSearchValue(e.target.value)
+
+        const filteredAdmins = unChangedAdmins.filter(admin => {
+            const FoundByFullName = admin.fullName.toLowerCase().includes(e.target.value.toLowerCase())
+            if (FoundByFullName) return true
+        })
+
+        if (filteredAdmins[0] != false) {
+            setAdmins([...filteredAdmins])
+        }
+
+        if (e.target.value === '') {
+            socket.emit('adminsDataGet', {})
+        }
     }
+
+    useEffect(() => {
+        setIsFetching(true)
+
+        const onUpdate = () => {
+            socket.emit('adminsDataGet', onAirportsData)
+        }
+
+        const onAirportsData = (data) => {
+            console.log(data)
+        }
+
+        const response = (data) => {
+            if (data.body.length) {
+                setAdmins(data.body)
+                setUnchangedAdmins(data.body)
+            }
+
+            setIsFetching(false)
+        }
+
+        socket.on('adminsResponse', response);
+        socket.on('adminsUpdate', onUpdate)
+        socket.emit('adminsDataGet', onAirportsData);
+
+        return () => {
+            socket.off('adminsResponse', response);
+            socket.off('adminsUpdate', onUpdate);
+            socket.off('adminsDataGet', onAirportsData);
+        }
+    }, [])
 
 
 
@@ -53,7 +101,7 @@ const AdminsPage = () => {
                     </div>
                     <div className="dashboard__container__body">
                         {admins.length ? admins.map(admin => (
-                            <div key={admin._id} className="admin-table-item-card">{admin.fullName}</div>
+                            <AdminTableItemCard key={admin._id} {...admin} />
                         )) : (
                             <NoItems title="Админов не найдено 😔" />
                         )}

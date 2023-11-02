@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import NoItems from '../../components/NoItems/NoItems'
 import { useState } from 'react'
 import './PassengersPage.scss'
@@ -29,10 +30,14 @@ const PassengersPage = () => {
                                 onChange={searchHandler}
                             />
                         </div>
-                        <button 
-                            className="create-new-button"
-                            >Добавить пассажира
-                        </button>
+                        <Link 
+                            className='create-new-button'
+                            to='/register-passenger'
+                        >
+                            <button 
+                                >Добавить пассажира
+                            </button>
+                        </Link>
                     </div>
                     <div className="dashboard__container__body">
                         <NoItems 

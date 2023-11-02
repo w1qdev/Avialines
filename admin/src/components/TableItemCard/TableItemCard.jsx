@@ -7,7 +7,7 @@ import { useState } from 'react'
 import './TableItemCard.scss'
 
 
-const TableItemCard = ({ children, itemId, itemCategory }) => {
+const TableItemCard = ({ children, itemId, itemCategory, data }) => {
 
     const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false)
     const [isEditOpenPopup, setIsEditOpenPopup] = useState(false)
@@ -17,7 +17,7 @@ const TableItemCard = ({ children, itemId, itemCategory }) => {
     
     return (
         <>
-            {isEditOpenPopup ? <EditItem itemCategory={itemCategory} title="Редактирование рейса" popupHandlerFunc={setIsEditOpenPopup} /> : null}
+            {isEditOpenPopup ? <EditItem data={data} itemCategory={itemCategory} title="Редактирование" popupHandlerFunc={setIsEditOpenPopup} /> : null}
             {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
             <div className="body__item">
 

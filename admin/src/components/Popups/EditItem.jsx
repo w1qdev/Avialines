@@ -7,19 +7,19 @@ import Popup from './Popup'
 import './Popup.scss'
 
 
-const EditItemContent = ({ itemCategory }) => {
-    if (itemCategory == 'flights') return <EditFlightsContent />
-    else if (itemCategory == 'airports') return <EditAirportsContent />
-    else if (itemCategory == 'admins') return <EditAdminsContent />
-    else if (itemCategory == 'passengers') return <EditPassengersContent />
-    else if (itemCategory == 'planes') return <EditPlanesContent />
+const EditItemContent = ({ itemCategory, data }) => {
+    if (itemCategory == 'flights') return <EditFlightsContent data={data} />
+    else if (itemCategory == 'airports') return <EditAirportsContent data={data} />
+    else if (itemCategory == 'admins') return <EditAdminsContent data={data} />
+    else if (itemCategory == 'passengers') return <EditPassengersContent data={data} />
+    else if (itemCategory == 'planes') return <EditPlanesContent data={data} />
 }
 
-const EditItem = ({ title, popupHandlerFunc, itemCategory }) => {
+const EditItem = ({ title, popupHandlerFunc, itemCategory, data }) => {
 
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc} >
-            <EditItemContent itemCategory={itemCategory} />
+            <EditItemContent data={data} itemCategory={itemCategory} />
         </Popup>
     )
 }

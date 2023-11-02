@@ -10,7 +10,6 @@ import { useState } from 'react'
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 import TableItemCard from './TableItemCard'
-import { ChevronDownIcon } from '@chakra-ui/icons'
 import './TableItemCard.scss'
 
 const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {

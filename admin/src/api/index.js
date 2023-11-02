@@ -6,7 +6,8 @@ export const endpoints = {
         CREATE: "/create",
         REMOVE: "/remove",
         GET_ALL: "/",
-        ACTIONS: "/actions"
+        ACTIONS: "/actions",
+        CHANGE: "/change"
     },
     FLIGHTS: {
         ROUTE: "/api/flights",
