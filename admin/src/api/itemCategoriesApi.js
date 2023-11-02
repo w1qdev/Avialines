@@ -1,4 +1,4 @@
-import { endpoints } from "../api"
+import { endpoints } from "."
 
 const flightsPath = `${endpoints.SERVER_ORIGIN_URI}${endpoints.FLIGHTS.ROUTE}${endpoints.FLIGHTS.REMOVE}`
 const planesPath = `${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.REMOVE}`
@@ -7,5 +7,5 @@ const airportsPath = `${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}$
 export const itemCategories = {
     'flights': flightsPath,
     'planes': planesPath,
-    'airports': airportsPath
+    'airports': airportsPath, 
 }

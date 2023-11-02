@@ -37,10 +37,12 @@ const Sidebar = () => {
                 <div className="sidebar__logo">
                     URTK Airlines Panel
                 </div>
-                <NavLink to="/panel" className={activeLinkHandler}>
-                    <img src={Dashboard} alt="Главная панель" />
-                    <div className="title">Главная панель</div>
-                </NavLink>
+                {adminType === 'mainAdmin' ? (    
+                    <NavLink to="/panel" className={activeLinkHandler}>
+                        <img src={Dashboard} alt="Главная панель" />
+                        <div className="title">Главная панель</div>
+                    </NavLink>
+                ) : null}
                 <NavLink to="/register-passenger" className={activeLinkHandler}>
                     <img src={NewPassenger} alt="Регистрация пассажира на рейс" />
                     <div className="title">Регистрация пассажира</div>

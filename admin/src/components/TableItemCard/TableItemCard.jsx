@@ -1,4 +1,4 @@
-import EditFlight from '../../components/Popups/EditFlight';
+import EditItem from '../Popups/EditItem';
 import Trash from '../../assets/card/trash.svg'
 import Pencil from '../../assets/card/pencil.svg'
 import RemoveItem from '../Popups/RemoveItem'
@@ -10,14 +10,14 @@ import './TableItemCard.scss'
 const TableItemCard = ({ children, itemId, itemCategory }) => {
 
     const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false)
-    const [isEditFlightOpenPopup, setIsEditFlightOpenPopup] = useState(false)
+    const [isEditOpenPopup, setIsEditOpenPopup] = useState(false)
 
     const removePopupHandler = () => setIsRemovePopupOpen(prev => !prev)
-    const editPopupHandler = () => setIsEditFlightOpenPopup(prev => !prev)
+    const editPopupHandler = () => setIsEditOpenPopup(prev => !prev)
     
     return (
         <>
-            {isEditFlightOpenPopup ? <EditFlight title="Редактирование рейса" popupHandlerFunc={setIsEditFlightOpenPopup} /> : null}
+            {isEditOpenPopup ? <EditItem itemCategory={itemCategory} title="Редактирование рейса" popupHandlerFunc={setIsEditOpenPopup} /> : null}
             {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
             <div className="body__item">
 

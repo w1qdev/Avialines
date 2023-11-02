@@ -3,7 +3,7 @@ import { toastSuccess, toastError } from '../../utils/toasts'
 import { socket } from '../../socket.js'
 import axios from 'axios'
 import Popup from './Popup'
-import { itemCategories } from '../../utils/itemCategories.js'
+import { itemCategories } from '../../api/itemCategoriesApi.js'
 import './Popup.scss'
 
 

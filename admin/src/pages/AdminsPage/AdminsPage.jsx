@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+import NoItems from '../../components/NoItems/NoItems';
+import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import './AdminsPage.scss'
 import CreateAdmin from '../../components/Popups/CreateAdmin';
 import { useState } from 'react';
@@ -8,6 +10,8 @@ import { useState } from 'react';
 const AdminsPage = () => {
 
     const [searchValue, setSearchValue] = useState('')
+    const [admins, setAdmins] = useState([])
+    const [isFetching, setIsFetching] = useState(false)
     const [isCreateAdminPopupOpen, setIsCreateAdminPopupOpen] = useState(false)
 
     const popupHandler = () => setIsCreateAdminPopupOpen(prev => !prev)
@@ -15,6 +19,8 @@ const AdminsPage = () => {
     const searchHandler = (e) => {
         console.log(e)
     }
+
+
 
     return (
         <>
@@ -45,8 +51,14 @@ const AdminsPage = () => {
                             >Добавить администратора
                         </button>
                     </div>
-                    <div className="dashboard__container__body airport">
-                        
+                    <div className="dashboard__container__body">
+                        {admins.length ? admins.map(admin => (
+                            <div key={admin._id} className="admin-table-item-card">{admin.fullName}</div>
+                        )) : (
+                            <NoItems title="Админов не найдено 😔" />
+                        )}
+
+                        {isFetching ? <CircularProgressItem isFetching={isFetching} /> : null}
                     </div>
                 </motion.div>
             </div>
