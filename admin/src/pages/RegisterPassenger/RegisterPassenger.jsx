@@ -24,7 +24,7 @@ import './RegisterPassenger.scss'
 const steps = [
     { title: 'Знакомство', description: 'Данные пассажира' },
     { title: 'Рейс', description: 'Выбор рейса' },
-    { title: 'Завершение', description: 'Печать билета' },
+    { title: 'Завершение', description: 'Выбор места в самолете' },
 ]
 
 
@@ -137,8 +137,93 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 exit={{ y: 10, opacity: 0 }} 
             >
             
+                <div className="plane__seats">
+                    <div className="item">
+                        1b
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item busy">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                    <div className="item">
+                        1a
+                    </div>
+                </div>
+
+            </motion.form>
+        )
+    } else if (currentStepIndex >= 3) {
+        return (
+            <motion.form 
+                className='form'
+                initial={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                exit={{ y: 10, opacity: 0 }} 
+            >
+            
                 <div className="result">
-                    РЕЗУЛЬТАТЫ
+                    <tbody>
+                        <tr>
+                            <td>Фамилия Имя Отчество пассажира </td>
+                            <td>{formData.fullName}</td>
+                        </tr>
+                    </tbody>
                 </div>
 
             </motion.form>

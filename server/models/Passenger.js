@@ -23,6 +23,10 @@ const PassengerSchema = new Schema({
     passport: {
         type: String,
         required: true 
+    },
+    flightNumber: {
+        type: String,
+        required: false          
     }
 }, {timestamps: true})
 

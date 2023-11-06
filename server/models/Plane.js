@@ -51,16 +51,20 @@ const PlaneSchema = new Schema({
     },
     freeSeatCount: {
         type: Number,
-        required: false, // TODO: Switch to true when functionality done
+        required: false,
     },
     busySeatCount: {
         type: Number,
-        required: false // TODO: Switch to true when functionality done
+        required: false
     },
     status: {
         type: String,
         required: true,
         default: 'free'
+    },
+    planeCompany: {
+        type: String,
+        required: true
     },
     planeCrew: [CrewSchema],
     seatPlaces: [SeatPlace]
