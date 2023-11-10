@@ -3,7 +3,6 @@ import Plane from '../assets/sidebar/plane.svg'
 import Airport from '../assets/sidebar/airport.svg'
 import Flight from '../assets/sidebar/flight.svg'
 import Admin from '../assets/sidebar/admin.svg'
-import Dashboard from '../assets/sidebar/dashboard.svg'
 import Passenger from '../assets/sidebar/passenger.svg'
 import NewPassenger from '../assets/sidebar/new_passenger.svg'
 import Exit from '../assets/sidebar/exit.svg'
@@ -69,15 +68,6 @@ const Sidebar = () => {
                         <div className="title">Администраторы</div>
                     </NavLink>
                 ) : null}
-                
-                <Tooltip label='Скачать полный отчет' 
-                        placement='right'
-                        hasArrow >
-                    <div className="download__button">
-                        <img src="" alt="" />
-                        <div className="title">Скачать отчет</div>
-                    </div>
-                </Tooltip>
 
                 <div className="sidebar__admin">
                     <div className="sidebar__admin__info">

@@ -87,7 +87,7 @@ const AdminsPage = () => {
                         <div className="search" style={{ width: '50%' }}>
                             <input 
                                 type="text" 
-                                placeholder='Поиск админов' 
+                                placeholder='Поиск администратора' 
                                 value={searchValue}
                                 onChange={searchHandler}
                             />

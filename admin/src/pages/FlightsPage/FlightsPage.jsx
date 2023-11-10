@@ -94,7 +94,7 @@ const FlightsPage = () => {
                         <div className="search">
                             <input 
                                 type="text" 
-                                placeholder='Поиск рейса (Номер рейса, место пасадки, цена)'
+                                placeholder='Поиск рейса'
                                 value={searchValue} 
                                 onChange={searchHandler}
                             />

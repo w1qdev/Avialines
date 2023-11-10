@@ -46,16 +46,21 @@ planeRouter.get('/busy', async (req, res) => {
 // [POST] http://localhost:5000/api/plane/create
 planeRouter.post('/create', async (req, res) => {
     try {
-        const { crew } = req.body
+        const { seatCount } = req.body
 
-        for (let i = 0; i < crew.length; i++) {
-            crew[i].id = Date.now().valueOf() + getRandomNumber(999)
-        }
+        // for (let i = 0; i < crew.length; i++) {
+        //     crew[i].id = Date.now().valueOf() + getRandomNumber(999)
+        // }
+
+        const detailedPlanePlaces = getPlanePlaces(seatCount)
 
         const newPlane = new Plane({
             ...req.body,
             id: Date.now().valueOf(),
-            planeCrew: [...crew],
+            seatPlaces: [...detailedPlanePlaces],
+            freeSeatCount: seatCount,
+            busySeatCount: 0
+            // planeCrew: [...crew],
         })
 
         newPlane.save()

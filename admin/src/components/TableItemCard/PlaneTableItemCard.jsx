@@ -12,7 +12,7 @@ import {
 import TableItemCard from './TableItemCard'
 import './TableItemCard.scss'
 
-const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {
+const PlaneTableItemCard = ({ id, planeType, seatCount, status, freeSeatCount, busySeatCount, planeCrew }) => {
 
     // const crewItems = planeCrew.map(crew => {
     //     return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
@@ -35,11 +35,11 @@ const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => 
                 </tr>
                 <tr className={`${status === 'free' ? 'plane-free' : ''}`}>
                     <td>Занято</td>
-                    <td> мест</td>
+                    <td>{busySeatCount != undefined ? busySeatCount : null} мест</td>
                 </tr>
                 <tr className={`${status === 'free' ? 'plane-free' : ''}`}>
                     <td>Свободно</td>
-                    <td> места</td>
+                    <td>{freeSeatCount != undefined && status === 'busy' ? freeSeatCount : null} мест</td>
                 </tr>
             </tbody>
 

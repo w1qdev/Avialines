@@ -233,7 +233,6 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
 }
 
 
-
 const RegisterPassengerPage = () => {
     
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
@@ -248,7 +247,7 @@ const RegisterPassengerPage = () => {
 
     useEffect(() => {
         console.log(formData)
-    }, [formData.flightInfo])
+    }, [formData])
     
     const buttonText = currentStepIndex >= 2 ? "Завершить" : "Продолжить"
 

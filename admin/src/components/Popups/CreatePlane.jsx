@@ -2,8 +2,10 @@ import './Popup.scss'
 import Popup from './Popup'
 import { useState } from 'react'
 import { isDataFilled } from '../../utils/isDataFilled'
+import { toastError, toastSuccess } from '../../utils/toasts'
 import axios from 'axios'
 import { motion } from 'framer-motion'
+import { endpoints } from '../../api'
 
 
 const CreatePlane = ({ title, popupHandlerFunc }) => {
@@ -15,12 +17,31 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
         planeCompany: '',
     })
 
-    const formOnChangeHandler = (e, name) => {
+    const formOnChangeHandler = async (e, name) => {
         setFormData({...formData, [name]: e.target.value})
     }
 
     const createPlane = async () => {
         const isFormDataFilled = isDataFilled(formData)
+
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
+
+        if (parseInt(formData.seatCount) > 168) {
+            toastError("Количество мест превышает 168!")
+            return
+        }
+
+        await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.FLIGHTS.CREATE}`, formData)
+        .then(res => {
+            toastSuccess("Данные самолета успешно сохранены")
+        })
+        .catch(err => {
+            console.error(err)
+            toastError("Не удалось создать новый самолет, попробуйте позже")
+        })
     }
 
     return (

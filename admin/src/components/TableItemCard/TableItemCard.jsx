@@ -24,7 +24,7 @@ const TableItemCard = ({ children, itemId, itemCategory, data }) => {
                 <div className="body__item__tools">
                     <Tooltip hasArrow label='Удалить' bg='#2c2c2c' color='#fff' placement='right'>
                         <div 
-                            className="tool__item"
+                            className="tool__item remove"
                             onClick={removePopupHandler}    
                         >
                             <img src={Trash} alt="Удалить" />
@@ -32,7 +32,7 @@ const TableItemCard = ({ children, itemId, itemCategory, data }) => {
                     </Tooltip>
                     <Tooltip hasArrow label='Редактировать' bg='#2c2c2c' color='#fff' placement='right'>
                         <div 
-                            className="tool__item"
+                            className="tool__item edit"
                             onClick={editPopupHandler}    
                         >
                             <img src={Pencil} alt="Редактировать" />
