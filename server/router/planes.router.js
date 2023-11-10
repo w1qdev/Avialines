@@ -84,7 +84,7 @@ planeRouter.put('/change', async (req, res) => {
             return res.send({ error: "This plane is not exists" })
         }
 
-        return res.send({ message: `Plane ${changedPlane.id} successfully created` })
+        return res.send({ message: `Plane ${changedPlane.id} successfully changed` })
 
     } catch(e) {
         console.log("Some Internal Error", e)

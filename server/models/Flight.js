@@ -46,6 +46,10 @@ const FlightSchema = new Schema({
         type: Number,
         required: true
     },
+    flightTime: {
+        type: String,
+        required: false
+    },
     flightPlaneType: {
         type: String,
         required: false

@@ -8,11 +8,15 @@ import './Popup.scss'
 
 
 const EditItemContent = ({ itemCategory, data }) => {
-    if (itemCategory == 'flights') return <EditFlightsContent data={data} />
-    else if (itemCategory == 'airports') return <EditAirportsContent data={data} />
-    else if (itemCategory == 'admins') return <EditAdminsContent data={data} />
-    else if (itemCategory == 'passengers') return <EditPassengersContent data={data} />
-    else if (itemCategory == 'planes') return <EditPlanesContent data={data} />
+    const categories = {
+        'flights': <EditFlightsContent data={data} />,
+        'airports': <EditAirportsContent data={data} />,
+        'admins': <EditAdminsContent data={data} />,
+        'passengers': <EditPassengersContent data={data} />,
+        'planes': <EditPlanesContent data={data} />
+    }
+
+    return categories[itemCategory]
 }
 
 const EditItem = ({ title, popupHandlerFunc, itemCategory, data }) => {

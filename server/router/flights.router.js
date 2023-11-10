@@ -41,7 +41,7 @@ flightRouter.post('/create', async (req, res) => {
         const desAirport = await Airport.findOne({ airportId: destinationAirportId })
         const flightPlane = await Plane.findOne({ id: planeId })
 
-        
+        console.log(req.body)
 
         if (!depAirport || !desAirport) {
             return res.send({ error: "Одного из аэрапортов не существует",  })
@@ -56,7 +56,7 @@ flightRouter.post('/create', async (req, res) => {
         }
 
         const id = Date.now().valueOf()
-
+        
         const newFlight = new Flight({
             flightId: id,
             flightNumber: createFlightNumber(),
@@ -64,6 +64,8 @@ flightRouter.post('/create', async (req, res) => {
             flightPlaneType: flightPlane.planeType,
             ...req.body
         })
+
+        console.log(newFlight)
 
         await Plane.findOneAndUpdate({ id: planeId }, { status: 'busy' }) 
 

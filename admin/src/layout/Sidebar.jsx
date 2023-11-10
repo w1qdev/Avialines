@@ -37,12 +37,12 @@ const Sidebar = () => {
                 <div className="sidebar__logo">
                     URTK Airlines Panel
                 </div>
-                {adminType === 'mainAdmin' ? (    
+                {/* {adminType === 'mainAdmin' ? (    
                     <NavLink to="/panel" className={activeLinkHandler}>
                         <img src={Dashboard} alt="Главная панель" />
                         <div className="title">Главная панель</div>
                     </NavLink>
-                ) : null}
+                ) : null} */}
                 <NavLink to="/register-passenger" className={activeLinkHandler}>
                     <img src={NewPassenger} alt="Регистрация пассажира на рейс" />
                     <div className="title">Регистрация пассажира</div>
@@ -69,6 +69,15 @@ const Sidebar = () => {
                         <div className="title">Администраторы</div>
                     </NavLink>
                 ) : null}
+                
+                <Tooltip label='Скачать полный отчет' 
+                        placement='right'
+                        hasArrow >
+                    <div className="download__button">
+                        <img src="" alt="" />
+                        <div className="title">Скачать отчет</div>
+                    </div>
+                </Tooltip>
 
                 <div className="sidebar__admin">
                     <div className="sidebar__admin__info">

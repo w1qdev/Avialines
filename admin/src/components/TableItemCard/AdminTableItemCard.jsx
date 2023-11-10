@@ -3,11 +3,7 @@ import TableItemCard from "./TableItemCard";
 
 const AdminTableItemCard = ({ fullName, role, id,  }) => {
 
-    const adminData = {
-        id,
-        fullName,
-        role
-    }
+    const adminData = { id, fullName, role }
 
     const formatRole = role === 'mainAdmin' ? "Главный администратор" : "Администратор"
 

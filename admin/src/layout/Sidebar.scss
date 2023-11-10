@@ -50,13 +50,38 @@
         }
     }
 
+    .download__button {
+        width: 100%;
+        padding: 15px;
+        margin-top: 33%;
+        display: flex;
+        justify-content: start;
+        flex-direction: row;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.2s linear background-color;
+
+        &:hover {
+            background-color: #2e2e2e; // old: #2e2e2e
+        }
+
+        img {
+            width: 23px;
+            height: 23px;
+        }
+
+        .title {
+            margin-left: 20px;
+        }
+    }
+
     &__admin {
         padding: 20px;
         margin-top: auto;
         border-top: 1px solid #434343;
         display: flex;
         justify-content: space-between;
-        align-items: center;
+        align-items: center;    
 
         &__info {
 

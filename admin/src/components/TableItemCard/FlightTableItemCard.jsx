@@ -9,7 +9,7 @@ const FlightTableItemCard = ({ flight }) => {
     const [status, setStatus] = useState(flightStatus[flight.flightStatus])
 
     return (
-        <TableItemCard itemId={flight.flightNumber} itemCategory="flights">
+        <TableItemCard data={flight} itemId={flight.flightNumber} itemCategory="flights">
             <tbody>
                 <tr>
                     <td>Номер рейса</td>
@@ -28,8 +28,8 @@ const FlightTableItemCard = ({ flight }) => {
                     <td>{flight.flightPlaneType}</td>
                 </tr>
                 <tr>
-                    <td>Длительность рейса</td>
-                    <td>{flight.flightDuration}</td>
+                    <td>Время посадки</td>
+                    <td>{flight.flightTime} | {flight.date}</td>
                 </tr>
                 <tr>
                     <td>Цена рейса (эконом)</td>

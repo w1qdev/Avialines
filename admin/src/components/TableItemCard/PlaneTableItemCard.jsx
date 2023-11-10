@@ -6,7 +6,7 @@ import {
     Button,
     Tooltip
 } from '@chakra-ui/react'
-import { useState } from 'react'
+
 // import Menu from '@mui/material/Menu';
 // import MenuItem from '@mui/material/MenuItem';
 import TableItemCard from './TableItemCard'
@@ -14,14 +14,16 @@ import './TableItemCard.scss'
 
 const PlaneTableItemCard = ({ id, planeType, seatCount, status, planeCrew }) => {
 
-    const crewItems = planeCrew.map(crew => {
-        return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
-    })
+    // const crewItems = planeCrew.map(crew => {
+    //     return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
+    // })
+
+    const planeData = { id, planeType, seatCount, status }
 
     const currentStatus = status === 'free' ? 'Свободен' : 'Занят (в рейсе)'
 
     return (
-        <TableItemCard itemId={id} itemCategory="planes" >
+        <TableItemCard data={planeData} itemId={id} itemCategory="planes" >
             <tbody>
                 <tr>
                     <td>Тип</td>

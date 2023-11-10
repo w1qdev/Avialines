@@ -29,7 +29,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         currentPlane: "",
         currentPlaneId: "",
         flightPrice: "",
-        date: ""
+        date: "",
+        flightTime: ""
     })
     const selectAirport = (airport, target) => {
         switch (target) {
@@ -82,9 +83,10 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         if ((departureAirport != "" && destinationAirport != "") && (departureAirport === destinationAirport)) {
             toastError("Место назначения и вылета одинаковые!")
             setFormData({ ...formData, destinationAirport: "" })
-        }        
+        }     
+        
+        console.log(formData)
     }, [formData])
-
 
     const createFlight = async (e) => {
         e.preventDefault()
@@ -109,7 +111,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             flightPrice: parseInt(formData.flightPrice),
             date: formData.date,
             adminFullName: localStorage.getItem('fullName'),
-            timestamp
+            flightTime: formData.flightTime,
+            timestamp,
         })
         .then((res) => {
             if (res.data.error) {
@@ -181,12 +184,22 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                 <div className="body__input">
                     <div className="item">
                         <div className="body__input__title">Время посадки на рейс</div>
-                        <input 
-                            className='date'
-                            type="date" 
-                            value={formData.date}
-                            onChange={e => setFormData({ ...formData, date: e.target.value })}
-                        />
+                        <div className="inputs__multiply">
+                            <input 
+                                style={{ width: '49%' }}
+                                type="text" 
+                                placeholder='20:00'
+                                value={formData.flightTime}
+                                onChange={e => setFormData({ ...formData, flightTime: e.target.value })}
+                            />
+                            <input 
+                                className='date'
+                                type="date" 
+                                value={formData.date}
+                                style={{ width: '49%' }}
+                                onChange={e => setFormData({ ...formData, date: e.target.value })}
+                            />
+                        </div>
                     </div>
                     <div className="item">
                         <div className="body__input__title">Цена рейса (эконом)</div>

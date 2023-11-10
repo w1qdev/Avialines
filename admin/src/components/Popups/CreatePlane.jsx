@@ -12,7 +12,7 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
     const [formData, setFormData] = useState({
         planeType: '',
         seatCount: '',
-        planeCompany: ''
+        planeCompany: '',
     })
 
     const formOnChangeHandler = (e, name) => {

@@ -14,10 +14,12 @@ import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
+import axios from 'axios'
 import NoItems from '../../components/NoItems/NoItems'
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
 import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
 import './RegisterPassenger.scss'
+import { endpoints } from '../../api/index.js'
 
 
 
@@ -136,7 +138,6 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 10, opacity: 0 }} 
             >
-            
                 <div className="plane__seats">
                     <div className="item">
                         1b
@@ -244,6 +245,10 @@ const RegisterPassengerPage = () => {
         passportNumber: '',
         flightInfo: null
     })
+
+    useEffect(() => {
+        console.log(formData)
+    }, [formData.flightInfo])
     
     const buttonText = currentStepIndex >= 2 ? "Завершить" : "Продолжить"
 

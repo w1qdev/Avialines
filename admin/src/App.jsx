@@ -20,8 +20,9 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Sidebar />}>
-                    <Route path='' element={<PanelPage />} />
-                    <Route path='panel' element={<PanelPage />} />
+                    {/* <Route path='' element={<PanelPage />} />
+                    <Route path='panel' element={<PanelPage />} /> */}
+                    <Route path='' element={<RegisterPassengerPage />} />
                     <Route path='register-passenger' element={<RegisterPassengerPage />} />
                     <Route index path='flights' element={<FlightsPage />} />
                     <Route path='airports' element={<AirportsPage />} />
