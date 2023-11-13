@@ -9,7 +9,6 @@ export const getPlanePlaces = ( placeCount ) => {
     const planePlaces = []
 
     
-
     for (let i = 0; i < numbers.length; i++) {
         for (let j = 0; j < letters.length; j++) {
             if (planePlaces.length >= placeCount) {

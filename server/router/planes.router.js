@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { error } from '../utils/chalk.js'
 import Plane from '../models/Plane.js'
+import Flight from '../models/Flight.js'
 import { getRandomNumber } from "../utils/getRandomNumber.js";
 import { getPlanePlaces } from "../utils/getPlanePlaces.js";
 
@@ -36,6 +37,25 @@ planeRouter.get('/busy', async (req, res) => {
         const busyPlanes = await Plane.find({ status: 'busy' });
 
         return res.send({ message: "Planes", body: busyPlanes })
+    } catch (e) {
+        console.log(error("Some Internal Error", e))
+        return res.send({ error: "Some Internal Error", status: 500 })
+    }
+})
+
+planeRouter.get('/plane/:flightNumber', async (req, res) => {
+    try {
+        const { flightNumber } = req.params
+
+        const currentFlight = await Flight.findOne({ flightNumber })
+
+        if (!currentFlight) {
+            return res.send({ message: "Рейса с таким номером не существует" })
+        }
+
+        const currentPlane = await Plane.findOne({ planeType: currentFlight.flightPlaneType })
+
+        return res.send({ body: currentPlane?.seatPlaces })
     } catch (e) {
         console.log(error("Some Internal Error", e))
         return res.send({ error: "Some Internal Error", status: 500 })

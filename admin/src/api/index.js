@@ -23,7 +23,8 @@ export const endpoints = {
         CHANGE: "/change",
         GET_ALL: "/",
         GET_FREE: '/free',
-        GET_BUSY: '/busy'
+        GET_BUSY: '/busy',
+        PLANE: '/plane'
     },
     AIRPORTS: {
         ROUTE: "/api/airports",

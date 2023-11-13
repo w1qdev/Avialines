@@ -14,13 +14,10 @@ import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
-import axios from 'axios'
 import NoItems from '../../components/NoItems/NoItems'
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
 import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
 import './RegisterPassenger.scss'
-import { endpoints } from '../../api/index.js'
-
 
 
 const steps = [
@@ -51,6 +48,11 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
         } else {
             setIsValid({...isValid, [inputName]: false})
         }
+    }
+
+    const addPassengerPlace = (currentPlace) => {
+        setFormData({ ...formData, seatNumber: currentPlace.seatName })
+        console.log(formData)
     }
 
 
@@ -139,72 +141,18 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 exit={{ y: 10, opacity: 0 }} 
             >
                 <div className="plane__seats">
-                    <div className="item">
-                        1b
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item busy">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
-                    <div className="item">
-                        1a
-                    </div>
+                    {formData.planeSeatPlaces.length ? formData.planeSeatPlaces.map(place => {
+                        return (
+                            <div 
+                                key={place.id} 
+                                className={`${place.status === 'free' ? 'item' : 'item busy'}`}
+                                onClick={() => addPassengerPlace(place)}
+                            >
+                                {place.seatName}
+                            </div>
+                        )
+                        
+                    }) : null}
                 </div>
 
             </motion.form>
@@ -221,8 +169,32 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 <div className="result">
                     <tbody>
                         <tr>
-                            <td>Фамилия Имя Отчество пассажира </td>
+                            <td>Фамилия Имя Отчество пассажира</td>
                             <td>{formData.fullName}</td>
+                        </tr>
+                        <tr>
+                            <td>Данные паспорта пассажира</td>
+                            <td>{formData.passportSeries} {formData.passportNumber}</td>
+                        </tr>
+                        <tr>
+                            <td>Номер рейса</td>
+                            <td>{formData.flightInfo.flightNumber}</td>
+                        </tr>
+                        <tr>
+                            <td>Аэрапорт вылета</td>
+                            <td>{formData.flightInfo.departureAirport}</td>
+                        </tr>
+                        <tr>
+                            <td>Аэрапорт прилета</td>
+                            <td>{formData.flightInfo.destinationAirport}</td>
+                        </tr>
+                        <tr>
+                            <td>Номер места</td>
+                            <td>{formData.seatNumber}</td>
+                        </tr>
+                        <tr>
+                            <td>Сумма рейса</td>
+                            <td>{formData.flightInfo.flightPrice}</td>
                         </tr>
                     </tbody>
                 </div>
@@ -242,12 +214,10 @@ const RegisterPassengerPage = () => {
         fullName: '',
         passportSeries: '',
         passportNumber: '',
-        flightInfo: null
+        seatNumber: '',
+        flightInfo: null,
+        planeSeatPlaces: []
     })
-
-    useEffect(() => {
-        console.log(formData)
-    }, [formData])
     
     const buttonText = currentStepIndex >= 2 ? "Завершить" : "Продолжить"
 

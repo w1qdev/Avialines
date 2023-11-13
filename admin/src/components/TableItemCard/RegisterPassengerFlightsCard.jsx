@@ -1,4 +1,7 @@
 import './TableItemCard.scss'
+import axios from 'axios'
+import { endpoints } from '../../api/index.js'
+import { toastError } from '../../utils/toasts.js'
 import { flightStatus as flStatus } from '../../utils/flightsStatus';
 
 const RegisterPassengerFlightsCard = ({ 
@@ -11,7 +14,7 @@ const RegisterPassengerFlightsCard = ({
         setFormData
     }) => {
 
-    const clickHandler = () => {
+    const clickHandler = async () => {
         setFormData({...formData, flightInfo: {
             flightNumber,
             departureAirport, 
@@ -19,6 +22,20 @@ const RegisterPassengerFlightsCard = ({
             flightPrice,
             flightStatus
         }})
+
+
+        if (formData.flightInfo?.flightNumber) {
+            const currentFlightNumber = formData.flightInfo?.flightNumber
+            axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
+            .then(res => {
+                setFormData({ ...formData, planeSeatPlaces: [...res.data.body] })
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.error(err)
+                toastError("Что-то пошло не так, попробуйте позже")
+            })
+        }
     }
     
     const currentStatus = flStatus[flightStatus]

@@ -1,6 +1,7 @@
 import TableItemCard from './TableItemCard'
 
-const PassengerTableItemCard = ({ id, seatNumber, fullName, passport }) => {
+const PassengerTableItemCard = ({ id, seatNumber, fullName, passport, flightNumber }) => {
+
     return (
         <TableItemCard itemId={id} itemCategory="passengers" >
             <tbody>
@@ -11,6 +12,10 @@ const PassengerTableItemCard = ({ id, seatNumber, fullName, passport }) => {
                 <tr>
                     <td>Данные паспорта</td>
                     <td>{passport}</td>
+                </tr>
+                <tr>
+                    <td>Номер рейса</td>
+                    <td>{flightNumber}</td>
                 </tr>
                 <tr>
                     <td>Номер места</td>
