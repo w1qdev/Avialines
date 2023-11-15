@@ -263,10 +263,16 @@ const RegisterPassengerPage = () => {
 
         await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
         .then(res => {
+            if (res.data.error) {
+                toastError("Данный пассажир уже существует")
+                return
+            }
             toastSuccess("Новый пассажир успешно создан")
         })
         .catch(err => {
-            toastError("Что-то пошло не так, попробуйте позже")
+            if (err.body.error) {
+                toastError("Что-то пошло не так, попробуйте позже")
+            }
         })
     }
 
