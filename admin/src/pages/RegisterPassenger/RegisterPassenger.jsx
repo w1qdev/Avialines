@@ -20,7 +20,8 @@ import RegisterPassengerFlightsCard from '../../components/TableItemCard/Registe
 import { calculateLastCallTime } from '../../utils/calculateLastCallTime.js'
 import './RegisterPassenger.scss'
 import axios from 'axios'
-import { toastInfo } from '../../utils/toasts.js'
+import { toastError, toastInfo, toastSuccess } from '../../utils/toasts.js'
+import { endpoints } from '../../api/index.js'
 
 
 const steps = [
@@ -202,7 +203,7 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                                     </div>
                                     <div className="section__item">
                                         <div className="section__item__title">Место / Seat</div>
-                                        <div className="section__item__info big warning">{formData.seatNumber}</div>
+                                        <div className="section__item__info warning">{formData.seatNumber}</div>
                                     </div>
                                 </div>
                                 <div className="ticket__content__section">
@@ -257,7 +258,16 @@ const RegisterPassengerPage = () => {
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
 
     const savePassengerAndPrintTicket = async () => {
-        await axios.post(``)
+
+        setFormData({ ...formData, planeSeatPlaces: null })
+
+        await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
+        .then(res => {
+            toastSuccess("Новый пассажир успешно создан")
+        })
+        .catch(err => {
+            toastError("Что-то пошло не так, попробуйте позже")
+        })
     }
 
     useEffect(() => {
@@ -338,13 +348,26 @@ const RegisterPassengerPage = () => {
                         </motion.button>
                     ) : (null)}
                     
-                    <motion.button 
-                        className={`next-step-button ${currentStepIndex >= steps.length ? 'finish' : ""}`}
-                        onClick={nextStep}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        >{buttonText}
-                    </motion.button>
+                    
+                    {currentStepIndex >= 3 ? (
+                        <motion.button 
+                            className="next-step-button finish"
+                            onClick={savePassengerAndPrintTicket}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            >{buttonText}
+                        </motion.button>
+                    ) : (
+                        <motion.button 
+                            className="next-step-button"
+                            onClick={nextStep}
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            >{buttonText}
+                        </motion.button>
+                    )}
+
+                    
                 </div>
             </motion.div>
         </>

@@ -29,9 +29,11 @@ passengerRouter.get('/', async (req, res) => {
 // [POST] http://localhost:5000/api/passengers/create
 passengerRouter.post('/create', async (req, res) => {
     try {
-        const { passport } = req.body
+        const { passportSeries, passportNumber } = req.body
+        
+        const passportData = `${passportSeries} ${passportNumber}`
 
-        const isNewPassenger =  await Passenger.findOne({ "passport": passport })
+        const isNewPassenger =  await Passenger.findOne({ passport: passportData})
 
         if (isNewPassenger ) {
             return res.send({ error: "This user already passenger" })
@@ -40,8 +42,9 @@ passengerRouter.post('/create', async (req, res) => {
         // creating new passenger
         const passenger = new Passenger({ 
             id: uuidv4(),
-            departureId: uuidv4(),
-            ...req.body
+            passport: passportData,
+            ...req.body,
+            ...req.body.flightInfo
         }) 
 
         await passenger.save()
