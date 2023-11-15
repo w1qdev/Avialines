@@ -17,7 +17,10 @@ import { motion } from 'framer-motion'
 import NoItems from '../../components/NoItems/NoItems'
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
 import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
+import { calculateLastCallTime } from '../../utils/calculateLastCallTime.js'
 import './RegisterPassenger.scss'
+import axios from 'axios'
+import { toastInfo } from '../../utils/toasts.js'
 
 
 const steps = [
@@ -52,7 +55,8 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
 
     const addPassengerPlace = (currentPlace) => {
         setFormData({ ...formData, seatNumber: currentPlace.seatName })
-        console.log(formData)
+
+        toastInfo(`Место успешно выбрано: ${currentPlace.seatName}`)
     }
 
 
@@ -98,7 +102,6 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
             </form>
         )
     } else if (currentStepIndex === 1) {
-
         return (
             <motion.form 
                 className='form section-2'
@@ -159,47 +162,69 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
         )
     } else if (currentStepIndex >= 3) {
         return (
-            <motion.form 
-                className='form'
-                initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 10, opacity: 0 }} 
+            <form 
+                className='form'   
             >
-            
-                <div className="result">
-                    <tbody>
-                        <tr>
-                            <td>Фамилия Имя Отчество пассажира</td>
-                            <td>{formData.fullName}</td>
-                        </tr>
-                        <tr>
-                            <td>Данные паспорта пассажира</td>
-                            <td>{formData.passportSeries} {formData.passportNumber}</td>
-                        </tr>
-                        <tr>
-                            <td>Номер рейса</td>
-                            <td>{formData.flightInfo.flightNumber}</td>
-                        </tr>
-                        <tr>
-                            <td>Аэрапорт вылета</td>
-                            <td>{formData.flightInfo.departureAirport}</td>
-                        </tr>
-                        <tr>
-                            <td>Аэрапорт прилета</td>
-                            <td>{formData.flightInfo.destinationAirport}</td>
-                        </tr>
-                        <tr>
-                            <td>Номер места</td>
-                            <td>{formData.seatNumber}</td>
-                        </tr>
-                        <tr>
-                            <td>Сумма рейса</td>
-                            <td>{formData.flightInfo.flightPrice}</td>
-                        </tr>
-                    </tbody>
-                </div>
+                <motion.div 
+                    className="result"
+                    initial={{ y: 10, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 10, opacity: 0 }}     
+                >
+                    <div className='result__inner'>
+                        <div className="result__inner__ticket">
+                            <div className="ticket__header">
+                                <div className="ticket__header__title">Посадочный талон | Boarding pass</div>
+                            </div>
+                            <div className="ticket__content">
+                                <div className="ticket__content__section">
+                                    <div className="section__item">
+                                        <div className="section__item__title">Выход / Gate</div>
+                                        <div className="section__item__info">{formData.flightInfo.gate}</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Посадка / Boarding</div>
+                                        <div className="section__item__info">{formData.flightInfo.date} | {formData.flightInfo.flightTime}</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Конец посадки / Last call</div>
+                                        <div className="section__item__info warning">{formData.flightInfo.date} | {calculateLastCallTime(formData.flightInfo.flightTime)}</div>
+                                    </div>
+                                </div>
+                                <div className="ticket__content__section">
+                                    <div className="section__item">
+                                        <div className="section__item__title">Пассажир / Passenger</div>
+                                        <div className="section__item__info">{formData.fullName}</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Вылет / Departure</div>
+                                        <div className="section__item__info">{formData.flightInfo.departureAirport}</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Место / Seat</div>
+                                        <div className="section__item__info big warning">{formData.seatNumber}</div>
+                                    </div>
+                                </div>
+                                <div className="ticket__content__section">
+                                    <div className="section__item">
+                                        <div className="section__item__title">Цена рейса / Flight price</div>
+                                        <div className="section__item__info">{formData.flightInfo.flightPrice}₽</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Прилет / Arrival</div>
+                                        <div className="section__item__info">{formData.flightInfo.destinationAirport}</div>
+                                    </div>
+                                    <div className="section__item">
+                                        <div className="section__item__title">Рейс / Flight</div>
+                                        <div className="section__item__info">{formData.flightInfo.flightNumber}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.div>
 
-            </motion.form>
+            </form>
         )
     }
 }
@@ -219,19 +244,21 @@ const RegisterPassengerPage = () => {
         planeSeatPlaces: []
     })
     
-    const buttonText = currentStepIndex >= 2 ? "Завершить" : "Продолжить"
+    const buttonText = currentStepIndex >= steps.length ? "Сохранить и распечатать билет" : "Продолжить"
 
     const nextStep = () => setCurrentStepIndex(prev => {
-
         const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
         if (prev + 1 <= 3 && isPassengerDataFilled) {
             return prev + 1
         } else {
             return prev
         }
-    
     })
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
+
+    const savePassengerAndPrintTicket = async () => {
+        await axios.post(``)
+    }
 
     useEffect(() => {
         setIsFetching(true)
@@ -277,9 +304,9 @@ const RegisterPassengerPage = () => {
                         <Step key={index}>
                             <StepIndicator>
                                 <StepStatus
-                                complete={<StepIcon />}
-                                incomplete={<StepNumber />}
-                                active={<StepNumber />}
+                                    complete={<StepIcon />}
+                                    incomplete={<StepNumber />}
+                                    active={<StepNumber />}
                                 />
                             </StepIndicator>
 
@@ -312,7 +339,7 @@ const RegisterPassengerPage = () => {
                     ) : (null)}
                     
                     <motion.button 
-                        className={`next-step-button ${currentStepIndex >= 2 ? 'finish' : ""}`}
+                        className={`next-step-button ${currentStepIndex >= steps.length ? 'finish' : ""}`}
                         onClick={nextStep}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}

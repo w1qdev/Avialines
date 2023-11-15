@@ -30,6 +30,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         currentPlaneId: "",
         flightPrice: "",
         date: "",
+        gate: "",
         flightTime: ""
     })
     const selectAirport = (airport, target) => {
@@ -57,6 +58,13 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             currentPlaneId: plane.id
         })
     } 
+
+    const selectGate = (gate) => {
+        setFormData({
+            ...formData,
+            gate
+        })
+    }
 
     useEffect(() => {
         // 'http://localhost:5000/api/airports/'
@@ -99,7 +107,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         } 
 
         const date = new Date()
-
         const timestamp = `${date.getDate()} ${getCurrentMonthName(date.getMonth())} ${date.getFullYear()}`
 
         await axios.post('http://localhost:5000/api/flights/create', { 
@@ -112,6 +119,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             date: formData.date,
             adminFullName: localStorage.getItem('fullName'),
             flightTime: formData.flightTime,
+            gate: formData.gate,
             timestamp,
         })
         .then((res) => {
@@ -233,6 +241,33 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                                 {planesData.length >= 1 && planesData.map((plane) => (
                                     <MenuItem key={plane.id} onClick={() => selectPlane(plane)}>{plane.planeType}</MenuItem>
                                 ))}
+                            </MenuList>
+                        </Menu>
+                    </div>
+
+                    <div className="item">
+                        <div className="body__input__title">Номер выхода</div>
+                        <Menu>
+                            <MenuButton 
+                                as={Button} 
+                                rightIcon={<ChevronDownIcon />}
+                                width={'100%'}
+                                height={'47px'}
+                                borderRadius={'8px'}
+                                fontWeight={'500'}
+                                >
+                                {formData.gate ? formData.gate : "Номер выхода"}
+                            </MenuButton>
+                            <MenuList 
+                                overflow={'auto'}
+                                maxHeight={'230px'}
+                                >
+                                    <MenuItem onClick={() => selectGate('1A')}>1A</MenuItem>
+                                    <MenuItem onClick={() => selectGate('1B')}>1B</MenuItem>
+                                    <MenuItem onClick={() => selectGate('1C')}>1C</MenuItem>
+                                    <MenuItem onClick={() => selectGate('1D')}>1D</MenuItem>
+                                    <MenuItem onClick={() => selectGate('1E')}>1E</MenuItem>
+                                    <MenuItem onClick={() => selectGate('1F')}>1F</MenuItem>
                             </MenuList>
                         </Menu>
                     </div>

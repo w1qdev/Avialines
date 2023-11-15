@@ -10,10 +10,6 @@ const PassengerTableItemCard = ({ id, seatNumber, fullName, passport, flightNumb
                     <td>{fullName}</td>
                 </tr>
                 <tr>
-                    <td>Данные паспорта</td>
-                    <td>{passport}</td>
-                </tr>
-                <tr>
                     <td>Номер рейса</td>
                     <td>{flightNumber}</td>
                 </tr>

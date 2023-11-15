@@ -3,6 +3,7 @@ import axios from 'axios'
 import { endpoints } from '../../api/index.js'
 import { toastError } from '../../utils/toasts.js'
 import { flightStatus as flStatus } from '../../utils/flightsStatus';
+import { toastInfo } from '../../utils/toasts.js';
 
 const RegisterPassengerFlightsCard = ({ 
         flightNumber, 
@@ -10,26 +11,34 @@ const RegisterPassengerFlightsCard = ({
         destinationAirport, 
         flightPrice, 
         flightStatus,
+        flightTime,
+        date,
+        gate,
         formData,
         setFormData
     }) => {
-
+    
     const clickHandler = async () => {
         setFormData({...formData, flightInfo: {
             flightNumber,
             departureAirport, 
             destinationAirport, 
             flightPrice,
+            flightTime,
+            date,
+            gate,
             flightStatus
         }})
 
+        console.log(formData)
+
+        toastInfo(`Рейс успешно выбран`)
 
         if (formData.flightInfo?.flightNumber) {
             const currentFlightNumber = formData.flightInfo?.flightNumber
-            axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
+            await axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
             .then(res => {
                 setFormData({ ...formData, planeSeatPlaces: [...res.data.body] })
-                console.log(res.data)
             })
             .catch(err => {
                 console.error(err)

@@ -2,13 +2,50 @@ import mongoose from "mongoose";
 const { Schema } = mongoose
 
 
+
+const FlightInfoSchema = new Schema({
+    flightNumber: {
+        type: String,
+        required: true
+    },
+    departureAirport: {
+        type: String,
+        required: true
+    },
+    destinationAirport: {
+        type: String,
+        required: true   
+    },
+    flightPrice: {
+        type: String,
+        required: true
+    },
+    flightTime: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: String,
+        required: true,
+    },
+    gate: {
+        type: String,
+        required: true,
+    },
+    flightStatus: {
+        type: String,
+        required: true
+    }
+})
+
+
 const PassengerSchema = new Schema({
     id: {
         type: String,
         required: true,
         unique: true
     },
-    departureId: {
+    departureAirport: {
         type: String,
         required: true
     },
@@ -24,10 +61,7 @@ const PassengerSchema = new Schema({
         type: String,
         required: true 
     },
-    flightNumber: {
-        type: String,
-        required: false          
-    }
+    flightInfo: {FlightInfoSchema}
 }, {timestamps: true})
 
 
