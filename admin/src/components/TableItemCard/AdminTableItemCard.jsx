@@ -8,8 +8,11 @@ const AdminTableItemCard = ({ fullName, role, id,  }) => {
     const formatRole = role === 'mainAdmin' ? "Главный администратор" : "Администратор"
 
     return (
-        <TableItemCard data={adminData} itemId={id} itemCategory='admins'>
-            
+        <TableItemCard 
+            data={adminData} 
+            itemId={id} 
+            itemCategory='admins'
+        > 
             <tbody>
                 <tr>
                     <td>ФИО Администратора:</td>

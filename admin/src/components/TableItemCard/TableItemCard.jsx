@@ -2,6 +2,7 @@ import EditItem from '../Popups/EditItem';
 import Trash from '../../assets/card/trash.svg'
 import Pencil from '../../assets/card/pencil.svg'
 import RemoveItem from '../Popups/RemoveItem'
+import { motion } from 'framer-motion';
 import { Tooltip } from '@chakra-ui/react'
 import { useState } from 'react'
 import './TableItemCard.scss'
@@ -20,7 +21,6 @@ const TableItemCard = ({ children, itemId, itemCategory, data }) => {
             {isEditOpenPopup ? <EditItem data={data} itemCategory={itemCategory} title="Редактирование" popupHandlerFunc={setIsEditOpenPopup} /> : null}
             {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
             <div className="body__item">
-
                 <div className="body__item__tools">
                     <Tooltip hasArrow label='Удалить' bg='#2c2c2c' color='#fff' placement='right'>
                         <div 

@@ -6,7 +6,11 @@ const AirportTableItemCard = ({ airportId, airportName, airportPlace }) => {
     const airportData = { airportName, airportPlace, airportId }
 
     return (
-        <TableItemCard data={airportData} itemId={airportId} itemCategory="airports" >
+        <TableItemCard 
+            data={airportData} 
+            itemId={airportId} 
+            itemCategory="airports" 
+        >
             <tbody>
                 <tr>
                     <td>Название аэрапорта:</td>

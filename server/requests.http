@@ -157,6 +157,17 @@ content-type: application/json
     "secretWord": "Ivan"
 }
 
+###
+POST http://localhost:5000/api/admins/create HTTP/1.1
+content-type: application/json
+
+{
+    "fullName": "Петров Петр Петрович",
+    "password": "Petr",
+    "secretWord": "Petr"
+}
+
+
 ### 
 POST http://localhost:5000/api/admins/login HTTP/1.1
 content-type: application/json
