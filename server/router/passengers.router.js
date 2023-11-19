@@ -41,19 +41,19 @@ passengerRouter.post('/create', async (req, res) => {
             return res.send({ error: "Это уже зарегистрированный пассажир" })
         }
 
-        const currentFlight = await Flight.findOne({ flightNumber: req.body.flightInfo.flightNumber })
-        const currentPlane = await Plane.findOne({ id: currentFlight.flightPlane })
-        const planeSeatsData = {
-            busyPlacesCount: currentPlane.busySeatCount,
-            freePlacesCount: currentPlane.freeSeatCount
-        }
+        // const currentFlight = await Flight.findOne({ flightNumber: req.body.flightInfo.flightNumber })
+        // const currentPlane = await Plane.findOne({ id: currentFlight.flightPlane })
+        // const planeSeatsData = {
+        //     busyPlacesCount: currentPlane.busySeatCount,
+        //     freePlacesCount: currentPlane.freeSeatCount
+        // }
 
-        await Plane.findByIdAndUpdate(
-            { id: currentFlight.flightPlane }, 
-            { 
-                busySeatCount: planeSeatsData.busyPlacesCount + 1,
-                freePlacesCount: planeSeatsData.freePlacesCount - 1
-            })
+        // await Plane.findByIdAndUpdate(
+        //     { id: currentFlight.flightPlane }, 
+        //     { 
+        //         busySeatCount: planeSeatsData.busyPlacesCount + 1,
+        //         freePlacesCount: planeSeatsData.freePlacesCount - 1
+        //     })
 
         // creating new passenger
         const passenger = new Passenger({ 

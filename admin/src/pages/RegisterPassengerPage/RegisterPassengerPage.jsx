@@ -277,11 +277,6 @@ const RegisterPassengerPage = () => {
 
     const nextStep = () => setCurrentStepIndex(prev => {
         const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
-        
-        // if (formData.flightInfo) {
-        //     return prev
-        // }
-
         if (prev + 1 <= 3 && isPassengerDataFilled) {
             return prev + 1
         } else {
@@ -296,19 +291,25 @@ const RegisterPassengerPage = () => {
 
         console.log(formData)
 
-        // await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
-        // .then(res => {
-        //     if (res.data.error) {
-        //         toastError("Данный пассажир уже существует")
-        //         return
-        //     }
-        //     toastSuccess("Новый пассажир успешно создан")
-        // })
-        // .catch(err => {
-        //     if (err.body.error) {
-        //         toastError("Что-то пошло не так, попробуйте позже")
-        //     }
-        // })
+        await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Данный пассажир уже существует")
+                return
+            }
+            toastSuccess("Новый пассажир успешно создан")
+
+
+            setTimeout(() => {
+                window.location = '/register-passenger'
+            }, 2000)
+            
+        })
+        .catch(err => {
+            if (err.body.error) {
+                toastError("Что-то пошло не так, попробуйте позже")
+            }
+        })
     }
 
     useEffect(() => {
