@@ -8,8 +8,6 @@ import { socket } from '../../socket.js';
 import { useState, useEffect } from 'react';
 
 
-
-
 const AdminsPage = () => {
 
     const [searchValue, setSearchValue] = useState('')

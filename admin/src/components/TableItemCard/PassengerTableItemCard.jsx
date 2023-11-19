@@ -2,8 +2,10 @@ import TableItemCard from './TableItemCard'
 
 const PassengerTableItemCard = ({ id, seatNumber, fullName, passport, flightNumber }) => {
 
+    const passengerData = { id, seatNumber, flightNumber, fullName }
+
     return (
-        <TableItemCard itemId={id} itemCategory="passengers" >
+        <TableItemCard data={passengerData} itemId={id} itemCategory="passengers" >
             <tbody>
                 <tr>
                     <td>ФИО пассажира</td>

@@ -17,10 +17,22 @@ const PassengersPage = () => {
     const searchHandler = (e) => {
         setSearchValue(e.target.value)
         
-        // const filteredAdmins = unChangedAdmins.filter(admin => {
-        //     const FoundByFullName = admin.fullName.toLowerCase().includes(e.target.value.toLowerCase())
-        //     if (FoundByFullName) return true
-        // })
+        const filteredPassengers = unChangedPassengers.filter(passenger => {
+            console.log(passenger)
+            const FoundByFullName = passenger.fullName.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPassport = passenger.passport.includes(e.target.value)
+            const FoundBySeatNumber = passenger.seatNumber.toLowerCase().includes(e.target.value.toLowerCase())
+
+            if (FoundByFullName || FoundByPassport || FoundBySeatNumber) return true
+        })
+
+        if (filteredPassengers[0] != false) {
+            setPassengers([...filteredPassengers])
+        }
+
+        if (e.target.value === '') {
+            socket.emit('passengersDataGet', {})
+        }
     }
 
 

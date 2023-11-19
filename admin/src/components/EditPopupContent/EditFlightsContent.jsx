@@ -1,14 +1,82 @@
 import { motion } from "framer-motion";
 import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from '@chakra-ui/icons';
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { endpoints } from "../../api";
+import { toastError } from "../../utils/toasts";
+import axios from "axios";
+
 
 const EditFlightsContent = ({ data }) => {
 
     const [formData, setFormData] = useState({...data}) 
+    const [airports, setAirports] = useState([])
+    const [planes, setPlanes] = useState([])
+
+    useEffect(() => {
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Не удалось загрузить список аэрапортов")
+                return 
+            }
+
+            setAirports(res.data.body)
+        })
+        .catch(() => {
+            toastError("Не удалось загрузить список аэрапортов")
+            return
+        })
+
+        axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.GET_FREE}`)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Что-то пошло не так, попробуйте позже")
+                return
+            }
+
+            setPlanes(res.data.body)
+        })
+        .catch(() => {
+            toastError("Не удалось загрузить список доступных самолетов")
+            return
+        })
+    }, [])
+
+
+
+
+    const selectAirport = (airport, target) => {
+        switch (target) {
+            case 'departure':
+                setFormData({ 
+                    ...formData, 
+                    departureAirport: `${airport.airportName} - ${airport.airportPlace}`,
+                    departureAirportId:  `${airport.airportId}`
+                })
+                break
+            case 'destination':
+                setFormData({ 
+                    ...formData, 
+                    destinationAirport: `${airport.airportName} - ${airport.airportPlace}`, 
+                    destinationAirportId: `${airport.airportId}`
+                })
+        }       
+    }
+
+    const selectPlane = (plane) => {
+        setFormData({ 
+            ...formData,
+            flightPlaneType: plane.planeType,
+            flightPlane: plane.id
+        })
+    } 
 
     const saveChanges = (e) => {
-        e.preventDefault()        
+        e.preventDefault() 
+        
+        
+
     }
 
     return (
@@ -31,7 +99,9 @@ const EditFlightsContent = ({ data }) => {
                             overflow={'auto'}
                             maxHeight={'230px'}
                             >
-                                
+                                {airports.length >= 1 && airports.map((airport) => (
+                                    <MenuItem onClick={() => selectAirport(airport, 'departure')} key={airport.airportId}>{airport.airportName} - {airport.airportPlace}</MenuItem>
+                                ))}
                         </MenuList>
                     </Menu>
                 </div>
@@ -52,7 +122,9 @@ const EditFlightsContent = ({ data }) => {
                             overflow={'auto'}
                             maxHeight={'230px'}
                             >
-                                
+                                {airports.length >= 1 && airports.map((airport) => (
+                                    <MenuItem onClick={() => selectAirport(airport, 'destination')} key={airport.airportId}>{airport.airportName} - {airport.airportPlace}</MenuItem>
+                                ))}   
                         </MenuList>
                     </Menu>
                 </div>
@@ -76,7 +148,9 @@ const EditFlightsContent = ({ data }) => {
                             overflow={'auto'}
                             maxHeight={'230px'}
                             >
-                                
+                                {planes.length >= 1 && planes.map((plane) => (
+                                    <MenuItem key={plane.id} onClick={() => selectPlane(plane)}>{plane.planeType}</MenuItem>
+                                ))}
                         </MenuList>
                     </Menu>
                 </div>

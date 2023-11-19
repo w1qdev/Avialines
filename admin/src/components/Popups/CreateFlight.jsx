@@ -33,6 +33,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         gate: "",
         flightTime: ""
     })
+
     const selectAirport = (airport, target) => {
         switch (target) {
             case 'departure':
@@ -158,9 +159,9 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                                 overflow={'auto'}
                                 maxHeight={'230px'}
                                 >
-                                {responseData.length >= 1 && responseData.map((airport) => (
-                                    <MenuItem key={airport.airportId} onClick={() => selectAirport(airport, 'departure')}>{airport.airportName} - {airport.airportPlace}</MenuItem>
-                                ))}
+                                    {responseData.length >= 1 && responseData.map((airport) => (
+                                        <MenuItem key={airport.airportId} onClick={() => selectAirport(airport, 'departure')}>{airport.airportName} - {airport.airportPlace}</MenuItem>
+                                    ))}
                             </MenuList>
                         </Menu>
                     </div>
