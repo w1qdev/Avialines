@@ -31,8 +31,9 @@ const steps = [
 ]
 
 
-const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
+const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, formData, setFormData}) => {
 
+    const [flightsSearchValue, setFlightsSearchValue] = useState('')
     const [isValid, setIsValid] = useState({
         fullName: false,
         passportSeries: false,
@@ -58,6 +59,31 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
         setFormData({ ...formData, seatNumber: currentPlace.seatName })
 
         toastInfo(`Место успешно выбрано: ${currentPlace.seatName}`)
+    }
+
+    const searchHandler = (e) => {
+        setFlightsSearchValue(e.target.value)
+
+        const filteredFlights = unChangedFlights.filter(flight => {
+            const FoundByName =  flight.flightNumber.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByDepartureAirport = flight.departureAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundBydestinationAirport = flight.destinationAirport.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByPrice = flight.flightPrice.toString().includes(e.target.value)
+
+            if (FoundByName ||
+                FoundByDepartureAirport ||
+                FoundBydestinationAirport ||
+                FoundByPrice) return true
+        })
+
+        if (filteredFlights[0] != false) {
+            setFlights([...filteredFlights])
+        }
+
+        if (e.target.value === '') {
+            socket.emit('flightsDataGet', {})
+        }
+
     }
 
 
@@ -115,7 +141,8 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                         className='input' 
                         type="text" 
                         placeholder='Поиск рейса' 
-
+                        value={flightsSearchValue}
+                        onChange={e => searchHandler(e)}
                     />
                 </div>
                 <div className="search__result">
@@ -145,7 +172,7 @@ const FormContent = ({ currentStepIndex, flights, formData, setFormData}) => {
                 exit={{ y: 10, opacity: 0 }} 
             >
                 <div className="plane__seats">
-                    {formData.planeSeatPlaces.length ? formData.planeSeatPlaces.map(place => {
+                    {formData.planeSeatPlaces?.length ? formData.planeSeatPlaces.map(place => {
                         return (
                             <div 
                                 key={place.id} 
@@ -235,6 +262,7 @@ const RegisterPassengerPage = () => {
     
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const [isFetching, setIsFetching] = useState(false)
+    const [unChangedFlights, setUnChangedFlights] = useState([])
     const [flights, setFlights] = useState([])
     const [formData, setFormData] = useState({
         fullName: '',
@@ -249,6 +277,11 @@ const RegisterPassengerPage = () => {
 
     const nextStep = () => setCurrentStepIndex(prev => {
         const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
+        
+        // if (formData.flightInfo) {
+        //     return prev
+        // }
+
         if (prev + 1 <= 3 && isPassengerDataFilled) {
             return prev + 1
         } else {
@@ -290,6 +323,7 @@ const RegisterPassengerPage = () => {
         const response = (data) => {
             if (data.body.length) {
                 setFlights(data.body)
+                setUnChangedFlights(data.body)
                 console.log(data.body)
             }
             setIsFetching(false)
@@ -338,6 +372,8 @@ const RegisterPassengerPage = () => {
                 <FormContent 
                     currentStepIndex={currentStepIndex}  
                     flights={flights}
+                    setFlights={setFlights}
+                    unChangedFlights={unChangedFlights}
                     formData={formData}
                     setFormData={setFormData}
                 />

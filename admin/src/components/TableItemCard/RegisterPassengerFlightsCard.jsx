@@ -17,9 +17,29 @@ const RegisterPassengerFlightsCard = ({
         formData,
         setFormData
     }) => {
-    
-    const clickHandler = async () => {
-        setFormData({...formData, flightInfo: {
+
+    const clickHandler = () => {
+        
+
+        // console.log(formData)
+
+        // const currentFlightNumber = flightNumber;
+        // axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
+        // .then(res => {
+        //     if (res.data.error) {
+        //         toastError("Что-то пошло не так, попробуйте позже")
+        //         return
+        //     }
+        //     setFormData({ ...formData, planeSeatPlaces: [...res.data.body] })
+        //     toastInfo(`Рейс успешно выбран!`)
+        // })
+        // .catch(err => {
+        //     console.log(err)
+        //     toastError("Что-то пошло не так, попробуйте позже")
+        // })
+
+
+        setFormData(prevState => ({ ...prevState, flightInfo: {
             flightNumber,
             departureAirport, 
             destinationAirport, 
@@ -28,17 +48,21 @@ const RegisterPassengerFlightsCard = ({
             date,
             gate,
             flightStatus
-        }})
+        } }))
+
+        // setFormData({...formData, })
 
         console.log(formData)
 
-        toastInfo(`Рейс успешно выбран`)
 
-        if (formData.flightInfo?.flightNumber) {
-            const currentFlightNumber = formData.flightInfo?.flightNumber
-            await axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
+        if (flightNumber) {
+            toastInfo(`Рейс успешно выбран`)
+            const currentFlightNumber = flightNumber
+            axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
             .then(res => {
-                setFormData({ ...formData, planeSeatPlaces: [...res.data.body] })
+                setFormData(prevState => (
+                    { ...prevState, planeSeatPlaces: [...res.data.body] }
+                ))
             })
             .catch(err => {
                 console.error(err)
