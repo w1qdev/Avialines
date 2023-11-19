@@ -14,11 +14,11 @@ import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
-import NoItems from '../../components/NoItems/NoItems'
-import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem'
-import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard'
+import NoItems from '../../components/NoItems/NoItems.jsx'
+import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem.jsx'
+import RegisterPassengerFlightsCard from '../../components/TableItemCard/RegisterPassengerFlightsCard.jsx'
 import { calculateLastCallTime } from '../../utils/calculateLastCallTime.js'
-import './RegisterPassenger.scss'
+import './RegisterPassengerPage.scss'
 import axios from 'axios'
 import { toastError, toastInfo, toastSuccess } from '../../utils/toasts.js'
 import { endpoints } from '../../api/index.js'
@@ -294,19 +294,21 @@ const RegisterPassengerPage = () => {
 
         setFormData({ ...formData, planeSeatPlaces: null })
 
-        await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
-        .then(res => {
-            if (res.data.error) {
-                toastError("Данный пассажир уже существует")
-                return
-            }
-            toastSuccess("Новый пассажир успешно создан")
-        })
-        .catch(err => {
-            if (err.body.error) {
-                toastError("Что-то пошло не так, попробуйте позже")
-            }
-        })
+        console.log(formData)
+
+        // await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
+        // .then(res => {
+        //     if (res.data.error) {
+        //         toastError("Данный пассажир уже существует")
+        //         return
+        //     }
+        //     toastSuccess("Новый пассажир успешно создан")
+        // })
+        // .catch(err => {
+        //     if (err.body.error) {
+        //         toastError("Что-то пошло не так, попробуйте позже")
+        //     }
+        // })
     }
 
     useEffect(() => {

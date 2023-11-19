@@ -2,8 +2,8 @@ import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import AuthPage from './pages/AuthPage/AuthPage.jsx'
 import Sidebar from './layout/Sidebar.jsx';
-import PanelPage from './pages/PanelPage/PanelPage.jsx';
-import RegisterPassengerPage from './pages/RegisterPassenger/RegisterPassenger.jsx'
+// import PanelPage from './pages/PanelPage/PanelPage.jsx';
+import RegisterPassengerPage from './pages/RegisterPassengerPage/RegisterPassengerPage.jsx'
 import FlightsPage from './pages/FlightsPage/FlightsPage.jsx';
 import AirportsPage from './pages/AirportsPage/AirportsPage.jsx';
 import PlanesPage from './pages/PlanesPage/PlanesPage.jsx';

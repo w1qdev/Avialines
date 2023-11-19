@@ -2,6 +2,8 @@ import { Router } from "express";
 import { v4 as uuidv4 } from 'uuid';
 import { error } from '../utils/chalk.js'
 import Passenger from "../models/Passenger.js";
+import Flight from "../models/Flight.js";
+import Plane from "../models/Plane.js";
 
 
 export const passengerRouter = Router()
@@ -36,8 +38,22 @@ passengerRouter.post('/create', async (req, res) => {
         const isNewPassenger =  await Passenger.findOne({ passport: passportData})
 
         if (isNewPassenger ) {
-            return res.send({ error: "This user already passenger" })
+            return res.send({ error: "Это уже зарегистрированный пассажир" })
         }
+
+        const currentFlight = await Flight.findOne({ flightNumber: req.body.flightInfo.flightNumber })
+        const currentPlane = await Plane.findOne({ id: currentFlight.flightPlane })
+        const planeSeatsData = {
+            busyPlacesCount: currentPlane.busySeatCount,
+            freePlacesCount: currentPlane.freeSeatCount
+        }
+
+        await Plane.findByIdAndUpdate(
+            { id: currentFlight.flightPlane }, 
+            { 
+                busySeatCount: planeSeatsData.busyPlacesCount + 1,
+                freePlacesCount: planeSeatsData.freePlacesCount - 1
+            })
 
         // creating new passenger
         const passenger = new Passenger({ 

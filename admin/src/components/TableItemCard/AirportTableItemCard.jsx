@@ -17,7 +17,7 @@ const AirportTableItemCard = ({ airportId, airportName, airportPlace }) => {
                     <td>{airportName}</td>
                 </tr>
                 <tr>
-                    <td>Место нахождение:</td>
+                    <td>Местонахождение:</td>
                     <td>{airportPlace}</td>
                 </tr>
             </tbody>
