@@ -60,7 +60,6 @@ const FlightsPage = () => {
         const response = (data) => {
             if (data.body.length) {
                 setFlights(data.body)
-                console.log(data.body)
                 setUnChangedFligths(data.body)
             }
             setIsFetching(false)

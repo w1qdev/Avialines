@@ -324,7 +324,6 @@ const RegisterPassengerPage = () => {
             if (data.body.length) {
                 setFlights(data.body)
                 setUnChangedFlights(data.body)
-                console.log(data.body)
             }
             setIsFetching(false)
         }

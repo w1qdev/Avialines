@@ -19,25 +19,6 @@ const RegisterPassengerFlightsCard = ({
     }) => {
 
     const clickHandler = () => {
-        
-
-        // console.log(formData)
-
-        // const currentFlightNumber = flightNumber;
-        // axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.PLANE}/${currentFlightNumber}`)
-        // .then(res => {
-        //     if (res.data.error) {
-        //         toastError("Что-то пошло не так, попробуйте позже")
-        //         return
-        //     }
-        //     setFormData({ ...formData, planeSeatPlaces: [...res.data.body] })
-        //     toastInfo(`Рейс успешно выбран!`)
-        // })
-        // .catch(err => {
-        //     console.log(err)
-        //     toastError("Что-то пошло не так, попробуйте позже")
-        // })
-
 
         setFormData(prevState => ({ ...prevState, flightInfo: {
             flightNumber,
@@ -49,11 +30,6 @@ const RegisterPassengerFlightsCard = ({
             gate,
             flightStatus
         } }))
-
-        // setFormData({...formData, })
-
-        console.log(formData)
-
 
         if (flightNumber) {
             toastInfo(`Рейс успешно выбран`)

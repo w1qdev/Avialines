@@ -93,8 +93,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             toastError("Место назначения и вылета одинаковые!")
             setFormData({ ...formData, destinationAirport: "" })
         }     
-        
-        console.log(formData)
     }, [formData])
 
     const createFlight = async (e) => {

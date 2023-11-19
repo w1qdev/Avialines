@@ -18,7 +18,6 @@ const PassengersPage = () => {
         setSearchValue(e.target.value)
         
         const filteredPassengers = unChangedPassengers.filter(passenger => {
-            console.log(passenger)
             const FoundByFullName = passenger.fullName.toLowerCase().includes(e.target.value.toLowerCase())
             const FoundByPassport = passenger.passport.includes(e.target.value)
             const FoundBySeatNumber = passenger.seatNumber.toLowerCase().includes(e.target.value.toLowerCase())
