@@ -1,16 +1,23 @@
 import { useState } from "react";
 import { isDataFilled } from "../../utils/isDataFilled";
 import { motion } from 'framer-motion'
+import { toastError } from "../../utils/toasts";
 import axios from "axios";
 
-const EditPassengersContent = ({ data }) => {
+const EditPassengersContent = ({ data, popupHandlerFunc }) => {
     const [formData, setFormData] = useState({...data})
 
     const saveChanges = (e) => {
         e.preventDefault()
 
+        const isFormDataFilled = isDataFilled(formData)
 
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
 
+        // TODO: add functionality
     }
 
     return (

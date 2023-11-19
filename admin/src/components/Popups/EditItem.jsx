@@ -7,13 +7,13 @@ import Popup from './Popup'
 import './Popup.scss'
 
 
-const EditItemContent = ({ itemCategory, data }) => {
+const EditItemContent = ({ itemCategory, data, popupHandlerFunc }) => {
     const categories = {
-        'flights': <EditFlightsContent data={data} />,
-        'airports': <EditAirportsContent data={data} />,
-        'admins': <EditAdminsContent data={data} />,
-        'passengers': <EditPassengersContent data={data} />,
-        'planes': <EditPlanesContent data={data} />
+        'flights': <EditFlightsContent data={data} popupHandlerFunc={popupHandlerFunc} />,
+        'airports': <EditAirportsContent data={data} popupHandlerFunc={popupHandlerFunc} />,
+        'admins': <EditAdminsContent data={data} popupHandlerFunc={popupHandlerFunc} />,
+        'passengers': <EditPassengersContent data={data} popupHandlerFunc={popupHandlerFunc} />,
+        'planes': <EditPlanesContent data={data} popupHandlerFunc={popupHandlerFunc} />
     }
 
     return categories[itemCategory]
@@ -23,7 +23,7 @@ const EditItem = ({ title, popupHandlerFunc, itemCategory, data }) => {
 
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc} >
-            <EditItemContent data={data} itemCategory={itemCategory} />
+            <EditItemContent data={data} itemCategory={itemCategory} popupHandlerFunc={popupHandlerFunc} />
         </Popup>
     )
 }

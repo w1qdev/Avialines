@@ -4,12 +4,13 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { endpoints } from "../../api";
 import { isDataFilled } from "../../utils/isDataFilled";
+import { socket } from "../../socket";
 import { useState } from "react";
 import './EditContent.scss'
 import axios from "axios";
 
 
-const EditAdminsContent = ({ data }) => {
+const EditAdminsContent = ({ data, popupHandlerFunc }) => {
 
     const [formData, setFormData] = useState({
         ...data,
@@ -37,8 +38,8 @@ const EditAdminsContent = ({ data }) => {
                 toastError(res.data.error)
             } else {
                 toastSuccess("Данные администратора успешно изменены!")
-                // popupHandlerFunc(prev => !prev)
-                // socket.emit('isAdminsUpdate', { status: true })
+                popupHandlerFunc(prev => !prev)
+                socket.emit('isAdminsUpdate', { status: true })
             }
         })
     }

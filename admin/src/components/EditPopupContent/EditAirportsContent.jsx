@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { isDataFilled } from "../../utils/isDataFilled";
 import { toastError, toastSuccess } from "../../utils/toasts";
 import { endpoints } from '../../api/index';
+import { socket } from "../../socket";
 import axios from "axios";
 import { useState } from "react";
 
 
 
-const EditAirportsContent = ({ data }) => {
+const EditAirportsContent = ({ data, popupHandlerFunc }) => {
 
     const [formData, setFormData] = useState({...data})
 
@@ -29,7 +30,13 @@ const EditAirportsContent = ({ data }) => {
                 toastError(res.data.error)
             } else {
                 toastSuccess("Данные Аэрапорта успешно изменены!")
+                popupHandlerFunc(prev => !prev)
+                socket.emit('isAirportsUpdate', { status: true })
             }
+        })
+        .catch(err => {
+            console.log(err)
+            toastError("Что-то пошло не так, попробуйте позже")
         })
     }
     

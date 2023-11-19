@@ -3,10 +3,11 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { endpoints } from "../../api";
 import axios from "axios";
 import { motion } from "framer-motion";
+import { socket } from "../../socket";
 import { useState } from "react";
 import { toastError, toastSuccess } from "../../utils/toasts";
 
-const EditPlanesContent = ({ data }) => {
+const EditPlanesContent = ({ data, popupHandlerFunc }) => {
 
     const [formData, setFormData] = useState({
         ...data,
@@ -24,6 +25,8 @@ const EditPlanesContent = ({ data }) => {
         await axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.PLANES.CHANGE}`, newPlaneData)
         .then(res => {
             toastSuccess("Изменения успешно сохранены!")
+            popupHandlerFunc(prev => !prev)
+            socket.emit('isPlanesUpdate', { status: true })
         })
         .catch(err => {
             console.log(err)

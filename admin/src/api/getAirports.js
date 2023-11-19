@@ -13,7 +13,8 @@ const getAirports = async () => {
 
         return res.data.body
     })
-    .catch(() => {
+    .catch(err => {
+        console.log(err)
         toastError("Не удалось загрузить список аэрапортов")
         return
     })

@@ -3,11 +3,12 @@ import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
 import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from "react";
 import { endpoints } from "../../api";
+import { isDataFilled } from "../../utils/isDataFilled";
 import { toastError } from "../../utils/toasts";
 import axios from "axios";
 
 
-const EditFlightsContent = ({ data }) => {
+const EditFlightsContent = ({ data, popupHandlerFunc }) => {
 
     const [formData, setFormData] = useState({...data}) 
     const [airports, setAirports] = useState([])
@@ -75,8 +76,14 @@ const EditFlightsContent = ({ data }) => {
     const saveChanges = (e) => {
         e.preventDefault() 
         
-        
+        const isFormDataFilled = isDataFilled(formData)
 
+        if (isFormDataFilled) {
+            toastError("Кажется, вы что-то не указали")
+            return
+        } 
+
+        // TODO: add functionality
     }
 
     return (
