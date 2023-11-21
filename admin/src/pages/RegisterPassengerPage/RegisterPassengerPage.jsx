@@ -56,9 +56,14 @@ const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, 
     }
 
     const addPassengerPlace = (currentPlace) => {
-        setFormData({ ...formData, seatNumber: currentPlace.seatName })
 
-        toastInfo(`Место успешно выбрано: ${currentPlace.seatName}`)
+        if (currentPlace.status != 'busy') {
+            setFormData({ ...formData, seatNumber: currentPlace.seatName })
+            toastInfo(`Место успешно выбрано: ${currentPlace.seatName}`)
+            return
+        }
+
+        toastInfo("Данное место уже занято! Попробуйте выбрать другое")
     }
 
     const searchHandler = (e) => {
@@ -302,7 +307,7 @@ const RegisterPassengerPage = () => {
 
             setTimeout(() => {
                 window.location = '/register-passenger'
-            }, 2000)
+            }, 5000)
             
         })
         .catch(err => {

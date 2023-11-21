@@ -37,23 +37,37 @@ passengerRouter.post('/create', async (req, res) => {
 
         const isNewPassenger =  await Passenger.findOne({ passport: passportData})
 
-        if (isNewPassenger ) {
+        if (isNewPassenger != null) {
             return res.send({ error: "Это уже зарегистрированный пассажир" })
         }
 
-        // const currentFlight = await Flight.findOne({ flightNumber: req.body.flightInfo.flightNumber })
-        // const currentPlane = await Plane.findOne({ id: currentFlight.flightPlane })
-        // const planeSeatsData = {
-        //     busyPlacesCount: currentPlane.busySeatCount,
-        //     freePlacesCount: currentPlane.freeSeatCount
-        // }
+        const currentFlight = await Flight.findOne({ flightNumber: req.body.flightInfo.flightNumber })
+        const currentPlane = await Plane.findOne({ id: currentFlight.flightPlane })
 
-        // await Plane.findByIdAndUpdate(
-        //     { id: currentFlight.flightPlane }, 
-        //     { 
-        //         busySeatCount: planeSeatsData.busyPlacesCount + 1,
-        //         freePlacesCount: planeSeatsData.freePlacesCount - 1
-        //     })
+        // change free and busy places in the plane
+        const busySeatCount = currentPlane.busySeatCount;
+        const freeSeatCount = currentPlane.freeSeatCount;
+
+        // const newPlanePlaces = currentPlane.seatPlaces.map(place => {
+        //     if (place.seatName === seatNumber) {
+        //         return { ...place, status: 'busy' }
+        //     }
+        // })
+
+        for (let i = 0; i < currentPlane.seatPlaces.length; i++) {
+            console.log(req.body)
+
+            if (currentPlane.seatPlaces[i].seatName == req.body.seatNumber) {
+                currentPlane.seatPlaces[i].status = 'busy'
+            }
+        }
+
+        await Plane.findOneAndUpdate({ id: currentFlight.flightPlane }, { 
+            busySeatCount: busySeatCount + 1, 
+            freeSeatCount: freeSeatCount - 1,
+            seatPlaces: [ ...currentPlane.seatPlaces ]
+        })
+
 
         // creating new passenger
         const passenger = new Passenger({ 
@@ -67,7 +81,7 @@ passengerRouter.post('/create', async (req, res) => {
         .then(() => {
             return res.send({ message: "New user has been successfully created" })
         })
-        .catch(() => {
+        .catch(err => {
             return res.send({ error: "New user hasn't been successfully created" })
         })
     } catch (e) {
