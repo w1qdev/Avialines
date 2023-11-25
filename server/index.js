@@ -141,7 +141,7 @@ io.on('connection', (socket) => {
         }
     })
 
-    socket.on('passengersUpdate', (req) => {
+    socket.on('isPassengersUpdate', (req) => {
         if (req.status) {
             socket.emit('passengersUpdate')
         }
