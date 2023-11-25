@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { isDataFilled } from '../../utils/isDataFilled'
 import { toastError, toastSuccess } from '../../utils/toasts'
 import axios from 'axios'
+import { socket } from '../../socket'
 import { motion } from 'framer-motion'
 import { endpoints } from '../../api'
 
@@ -37,6 +38,8 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
         await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PLANES.ROUTE}${endpoints.FLIGHTS.CREATE}`, formData)
         .then(res => {
             toastSuccess("Данные самолета успешно сохранены")
+            popupHandlerFunc(prev => !prev)
+            socket.emit('isPlanesUpdate', { status: true })
         })
         .catch(err => {
             console.error(err)

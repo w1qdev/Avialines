@@ -22,6 +22,7 @@ import './RegisterPassengerPage.scss'
 import axios from 'axios'
 import { toastError, toastInfo, toastSuccess } from '../../utils/toasts.js'
 import { endpoints } from '../../api/index.js'
+import { Spinner } from '@chakra-ui/react'
 
 
 const steps = [
@@ -262,12 +263,25 @@ const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, 
     }
 }
 
+const ButtonContent = ({ isCreateNewPassengerFetching, currentStepIndex, stepsLength }) => {
+    if (isCreateNewPassengerFetching) {
+        return <Spinner />
+    } 
+
+    if (currentStepIndex >= stepsLength) {
+        return "Сохранить и распечатать билет"
+    } else {
+        return "Продолжить"
+    }
+}
+
 
 const RegisterPassengerPage = () => {
     
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const [isFetching, setIsFetching] = useState(false)
     const [unChangedFlights, setUnChangedFlights] = useState([])
+    const [isCreateNewPassengerFetching, setIsCreateNewPassengerFetching] = useState(false)
     const [flights, setFlights] = useState([])
     const [formData, setFormData] = useState({
         fullName: '',
@@ -278,7 +292,8 @@ const RegisterPassengerPage = () => {
         planeSeatPlaces: []
     })
     
-    const buttonText = currentStepIndex >= steps.length ? "Сохранить и распечатать билет" : "Продолжить"
+    // const buttonText = currentStepIndex >= steps.length ? "Сохранить и распечатать билет" : "Продолжить"
+
 
     const nextStep = () => setCurrentStepIndex(prev => {
         const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
@@ -291,18 +306,19 @@ const RegisterPassengerPage = () => {
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
 
     const savePassengerAndPrintTicket = async () => {
+        setIsCreateNewPassengerFetching(prev => !prev)
 
         setFormData({ ...formData, planeSeatPlaces: null })
-
-        console.log(formData)
 
         await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CREATE}`, formData)
         .then(res => {
             if (res.data.error) {
                 toastError("Данный пассажир уже существует")
+                setIsCreateNewPassengerFetching(prev => !prev)
                 return
             }
             toastSuccess("Новый пассажир успешно создан")
+            setIsCreateNewPassengerFetching(prev => !prev)
 
 
             setTimeout(() => {
@@ -404,7 +420,11 @@ const RegisterPassengerPage = () => {
                             onClick={savePassengerAndPrintTicket}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            >{buttonText}
+                            >{<ButtonContent 
+                                currentStepIndex={currentStepIndex}
+                                isCreateNewPassengerFetching={isCreateNewPassengerFetching}
+                                stepsLength={steps.length}
+                            />}
                         </motion.button>
                     ) : (
                         <motion.button 
@@ -412,7 +432,11 @@ const RegisterPassengerPage = () => {
                             onClick={nextStep}
                             whileHover={{ scale: 1.02 }}
                             whileTap={{ scale: 0.98 }}
-                            >{buttonText}
+                            >{<ButtonContent 
+                                currentStepIndex={currentStepIndex}
+                                isCreateNewPassengerFetching={isCreateNewPassengerFetching}
+                                stepsLength={steps.length}
+                            />}
                         </motion.button>
                     )}
 

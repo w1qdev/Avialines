@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from "react";
 import { endpoints } from "../../api";
 import { isDataFilled } from "../../utils/isDataFilled";
-import { toastError } from "../../utils/toasts";
+import { toastError, toastSuccess } from "../../utils/toasts";
 import axios from "axios";
 
 
@@ -75,7 +75,9 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
 
     const saveChanges = (e) => {
         e.preventDefault() 
-        
+
+        console.log(formData)
+
         const isFormDataFilled = isDataFilled(formData)
 
         if (isFormDataFilled) {

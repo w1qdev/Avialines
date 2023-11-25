@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { isDataFilled } from "../../utils/isDataFilled";
 import { motion } from 'framer-motion'
-import { toastError } from "../../utils/toasts";
+import { toastError, toastSuccess } from "../../utils/toasts";
 import axios from "axios";
+import { endpoints } from "../../api";
+import { socket } from "../../socket";
 
 const EditPassengersContent = ({ data, popupHandlerFunc }) => {
     const [formData, setFormData] = useState({...data})
@@ -17,7 +19,17 @@ const EditPassengersContent = ({ data, popupHandlerFunc }) => {
             return
         } 
 
-        // TODO: add functionality
+        axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.PASSENGERS.ROUTE}${endpoints.PASSENGERS.CHANGE}`, formData)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Что-то пошло не так, данные пассажира не были изменены")
+                return
+            }
+
+            toastSuccess("Данные пассажира успешно изменены")
+            popupHandlerFunc(prev => !prev)
+            socket.emit('isPassengersUpdate', { status: true })
+        })
     }
 
     return (

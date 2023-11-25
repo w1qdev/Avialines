@@ -8,19 +8,20 @@ const AirportTableItemCard = ({ airportId, airportName, airportPlace }) => {
     return (
         <TableItemCard 
             data={airportData} 
-            itemId={airportId} 
+            itemId={airportId}
             itemCategory="airports" 
         >
-            <tbody>
-                <tr>
-                    <td>Название аэрапорта:</td>
-                    <td>{airportName}</td>
-                </tr>
-                <tr>
-                    <td>Местонахождение:</td>
-                    <td>{airportPlace}</td>
-                </tr>
-            </tbody>
+            <div className='table-item'>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>Название аэрапорта:</div>
+                    <div className='table-item__category__info'>{airportName}</div>
+                </div>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>Местонахождение:</div>
+                    <div className='table-item__category__info'>{airportPlace}</div>
+                </div>
+            </div>
+            
         </TableItemCard>
     )
 }

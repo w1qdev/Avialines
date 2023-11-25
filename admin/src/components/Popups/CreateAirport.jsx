@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { toastError } from "../../utils/toasts";
+import { toastError, toastSuccess } from "../../utils/toasts";
 import { isDataFilled } from "../../utils/isDataFilled";
+import axios from "axios";
 import Popup from "./Popup";
+import { socket } from "../../socket";
+import { endpoints } from "../../api";
 
 const CreateAirport = ({ title, popupHandlerFunc }) => {
 
@@ -20,6 +23,18 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
             toastError("Кажется, вы что-то не указали")
             return
         } 
+
+        axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.CREATE}`, formData)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Что-то пошло не так, самолет не удалось сохранить, попробуйте позже")
+                return
+            }
+
+            toastSuccess("Самолет успешно добавлен")
+            popupHandlerFunc(prev => !prev)
+            socket.emit('isAirportsUpdate', { status: true })
+        })
     }
 
     return (

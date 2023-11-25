@@ -118,7 +118,8 @@ flightRouter.delete('/remove/:itemId', async (req, res) => {
         const flightPlane = await Plane.findOneAndUpdate({ 
             id: removeFlight.flightPlane 
         }, {
-            status: 'free'
+            status: 'free',
+            busySeatCount: 0
         })
 
         if (!removeFlight) {

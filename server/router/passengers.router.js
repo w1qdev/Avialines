@@ -93,11 +93,11 @@ passengerRouter.post('/create', async (req, res) => {
 // [PUT] http://localhost:5000/api/passengers/change
 passengerRouter.put('/change', async (req, res) => {
     try {
-        const { passport, seatNumber } = req.body  
+        const { id, fullName } = req.body  
 
         // change data about passenger
-        const existsPassenger = await Passenger.findOneAndUpdate({ "passport": passport }, {
-            seatNumber, ...req.body 
+        const existsPassenger = await Passenger.findOneAndUpdate({ id }, {
+            fullName
         })
 
         if (!existsPassenger) {

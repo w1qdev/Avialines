@@ -14,7 +14,7 @@ const FlightTableItemCard = ({ flight }) => {
             itemId={flight.flightNumber} 
             itemCategory="flights"
         >
-            <tbody>
+            <div className='table-item'>
                 <tr>
                     <td>Номер рейса</td>
                     <td>{flight.flightNumber}</td>
@@ -46,7 +46,7 @@ const FlightTableItemCard = ({ flight }) => {
                         <td className={`flight-status ${status[0]}`}>{status[1]}</td>
                     </Tooltip>
                 </tr>
-            </tbody>
+            </div>
         </TableItemCard>
     )
 }

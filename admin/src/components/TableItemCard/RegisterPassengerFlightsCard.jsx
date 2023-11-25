@@ -54,7 +54,7 @@ const RegisterPassengerFlightsCard = ({
             className="search__result__item"
             onClick={clickHandler}
         >
-            <tbody>
+            <div className='table-item'>
                 <tr>
                     <td className='td__title'>Номер рейса</td>
                     <td className='td__info'>{flightNumber}</td>
@@ -75,7 +75,7 @@ const RegisterPassengerFlightsCard = ({
                     <td className='td__title'>Состояние рейса</td>
                     <td className={`td__info ${currentStatus[0]}`}>{currentStatus[1]}</td>
                 </tr>
-            </tbody>
+            </div>
         </div>
     )
 }   

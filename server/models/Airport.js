@@ -15,7 +15,7 @@ const AirportSchema = new Schema({
     airportPlace: {
         type: String,
         required: true
-    }
+    },
 }, {timestamps: true})
 
 // Creating Airport Model

@@ -24,7 +24,7 @@ const PlaneTableItemCard = ({ id, planeType, seatCount, status, freeSeatCount, b
 
     return (
         <TableItemCard data={planeData} itemId={id} itemCategory="planes" >
-            <tbody>
+            <div className='table-item'>
                 <tr>
                     <td>Тип</td>
                     <td>{planeType}</td>
@@ -41,7 +41,7 @@ const PlaneTableItemCard = ({ id, planeType, seatCount, status, freeSeatCount, b
                     <td>Свободно</td>
                     <td>{freeSeatCount != undefined && status === 'busy' ? freeSeatCount : null} мест</td>
                 </tr>
-            </tbody>
+            </div>
 
 
             {/* <Menu>   

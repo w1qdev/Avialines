@@ -13,16 +13,16 @@ const AdminTableItemCard = ({ fullName, role, id,  }) => {
             itemId={id} 
             itemCategory='admins'
         > 
-            <tbody>
-                <tr>
-                    <td>ФИО Администратора:</td>
-                    <td>{fullName}</td>
-                </tr>
-                <tr>
-                    <td>Уровень:</td>
-                    <td className={`role ${role === 'mainAdmin' ? 'main' : 'sub' }`}>{formatRole}</td>
-                </tr>
-            </tbody>
+            <div className='table-item'>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>ФИО Администратора:</div>
+                    <div className='table-item__category__info'>{fullName}</div>
+                </div>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>Уровень:</div>
+                    <div className={`table-item__category__info role ${role === 'mainAdmin' ? 'main' : 'sub' }`}>{formatRole}</div>
+                </div>
+            </div>
         </TableItemCard>
     )
 }

@@ -6,20 +6,20 @@ const PassengerTableItemCard = ({ id, seatNumber, fullName, passport, flightNumb
 
     return (
         <TableItemCard data={passengerData} itemId={id} itemCategory="passengers" >
-            <tbody>
-                <tr>
-                    <td>ФИО пассажира</td>
-                    <td>{fullName}</td>
-                </tr>
-                <tr>
-                    <td>Номер рейса</td>
-                    <td>{flightNumber}</td>
-                </tr>
-                <tr>
-                    <td>Номер места</td>
-                    <td>{seatNumber}</td>
-                </tr>
-            </tbody>
+            <div className='table-item'>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>ФИО пассажира</div>
+                    <div className='table-item__category__info'>{fullName}</div>
+                </div>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>Номер рейса</div>
+                    <div className='table-item__category__info'>{flightNumber}</div>
+                </div>
+                <div className='table-item__category'>
+                    <div className='table-item__category__title'>Номер места</div>
+                    <div className='table-item__category__info'>{seatNumber}</div>
+                </div>
+            </div>
         </TableItemCard>
     )
 }
