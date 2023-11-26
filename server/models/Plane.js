@@ -66,7 +66,6 @@ const PlaneSchema = new Schema({
         type: String,
         required: true
     },
-    planeCrew: [CrewSchema],
     seatPlaces: [SeatPlace]
 })
 
