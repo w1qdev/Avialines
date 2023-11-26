@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from "react";
 import { endpoints } from "../../api";
 import { isDataFilled } from "../../utils/isDataFilled";
-import { toastError, toastSuccess } from "../../utils/toasts";
+import { toastError } from "../../utils/toasts";
 import axios from "axios";
 
 

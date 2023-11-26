@@ -55,8 +55,6 @@ passengerRouter.post('/create', async (req, res) => {
         // })
 
         for (let i = 0; i < currentPlane.seatPlaces.length; i++) {
-            console.log(req.body)
-
             if (currentPlane.seatPlaces[i].seatName == req.body.seatNumber) {
                 currentPlane.seatPlaces[i].status = 'busy'
             }

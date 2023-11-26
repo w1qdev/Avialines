@@ -77,8 +77,6 @@ adminRouter.post('/login', async (req, res) => {
     try {
         const { fullName, password, secretWord } = req.body
 
-        console.log(req.body)
-
         const admin = await Admin.findOne({ fullName })
 
         if (!admin) {
@@ -109,8 +107,6 @@ adminRouter.post('/login', async (req, res) => {
 // [PUT] http://localhost:3000/api/admins/change
 adminRouter.put('/change', async (req, res) => {
     try {
-        // TODO: change admin data
-        // FIXME: Admin data not changing
         let { id, fullName, role } = req.body
         role = role === 'Главный администратор' ? 'mainAdmin' : 'subAdmin'
 
@@ -135,7 +131,6 @@ adminRouter.put('/change', async (req, res) => {
 // [DELETE] http://localhost:3000/api/admins/remove
 adminRouter.delete('/remove/:id', async (req, res) => {
     try {
-        // TODO: remove admin [only main admin]
         const { id } = req.params
 
         const removedAdmin = await Admin.findOneAndRemove({ id })

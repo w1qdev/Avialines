@@ -44,6 +44,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                 })
                 break
             case 'destination':
+                
+
                 setFormData({ 
                     ...formData, 
                     destinationAirport: `${airport.airportName} - ${airport.airportPlace}`, 

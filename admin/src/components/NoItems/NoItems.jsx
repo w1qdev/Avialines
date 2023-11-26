@@ -4,7 +4,7 @@ import './NoItems.scss'
 
 
 const NoItems = ({ title, UpdateButton = true, socketEmitEndpoint = "isFlightsUpdate" }) => {
-
+    
     const Update = () => {
         socket.emit(socketEmitEndpoint, { status: true })
     }

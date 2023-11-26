@@ -83,8 +83,6 @@ airportRouter.delete('/remove/:airportId', async (req, res) => {
     try {
         const { airportId } = req.params
 
-        console.log(airportId)
-
         const removedAirport = await Airport.findOneAndRemove({ airportId }) 
         
         if (!removedAirport) {

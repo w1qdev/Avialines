@@ -4,13 +4,14 @@ import { flightStatus } from '../../utils/flightsStatus.js'
 import { Tooltip } from '@chakra-ui/react'
 import './TableItemCard.scss'
 
+
 const FlightTableItemCard = ({ flight }) => {
 
     const [status, setStatus] = useState(flightStatus[flight.flightStatus])
-
+   
     return (
         <TableItemCard 
-            data={flight} 
+            data={flight}
             itemId={flight.flightNumber} 
             itemCategory="flights"
         >

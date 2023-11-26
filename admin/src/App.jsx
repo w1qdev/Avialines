@@ -12,7 +12,6 @@ import PassengersPage from './pages/PassengersPage/PassengersPage.jsx';
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
 function App() {
 
     const isAuthorized = !!localStorage.getItem('token')
@@ -29,6 +28,7 @@ function App() {
                     <Route path='planes' element={<PlanesPage />} />
                     <Route path='admins' element={<AdminsPage />} />
                     <Route path='passengers' element={<PassengersPage />} />
+                    <Route path='*' element={<RegisterPassengerPage />} />
                 </Route>
             </Routes>
         </>
