@@ -2,7 +2,6 @@ import EditItem from '../Popups/EditItem';
 import Trash from '../../assets/card/trash.svg'
 import Pencil from '../../assets/card/pencil.svg'
 import RemoveItem from '../Popups/RemoveItem'
-import { motion } from 'framer-motion';
 import { Tooltip } from '@chakra-ui/react'
 import { useState } from 'react'
 import './TableItemCard.scss'

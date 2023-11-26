@@ -4,12 +4,14 @@ import { socket } from '../../socket.js'
 import axios from 'axios'
 import Popup from './Popup'
 import { itemCategories } from '../../api/itemCategoriesApi.js'
+import getSocketPathByItemCategory from '../../utils/getSocketPathByItemCategory'
 import './Popup.scss'
 
 
 const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
-
+    
     const cancelRemoveItem = () => popupHandlerFunc(prev => !prev)
+    const socketPath = getSocketPathByItemCategory(itemCategory)
 
     const removeItem = () => {
         axios.delete(`${itemCategories[itemCategory]}/${itemId}`, {
@@ -17,7 +19,7 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
         })
         .then(res => {
             toastSuccess("Успешное удаление!")
-            socket.emit('isFlightsUpdate', { status: true })
+            socket.emit(socketPath, { status: true })
             cancelRemoveItem()
         })
         .catch(err => {

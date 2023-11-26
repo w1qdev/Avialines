@@ -114,7 +114,7 @@ const socketController = (socket) => {
         }
     })
 
-
+    
     // PLANES
     socket.on('planesDataGet', async (req) => {
         // TODO: get all planes data
