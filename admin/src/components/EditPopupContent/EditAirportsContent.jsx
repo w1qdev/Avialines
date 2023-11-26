@@ -53,7 +53,7 @@ const EditAirportsContent = ({ data, popupHandlerFunc }) => {
                     />
                 </div>
                 <div className="item">
-                    <div className="body__input__title">Местоположение аэрапорта (город)</div>
+                    <div className="body__input__title">Местоположение аэрапорта (Страна, город)</div>
                     <input 
                         type="text" 
                         placeholder='Местоположение аэрапорта'
