@@ -14,7 +14,11 @@ import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
 
-    const isAuthorized = !!localStorage.getItem('token')
+    const isAuthorized = !!localStorage.getItem('token') && 
+                         !!localStorage.getItem('fullName') && 
+                         !!localStorage.getItem('admin-type')
+
+
     const routing = isAuthorized ? (
         <>
             <Routes>

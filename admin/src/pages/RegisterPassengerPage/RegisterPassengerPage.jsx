@@ -45,14 +45,13 @@ const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, 
     const formDataHandler = (e) => {
         const inputName = e.target.name
         const inputValue = e.target.value
-
-        setFormData({...formData, [inputName]: inputValue})
-
+        
         // Validation
         if (registerFormValidator(inputName, inputValue)) {
             setIsValid({...isValid, [inputName]: true})
         } else {
             setIsValid({...isValid, [inputName]: false})
+            setFormData({...formData, [inputName]: inputValue})
         }
     }
 
@@ -319,6 +318,9 @@ const RegisterPassengerPage = () => {
             }
             toastSuccess("Новый пассажир успешно создан")
             setIsCreateNewPassengerFetching(prev => !prev)
+
+            // TODO: print the ticket
+            
 
 
             setTimeout(() => {

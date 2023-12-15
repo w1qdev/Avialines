@@ -110,12 +110,12 @@ passengerRouter.put('/change', async (req, res) => {
 })
 
 // [DELETE] http://localhost:5000/api/passengers/remove
-passengerRouter.delete('/remove', async (req, res) => {
+passengerRouter.delete('/remove/:id', async (req, res) => {
     try {
-        const { passport } = req.body
+        const passenegerId = req.params.id
 
         // remove the passenger
-        const removePassenger = await Passenger.findOneAndRemove({ passport })
+        const removePassenger = await Passenger.findOneAndRemove({ id: passenegerId })
 
         if (!removePassenger) {
             return res.send({ error: "Something gone wrong, passenger hasn't removed" })

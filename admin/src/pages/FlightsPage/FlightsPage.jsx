@@ -27,12 +27,17 @@ const FlightsPage = () => {
             const FoundBydestinationAirport = flight.destinationAirport.toLowerCase().includes(e.target.value.toLowerCase())
             const FoundByPlaneType = flight.flightPlaneType.toLowerCase().includes(e.target.value.toLowerCase())
             const FoundByPrice = flight.flightPrice.toString().includes(e.target.value)
+            const FoundByTime = flight.flightTime.toString().includes(e.target.value)
+            const FoundByDate = flight.date.toString().includes(e.target.value)
+
             if (
                 FoundByName || 
                 FoundByDepartureAirport || 
                 FoundByPrice || 
                 FoundBydestinationAirport ||
-                FoundByPlaneType
+                FoundByPlaneType ||
+                FoundByTime || 
+                FoundByDate
             ) return true
         })
 

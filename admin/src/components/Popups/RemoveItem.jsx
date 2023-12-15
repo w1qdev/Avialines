@@ -13,8 +13,8 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
     const cancelRemoveItem = () => popupHandlerFunc(prev => !prev)
     const socketPath = getSocketPathByItemCategory(itemCategory)
 
-    const removeItem = () => {
-        axios.delete(`${itemCategories[itemCategory]}/${itemId}`, {
+    const removeItem = async () => {
+        await axios.delete(`${itemCategories[itemCategory]}/${itemId}`, {
             itemId
         })
         .then(res => {

@@ -19,10 +19,15 @@ const PassengersPage = () => {
         
         const filteredPassengers = unChangedPassengers.filter(passenger => {
             const FoundByFullName = passenger.fullName.toLowerCase().includes(e.target.value.toLowerCase())
+            const FoundByFlightNumber = passenger.flightNumber.toLowerCase().includes(e.target.value.toLowerCase())
             const FoundByPassport = passenger.passport.includes(e.target.value)
             const FoundBySeatNumber = passenger.seatNumber.toLowerCase().includes(e.target.value.toLowerCase())
 
-            if (FoundByFullName || FoundByPassport || FoundBySeatNumber) return true
+            if (FoundByFullName || 
+                FoundByPassport || 
+                FoundBySeatNumber || 
+                FoundByFlightNumber) 
+            return true
         })
 
         if (filteredPassengers[0] != false) {

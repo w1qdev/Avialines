@@ -4,19 +4,19 @@
 export const registerFormValidator = (name, value) => {
     switch (name){
         case 'fullName':
-            if (value.split(' ').length === 3) {
+            if (value.split(' ').length === 4) {
                 return true
             }
             break
 
         case 'passportSeries':
-            if (value.length === 4) {
+            if (value.length === 5) {
                 return true
             }
             break
 
         case 'passportNumber':
-            if (value.length === 6) {
+            if (value.length === 7) {
                 return true
             }
             break

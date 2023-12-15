@@ -48,7 +48,7 @@ const Sidebar = () => {
                 </NavLink>
                 <NavLink to="/passengers" className={activeLinkHandler}>
                     <img src={Passenger} alt="Управление пассажирами" />
-                    <div className="title">Управление пассажирами</div>
+                    <div className="title">Пассажиры</div>
                 </NavLink>
                 <NavLink to="/flights" className={activeLinkHandler}>
                     <img src={Flight} alt="Управление рейсами" />
