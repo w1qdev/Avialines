@@ -117,6 +117,9 @@ passengerRouter.delete('/remove/:id', async (req, res) => {
         // remove the passenger
         const removePassenger = await Passenger.findOneAndRemove({ id: passenegerId })
 
+        
+
+
         if (!removePassenger) {
             return res.send({ error: "Something gone wrong, passenger hasn't removed" })
         }

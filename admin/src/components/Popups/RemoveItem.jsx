@@ -10,7 +10,7 @@ import './Popup.scss'
 
 const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
     
-    const cancelRemoveItem = () => popupHandlerFunc(prev => !prev)
+    const closePopupHandler = () => popupHandlerFunc(prev => !prev)
     const socketPath = getSocketPathByItemCategory(itemCategory)
 
     const removeItem = async () => {
@@ -18,13 +18,20 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
             itemId
         })
         .then(res => {
+            
+            if (res.data.error) {
+                toastError(res.data.error)
+                closePopupHandler()
+                return
+            }
+
             toastSuccess("Успешное удаление!")
             socket.emit(socketPath, { status: true })
-            cancelRemoveItem()
+            closePopupHandler()
         })
         .catch(err => {
             toastError("Что-то пошло не так, попробуйте позже")
-            cancelRemoveItem()
+            closePopupHandler()
         })
     }
 
@@ -40,7 +47,7 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.98 }}
                         className='button cancel'
-                        onClick={cancelRemoveItem}
+                        onClick={closePopupHandler}
                         >Отмена
                     </motion.button>
                     <motion.button 

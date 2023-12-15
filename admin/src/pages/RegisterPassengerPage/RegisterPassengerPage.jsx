@@ -11,7 +11,7 @@ import {
     Box
   } from '@chakra-ui/react'
 import { registerFormValidator } from '../../utils/registerFormValidator.js'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { socket } from '../../socket.js'
 import { motion } from 'framer-motion'
 import NoItems from '../../components/NoItems/NoItems.jsx'
@@ -23,6 +23,8 @@ import axios from 'axios'
 import { toastError, toastInfo, toastSuccess } from '../../utils/toasts.js'
 import { endpoints } from '../../api/index.js'
 import { Spinner } from '@chakra-ui/react'
+import { useReactToPrint } from 'react-to-print'
+
 
 
 const steps = [
@@ -32,7 +34,9 @@ const steps = [
 ]
 
 
-const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, formData, setFormData}) => {
+const FormContent = (props) => {
+
+    const { currentStepIndex, flights, setFlights, unChangedFlights, formData, setFormData, printRef } = props
 
     const [flightsSearchValue, setFlightsSearchValue] = useState('')
     const [isValid, setIsValid] = useState({
@@ -88,7 +92,6 @@ const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, 
         if (e.target.value === '') {
             socket.emit('flightsDataGet', {})
         }
-
     }
 
 
@@ -205,7 +208,10 @@ const FormContent = ({ currentStepIndex, flights, setFlights, unChangedFlights, 
                     exit={{ y: 10, opacity: 0 }}     
                 >
                     <div className='result__inner'>
-                        <div className="result__inner__ticket">
+                        <div 
+                            className="result__inner__ticket"
+                            ref={printRef}    
+                        >
                             <div className="ticket__header">
                                 <div className="ticket__header__title">Посадочный талон | Boarding pass</div>
                             </div>
@@ -282,6 +288,7 @@ const RegisterPassengerPage = () => {
     const [unChangedFlights, setUnChangedFlights] = useState([])
     const [isCreateNewPassengerFetching, setIsCreateNewPassengerFetching] = useState(false)
     const [flights, setFlights] = useState([])
+    const printRef = useRef();
     const [formData, setFormData] = useState({
         fullName: '',
         passportSeries: '',
@@ -290,9 +297,6 @@ const RegisterPassengerPage = () => {
         flightInfo: null,
         planeSeatPlaces: []
     })
-    
-    // const buttonText = currentStepIndex >= steps.length ? "Сохранить и распечатать билет" : "Продолжить"
-
 
     const nextStep = () => setCurrentStepIndex(prev => {
         const isPassengerDataFilled = !!(formData.fullName && formData.passportSeries && formData.passportNumber)
@@ -303,6 +307,8 @@ const RegisterPassengerPage = () => {
         }
     })
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
+
+    const handlePrint = useReactToPrint({content: () => printRef.current })
 
     const savePassengerAndPrintTicket = async () => {
         setIsCreateNewPassengerFetching(prev => !prev)
@@ -320,7 +326,7 @@ const RegisterPassengerPage = () => {
             setIsCreateNewPassengerFetching(prev => !prev)
 
             // TODO: print the ticket
-            
+            handlePrint()
 
 
             setTimeout(() => {
@@ -401,6 +407,7 @@ const RegisterPassengerPage = () => {
                     unChangedFlights={unChangedFlights}
                     formData={formData}
                     setFormData={setFormData}
+                    printRef={printRef}
                 />
 
                 <div className="buttons__wrapper">

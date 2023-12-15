@@ -123,11 +123,21 @@ planeRouter.delete('/remove/:planeId', async (req, res) => {
         // TODO: remove plane
         const planeId = req.params.planeId
 
-        const removedPlane = await Plane.findOneAndRemove({ id: planeId })
+        const removedPlane = await Plane.findOne({ id: planeId })
 
         if (!removedPlane) {
-            return res.send({ error: "This plane doesn't exists" })
+            return res.send({ error: "Этот самолет уже не существует" })
         }
+
+        if (removedPlane.status === 'busy') {
+            return res.send({ error: "Статус самолета: В рейсе. Самолет удалить нельзя" })
+        }
+
+        if (removedPlane.busySeatCount > 0) {
+            return res.send({ error: "Вы не можете удалить этот самолет, уже заняты места" })
+        }
+
+        await Plane.findOneAndRemove({ id: planeId })
 
         return res.send({ message: `The plane ${removedPlane.id} succeessfully removed` })
     } catch(e) {
