@@ -18,9 +18,10 @@ import { getCurrentMonthName } from '../../utils/getCurrentMonthName'
 
 
 const CreateFlight = ({ title, popupHandlerFunc }) => {
-
+    
     const [responseData, setResponseData] = useState([])
     const [planesData, setPlanesData] = useState([])
+    const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
     const [formData, setFormData] = useState({
         departureAirport: "",
         departureAirportId: "",
@@ -44,8 +45,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                 })
                 break
             case 'destination':
-                
-
                 setFormData({ 
                     ...formData, 
                     destinationAirport: `${airport.airportName} - ${airport.airportPlace}`, 
@@ -95,7 +94,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             toastError("Место назначения и вылета одинаковые!")
             setFormData({ ...formData, destinationAirport: "" })
         }     
-    }, [formData])
+
+    }, [formData.departureAirport, formData.destinationAirport])
 
     const createFlight = async (e) => {
         e.preventDefault()
@@ -278,6 +278,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                     <motion.button 
                         type='submit'
                         onClick={createFlight}
+                        className={isSubmitDisabled ? `disabled` : ``}
+                        disabled={isSubmitDisabled}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}

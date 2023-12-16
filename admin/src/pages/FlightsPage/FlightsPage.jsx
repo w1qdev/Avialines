@@ -112,7 +112,7 @@ const FlightsPage = () => {
                     <div className="dashboard__container__body flights">
 
                         {flights.length >= 1 ? flights.map((flight) => (
-                            <FlightTableItemCard key={flight.id} flight={flight} />
+                            <FlightTableItemCard key={flight._id} flight={flight} />
                         )) : (
                             <NoItems 
                                 title='Рейсов не найдено 😔' 

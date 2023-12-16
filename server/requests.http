@@ -162,9 +162,9 @@ POST http://localhost:5000/api/admins/create HTTP/1.1
 content-type: application/json
 
 {
-    "fullName": "Петров Петр Петрович",
-    "password": "Petr",
-    "secretWord": "Petr"
+    "fullName": "Землянов Даниил Ильич",
+    "password": "Daniel",
+    "secretWord": "Daniel"
 }
 
 
@@ -178,12 +178,13 @@ content-type: application/json
     "secretWord": "kotik"
 }
 
+
 ###
 PUT http://localhost:5000/api/admins/change HTTP/1.1
 content-type: application/json
 
 {
-    "fullName": "Саша Солдатова",
+    "fullName": "Солдатова Александра Ивановна",
     "password": "qwertwerwe",
     "secretWord": "badumtss"
 }

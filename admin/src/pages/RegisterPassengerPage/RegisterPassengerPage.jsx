@@ -100,7 +100,7 @@ const FormContent = (props) => {
             <form className="form">
                 <div className="form__item">
                     <div className="form__item__inner"> 
-                        <div className="label">Фамилия, Имя и Отчество пассажира</div>
+                        <div className="label">Фамилия, Имя, Отчество (при наличии) пассажира  </div>
                         <input 
                             className={`input ${isValid.fullName ? 'valid' : ''}`}
                             type="text" 
@@ -288,6 +288,7 @@ const RegisterPassengerPage = () => {
     const [unChangedFlights, setUnChangedFlights] = useState([])
     const [isCreateNewPassengerFetching, setIsCreateNewPassengerFetching] = useState(false)
     const [flights, setFlights] = useState([])
+    const handlePrint = useReactToPrint({content: () => printRef.current })
     const printRef = useRef();
     const [formData, setFormData] = useState({
         fullName: '',
@@ -308,8 +309,6 @@ const RegisterPassengerPage = () => {
     })
     const prevStep = () => setCurrentStepIndex(prev => prev - 1 >= 0 ? prev - 1 : prev)
 
-    const handlePrint = useReactToPrint({content: () => printRef.current })
-
     const savePassengerAndPrintTicket = async () => {
         setIsCreateNewPassengerFetching(prev => !prev)
 
@@ -325,9 +324,8 @@ const RegisterPassengerPage = () => {
             toastSuccess("Новый пассажир успешно создан")
             setIsCreateNewPassengerFetching(prev => !prev)
 
-            // TODO: print the ticket
+            // print the ticket
             handlePrint()
-
 
             setTimeout(() => {
                 window.location = '/register-passenger'

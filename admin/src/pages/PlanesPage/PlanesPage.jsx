@@ -83,6 +83,7 @@ const PlanesPage = () => {
                         <div className="search">
                             <input 
                                 type="text" 
+                                name="plane_search"
                                 placeholder='Поиск самолета '
                                 value={searchValue}
                                 onChange={searchHandler}
@@ -96,7 +97,7 @@ const PlanesPage = () => {
                     <div className="dashboard__container__body planes">
                         {planes.length ? planes.map(plane => (
                             <PlaneTableItemCard 
-                                key={plane.planeId} 
+                                key={plane._id} 
                                 {...plane} 
                             />
                         )) : (
