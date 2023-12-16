@@ -12,14 +12,24 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
 
     const closePopupHandler = () => popupHandlerFunc(prev => !prev)
     const socketPath = getSocketPathByItemCategory(itemCategory)
+    const jwtToken = localStorage.getItem('token')
 
     const removeItem = async () => {
         await axios.delete(`${itemCategories[itemCategory]}/${itemId}`, {
-            itemId
+            headers: {
+                token: `Bearer ${jwtToken}`
+            }
         })
         .then(res => {
             if (res.data.error) {
                 toastError(res.data.error)
+
+                if (res.data.error.isRemoveAdminData !== undefined) {
+                    localStorage.setItem('fullName', '')
+                    localStorage.setItem('token', '')
+                    localStorage.setItem('admin-type', '')
+                }
+
                 closePopupHandler()
                 return
             }

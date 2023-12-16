@@ -1,7 +1,5 @@
-
-
 export const flightStatus = {
     'active': ['active', 'В полёте'],
-    'landed': ['landed', 'Приземлился'],
+    'landed': ['landed', 'Прибыл'],
     'load': ['load', 'Посадка на рейс']
 }

@@ -16,7 +16,7 @@ const PlaneTableItemCard = (props) => {
     //     return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
     // })
 
-    const { id, planeType, seatCount, status, freeSeatCount, busySeatCount, planeCrew } = props
+    const { id, planeType, seatCount, status, freeSeatCount, busySeatCount, planeCompany } = props
     const planeData = { id, planeType, seatCount, status }
 
     const currentStatus = status === 'free' ? 'Свободен' : 'Занят (в рейсе)'
@@ -27,6 +27,10 @@ const PlaneTableItemCard = (props) => {
                 <tr>
                     <td>Тип</td>
                     <td>{planeType}</td>
+                </tr>
+                <tr>
+                    <td>Компания</td>
+                    <td>{planeCompany}</td>
                 </tr>
                 <tr>
                     <td>Вмещаемость</td>

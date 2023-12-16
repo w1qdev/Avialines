@@ -4,6 +4,7 @@ import { router } from './router/index.js'
 import { connectToDatabase } from './db/index.js'
 import { success, error, info } from './utils/chalk.js'
 import socketController from './socket/socket.js'
+import checkFlightStatusByTime from './utils/checkFlightsStatusByTime.js'
 import { Server } from 'socket.io'
 import http from 'http'
 import 'dotenv/config'
@@ -47,5 +48,7 @@ connectToDatabase()
 
 // starting up the server
 server.listen(port, () => {
+    console.clear()
     console.log(success(`[server] [success] Server has been started... \n[server] [success] URL: http://localhost:${port}`))
+    checkFlightStatusByTime()
 })

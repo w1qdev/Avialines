@@ -16,13 +16,21 @@ export default function AuthPage() {
         secretWord: ""
     })
     const [isFetching, setIsFetching] = useState(false)
+    const jwtToken = localStorage.getItem('token')
 
     const submitAllData = (e) => {
         e.preventDefault()
         if (formData.fullName && formData.password && formData.secretWord) {
             setIsFetching(prev => !prev)
             axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.LOGIN}`,
-            { ...formData }
+            { 
+                ...formData
+            },
+            {
+                headers: {
+                    token: `Bearer ${jwtToken}`
+                }
+            }
             )
             .then(res => {
                 if (res.data.adminData.token) {

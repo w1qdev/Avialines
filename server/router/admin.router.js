@@ -4,6 +4,7 @@ import Admin from '../models/Admin.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import AdminActions from '../models/AdminActions.js'
+import jwtVerification from '../middlewares/jwt.middleware.js'
 
 
 export const adminRouter = Router()
@@ -33,9 +34,9 @@ adminRouter.get('/actions', async (req, res) => {
 })
 
 // [POST] http://localhost:3000/api/admins/create
+// adminRouter.use(jwtVerification)
 adminRouter.post('/create', async (req, res) => {
     try {
-        // FIXME: Get all admins [only for main admins]
         const { fullName, password } = req.body
 
         const existsAdmin = await Admin.findOne({ fullName })
@@ -48,7 +49,7 @@ adminRouter.post('/create', async (req, res) => {
         const hasedPassword = await bcrypt.hash(password, salt)
         const token = jwt.sign({
             fullName
-        }, process.env.JWT_SECRET, { expiresIn: '325d' })
+        }, process.env.JWT_SECRET, { expiresIn: '1m' })
 
         const admin = new Admin({
             ...req.body,

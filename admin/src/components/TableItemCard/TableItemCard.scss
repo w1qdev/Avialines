@@ -39,11 +39,9 @@
         }
 
         tr {
-            width: 100%;
-
-            &:not(:first-child) {
-                height: 30px;
-            }
+            width: 100%;    
+            height: 28px;
+            
 
             td {
 
@@ -161,17 +159,17 @@
 
         &.active {
             border-color: #7d7d7d;
-            color: #7d7d7d;
+            color: #7d7d7d !important;
         }
 
         &.landed {
             border-color: #35AA3A;
-            color: #35AA3A;
+            color: #35AA3A !important;
         }
 
         &.exprected {
             border-color: #ff8c00;
-            color: #ff8c00;
+            color: #ff8c00 !important;
         }
 
         &.load {

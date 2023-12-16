@@ -29,9 +29,15 @@ const CreateAdmin = ({ title, popupHandlerFunc }) => {
             return
         } 
 
+        const jwtToken = localStorage.getItem('token')
+
         await axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.CREATE}`, {
             ...formData,
             role: formData.role === 'Главный администратор' ? 'mainAdmin' : 'subAdmin'
+        }, {
+            headers: {
+                token: `Bearer ${jwtToken}`
+            }
         })
         .then(res => {
             if (res.data.error) {
