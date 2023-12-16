@@ -126,6 +126,8 @@ flightRouter.delete('/remove/:itemId', async (req, res) => {
             return res.send({ error: "Something gone wrong" })
         }
 
+        await Flight.findOneAndRemove({ flightNumber: itemId })
+
         return res.send({ message: `Flight ${itemId} has been successfully removed` })
     } catch (e) {
         console.log(error("Some internal Error", e))

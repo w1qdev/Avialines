@@ -96,7 +96,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             setFormData({ ...formData, destinationAirport: "" })
         }     
 
-    }, [formData.departureAirport, formData.destinationAirport])
+    }, [formData])
 
     const createFlight = async (e) => {
         e.preventDefault()
@@ -104,12 +104,15 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         const isFormDataFilled = isDataFilled(formData)
 
         if (isFormDataFilled) {
+            console.log(formData)
             toastError("Кажется, вы что-то не указали")
             return
         } 
 
         const date = new Date()
         const timestamp = `${date.getDate()} ${getCurrentMonthName(date.getMonth())} ${date.getFullYear()}`
+
+        const flightDate = formData.date.replaceAll('-', '.')
 
         await axios.post('http://localhost:5000/api/flights/create', { 
             departureAirportId: formData.departureAirportId,
@@ -118,7 +121,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
             destinationAirport: formData.destinationAirport,
             planeId: parseInt(formData.currentPlaneId),
             flightPrice: parseInt(formData.flightPrice),
-            date: formData.date,
+            date: flightDate,
             adminFullName: localStorage.getItem('fullName'),
             flightTime: formData.flightTime,
             gate: formData.gate,
@@ -212,7 +215,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                         </div>
                     </div>
                     <div className="item">
-                        <div className="body__input__title">Цена рейса (эконом)</div>
+                        <div className="body__input__title">Цена рейса (эконом) ₽</div>
                         <input 
                             type="number" 
                             placeholder='Цена рейса'

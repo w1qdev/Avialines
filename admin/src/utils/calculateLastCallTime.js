@@ -1,3 +1,4 @@
+// Функция для получения времени вылета зная время начала посадки на рейс 
 
 export const calculateLastCallTime = (time) => {
     const timeList = time.split(":")
