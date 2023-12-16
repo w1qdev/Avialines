@@ -9,6 +9,7 @@ import './FlightsPage.scss'
 
 
 const FlightsPage = () => {
+    // Страница со списком всех рейсов, а также их данных
 
     const [searchValue, setSearchValue] = useState('')
     const [flights, setFlights] = useState([])

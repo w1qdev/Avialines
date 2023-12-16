@@ -2,6 +2,7 @@ import TableItemCard from "./TableItemCard";
 
 
 const AdminTableItemCard = ({ fullName, role, id,  }) => {
+    // Компонент для отображения данных админа в виде карточки
 
     const adminData = { id, fullName, role }
 

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { toastError, toastSuccess } from "../../utils/toasts";
 
 const EditPlanesContent = ({ data, popupHandlerFunc }) => {
+    // Компонент для редактирования выбранного самолета
 
     const [formData, setFormData] = useState({
         ...data,

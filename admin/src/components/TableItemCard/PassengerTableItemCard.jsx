@@ -1,6 +1,7 @@
 import TableItemCard from './TableItemCard'
 
 const PassengerTableItemCard = ({ id, seatNumber, fullName, passport, flightNumber }) => {
+    // Компонент для отображения данных пассажира в виде карточки
 
     const passengerData = { id, seatNumber, flightNumber, fullName }
 

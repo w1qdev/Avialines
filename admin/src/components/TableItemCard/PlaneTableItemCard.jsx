@@ -1,23 +1,22 @@
 import { 
-    Menu, 
+    // Menu, 
     // MenuList, 
-    MenuButton, 
-    MenuItem, 
-    Button,
+    // MenuButton, 
+    // MenuItem, 
+    // Button,
     Tooltip
 } from '@chakra-ui/react'
-
-// import Menu from '@mui/material/Menu';
-// import MenuItem from '@mui/material/MenuItem';
 import TableItemCard from './TableItemCard'
 import './TableItemCard.scss'
 
-const PlaneTableItemCard = ({ id, planeType, seatCount, status, freeSeatCount, busySeatCount, planeCrew }) => {
+const PlaneTableItemCard = (props) => {
+    // Компонент для отобрадения данных самолета в виде карточки
 
     // const crewItems = planeCrew.map(crew => {
     //     return <MenuItem zIndex={'100'} key={id} >{crew.fullName} ({crew.role})</MenuItem>
     // })
 
+    const { id, planeType, seatCount, status, freeSeatCount, busySeatCount, planeCrew } = props
     const planeData = { id, planeType, seatCount, status }
 
     const currentStatus = status === 'free' ? 'Свободен' : 'Занят (в рейсе)'

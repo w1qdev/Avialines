@@ -8,6 +8,7 @@ import './Popup.scss'
 
 
 const EditItemContent = ({ itemCategory, data, popupHandlerFunc }) => {
+
     const categories = {
         'flights': <EditFlightsContent data={data} popupHandlerFunc={popupHandlerFunc} />,
         'airports': <EditAirportsContent data={data} popupHandlerFunc={popupHandlerFunc} />,

@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 
 
 const AdminsPage = () => {
+    // Страница со списком всех администраторов, а также их данных 
 
     const [searchValue, setSearchValue] = useState('')
     const [admins, setAdmins] = useState([])

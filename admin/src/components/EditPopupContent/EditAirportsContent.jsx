@@ -9,12 +9,16 @@ import { useState } from "react";
 
 
 const EditAirportsContent = ({ data, popupHandlerFunc }) => {
+    // Компонент редактирования данных выбранного аэрапорта
 
-    const [formData, setFormData] = useState({...data})
+    // Инициализация данных
+    const [formData, setFormData] = useState({ ...data })
 
+    // Обработчик событий нажатий на кнопку сохранения
     const saveChanges = async (e) => {
         e.preventDefault()
 
+        // Проверка на заполнение всех полей формы
         const isFormDataFilled = isDataFilled(formData)
 
         if (isFormDataFilled) {
@@ -22,19 +26,28 @@ const EditAirportsContent = ({ data, popupHandlerFunc }) => {
             return
         } 
 
+        // Объединение всех изменений
         const newAirportData = { ...formData }
 
+        // Отправка данных на сервер
         await axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.CHANGE}`, newAirportData)
         .then(res => {
+            // Обработка исключений
             if (res.data.error) {
+                // Если в теле ответа от сервера есть поле error, 
+                // то есть ошибка, показываем эту ошибку администратору 
                 toastError(res.data.error)
             } else {
+                // Иначе, выводим сообщение с успешным регистрированием администратора
                 toastSuccess("Данные Аэрапорта успешно изменены!")
                 popupHandlerFunc(prev => !prev)
+                // Обновление данных на странице
                 socket.emit('isAirportsUpdate', { status: true })
             }
         })
         .catch(err => {
+            // Если произошла какая-то клиентская ошибка, то выводим
+            // предупреждение об ошибке
             console.log(err)
             toastError("Что-то пошло не так, попробуйте позже")
         })

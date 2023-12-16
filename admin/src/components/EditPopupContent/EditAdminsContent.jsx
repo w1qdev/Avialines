@@ -11,15 +11,19 @@ import axios from "axios";
 
 
 const EditAdminsContent = ({ data, popupHandlerFunc }) => {
+    // Компонент редактирования данных выбранного админа 
 
+    // Инициализация данных
     const [formData, setFormData] = useState({
         ...data,
         role: data.role === 'mainAdmin' ? 'Главный администратор' : 'Администратор'
     })
 
+    // Обработка события сохранения данных администратора
     const saveChanges = async (e) => {
         e.preventDefault()
 
+        // Проверка на заполнение всех полей формы
         const isFormDataFilled = isDataFilled(formData)
 
         if (isFormDataFilled) {
@@ -27,23 +31,29 @@ const EditAdminsContent = ({ data, popupHandlerFunc }) => {
             return
         }
 
-        const newAdminData = {
-            ...formData, 
-            role: formData.role
-        }
+        // объединения всех изменений
+        const newAdminData = { ...formData }
 
+        // Отправка на сервер измененных данных администратора
         await axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.CHANGE}`, newAdminData)
         .then(res => {
+            // Проверка на наличие ошибок от сервера
             if (res.data.error) {
+                // Если в теле ответа от сервера находится поле error, то есть
+                // что-то пошло не так, то выводим эту ошибку администратору
                 toastError(res.data.error)
             } else {
+                // Если все хорошо, то выводим сообщение с успешным 
+                // изменением данных
                 toastSuccess("Данные администратора успешно изменены!")
                 popupHandlerFunc(prev => !prev)
+                // Обновляем данные страницы
                 socket.emit('isAdminsUpdate', { status: true })
             }
         })
     }
 
+    // HTML структура компонента 
     return (
         <form className="form">
             <div className="body__input">
@@ -95,4 +105,5 @@ const EditAdminsContent = ({ data, popupHandlerFunc }) => {
     )
 }
 
+// Экспорт компонента
 export default EditAdminsContent;

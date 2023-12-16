@@ -8,6 +8,7 @@ import NoItems from '../../components/NoItems/NoItems';
 import './PlanesPage.scss'
 
 const PlanesPage = () => {
+    // Страница со списком всех самолетов, а также их данных
 
     const [planes, setPlanes] = useState([])
     const [unChangedPlanes, setUnChangedPlanes] = useState([])

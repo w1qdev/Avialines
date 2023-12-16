@@ -7,6 +7,8 @@ import { endpoints } from "../../api";
 import { socket } from "../../socket";
 
 const EditPassengersContent = ({ data, popupHandlerFunc }) => {
+    // Компонент для редактирование данных выбранного пассажира
+
     const [formData, setFormData] = useState({...data})
 
     const saveChanges = (e) => {

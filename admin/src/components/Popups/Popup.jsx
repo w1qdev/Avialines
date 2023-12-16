@@ -3,7 +3,8 @@ import closeButton from '../../assets/popup/close.svg'
 import './Popup.scss'
 
 const Popup = ({ title, popupHandlerFunc, children }) => {
-    
+    // Обертка для всплывающих окон
+
     const popupHandler = () => popupHandlerFunc(prev => !prev)
 
     return (
@@ -30,7 +31,9 @@ const Popup = ({ title, popupHandlerFunc, children }) => {
                     </div>
                 </div>
 
-                <div className="popup__container__body">{children}</div>                
+                <div className="popup__container__body">
+                    {children}
+                </div>                
             </motion.div>
         </motion.div>
     )

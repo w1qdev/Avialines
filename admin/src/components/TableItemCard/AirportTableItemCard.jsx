@@ -2,6 +2,7 @@ import TableItemCard from './TableItemCard';
 import './TableItemCard.scss'
 
 const AirportTableItemCard = ({ airportId, airportName, airportPlace }) => {
+    // Компонент для отображения данных аэрапорта в виде карточки
 
     const airportData = { airportName, airportPlace, airportId }
 

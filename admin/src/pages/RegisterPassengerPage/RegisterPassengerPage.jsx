@@ -282,7 +282,8 @@ const ButtonContent = ({ isCreateNewPassengerFetching, currentStepIndex, stepsLe
 
 
 const RegisterPassengerPage = () => {
-    
+    // Страница для регистрации нового пассажира
+
     const [currentStepIndex, setCurrentStepIndex] = useState(0)
     const [isFetching, setIsFetching] = useState(false)
     const [unChangedFlights, setUnChangedFlights] = useState([])

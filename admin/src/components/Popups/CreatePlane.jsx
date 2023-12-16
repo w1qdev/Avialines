@@ -10,8 +10,8 @@ import { endpoints } from '../../api'
 
 
 const CreatePlane = ({ title, popupHandlerFunc }) => {
+    // Всплывающее окно для создания самолета
 
-    const [crewMembers, setCrewMembers] = useState([])
     const [formData, setFormData] = useState({
         planeType: '',
         seatCount: '',

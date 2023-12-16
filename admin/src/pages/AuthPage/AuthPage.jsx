@@ -8,6 +8,8 @@ import { motion } from 'framer-motion'
 
 
 export default function AuthPage() {
+    // Страница входа в аккаунт администраторов
+
     const [formData, setFormData] = useState({
         fullName: "",
         password: "",

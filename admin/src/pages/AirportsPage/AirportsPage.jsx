@@ -9,6 +9,7 @@ import './AirportsPage.scss'
 
 
 const AirportsPage = () => {
+    // Страница со списком всех аэрапортов, а также их данных
 
     const [airports, setAirports] = useState([])
     const [unChangedAirports, setUnChangedAirports] = useState([])

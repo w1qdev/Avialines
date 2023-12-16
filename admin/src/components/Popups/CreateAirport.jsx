@@ -8,6 +8,7 @@ import { socket } from "../../socket";
 import { endpoints } from "../../api";
 
 const CreateAirport = ({ title, popupHandlerFunc }) => {
+    // Всплывающее окно для создания аэрапорта
 
     const [formData, setFormData] = useState({
         airportName: '',

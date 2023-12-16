@@ -8,6 +8,7 @@ import './TableItemCard.scss'
 
 
 const TableItemCard = ({ children, itemId, itemCategory, data }) => {
+    // Компонент оболочка для создания карточек для элементов списка
 
     const [isRemovePopupOpen, setIsRemovePopupOpen] = useState(false)
     const [isEditOpenPopup, setIsEditOpenPopup] = useState(false)

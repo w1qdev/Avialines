@@ -4,7 +4,8 @@ import './NoItems.scss'
 
 
 const NoItems = ({ title, UpdateButton = true, socketEmitEndpoint = "isFlightsUpdate" }) => {
-    
+    // Компонент отвечающий за обновление данных на странице если данных для отображения нет
+
     const Update = () => {
         socket.emit(socketEmitEndpoint, { status: true })
     }

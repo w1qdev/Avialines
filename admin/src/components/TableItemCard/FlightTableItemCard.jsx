@@ -6,6 +6,7 @@ import './TableItemCard.scss'
 
 
 const FlightTableItemCard = ({ flight }) => {
+    // Компонент для отображения данных рейса в виде карточки
 
     const [status, setStatus] = useState(flightStatus[flight.flightStatus])
    

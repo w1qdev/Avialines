@@ -9,7 +9,7 @@ import './Popup.scss'
 
 
 const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
-    
+
     const closePopupHandler = () => popupHandlerFunc(prev => !prev)
     const socketPath = getSocketPathByItemCategory(itemCategory)
 
@@ -18,7 +18,6 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
             itemId
         })
         .then(res => {
-            
             if (res.data.error) {
                 toastError(res.data.error)
                 closePopupHandler()
@@ -31,6 +30,7 @@ const RemoveItem = ({ title, popupHandlerFunc, itemId, itemCategory }) => {
         })
         .catch(err => {
             toastError("Что-то пошло не так, попробуйте позже")
+            console.error(err)
             closePopupHandler()
         })
     }

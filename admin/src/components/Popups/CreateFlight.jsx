@@ -18,10 +18,11 @@ import { getCurrentMonthName } from '../../utils/getCurrentMonthName'
 
 
 const CreateFlight = ({ title, popupHandlerFunc }) => {
-    
+    // Всплывающее окно для создания рейса
+
     const [responseData, setResponseData] = useState([])
     const [planesData, setPlanesData] = useState([])
-    const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
+    // const [isSubmitDisabled, setIsSubmitDisabled] = useState(false)
     const [formData, setFormData] = useState({
         departureAirport: "",
         departureAirportId: "",
@@ -278,8 +279,8 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                     <motion.button 
                         type='submit'
                         onClick={createFlight}
-                        className={isSubmitDisabled ? `disabled` : ``}
-                        disabled={isSubmitDisabled}
+                        // className={isSubmitDisabled ? `disabled` : ``}
+                        // disabled={isSubmitDisabled}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}

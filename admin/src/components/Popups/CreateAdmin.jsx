@@ -10,6 +10,7 @@ import Popup from "./Popup";
 import { endpoints } from "../../api";
 
 const CreateAdmin = ({ title, popupHandlerFunc }) => {
+    // Всплывающее окно для создание администратора
 
     const [formData, setFormData] = useState({
         fullName: '',

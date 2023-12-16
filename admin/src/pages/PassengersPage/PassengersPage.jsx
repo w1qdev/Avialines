@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 import './PassengersPage.scss'
 
 const PassengersPage = () => {
+    // Страница со списком всех пассажиров, а также их данных
 
     const [isFetching, setIsFetching] = useState(false)
     const [passengers, setPassengers] = useState([])

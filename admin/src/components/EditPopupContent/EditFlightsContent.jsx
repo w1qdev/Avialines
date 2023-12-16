@@ -9,11 +9,14 @@ import axios from "axios";
 
 
 const EditFlightsContent = ({ data, popupHandlerFunc }) => {
-
+    // Компнонент редактирования данных выбранного рейса
+    
+    // Инициализация данных
     const [formData, setFormData] = useState({...data}) 
     const [airports, setAirports] = useState([])
     const [planes, setPlanes] = useState([])
 
+    // Каждый раз при рендере компонента обновлять содержимое списков аэрапортов 
     useEffect(() => {
         axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
         .then(res => {

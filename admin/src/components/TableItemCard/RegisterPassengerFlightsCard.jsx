@@ -5,7 +5,10 @@ import { toastError } from '../../utils/toasts.js'
 import { flightStatus as flStatus } from '../../utils/flightsStatus';
 import { toastInfo } from '../../utils/toasts.js';
 
-const RegisterPassengerFlightsCard = ({ 
+const RegisterPassengerFlightsCard = (props) => {
+    // Компонент для отображения данных рейса в виде карточки
+
+    const {
         flightNumber, 
         departureAirport, 
         destinationAirport, 
@@ -16,7 +19,7 @@ const RegisterPassengerFlightsCard = ({
         gate,
         formData,
         setFormData
-    }) => {
+    } = props
 
     const clickHandler = () => {
 

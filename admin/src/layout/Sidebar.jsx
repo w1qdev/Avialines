@@ -12,6 +12,8 @@ import './Sidebar.scss'
 
 
 const Sidebar = () => {
+    // Компонент для навигации по админ-панели
+
     const fullName = localStorage.getItem('fullName')
     const adminType = localStorage.getItem('admin-type')
     const isMainAdmin = adminType === 'mainAdmin' ? (
