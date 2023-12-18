@@ -8,7 +8,7 @@ import { info } from "../utils/chalk.js";
 
 
 const socketController = (socket) => {
-    console.log(info(`Someone connected to the server...`))
+    console.log(info(`user connected to the server...`))
 
     // AIRPORTS
     socket.on('airportsDataGet', async () => {

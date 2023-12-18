@@ -13,7 +13,7 @@ airportRouter.get('/', async (req, res) => {
         const airports = await Airport.find()
 
         if (!airports) {
-            return res.send({ error: "There is no airports", body: airports })
+            return res.send({ error: "Аэрапортов не найдено", body: airports })
         }
 
         return res.send({
@@ -67,7 +67,7 @@ airportRouter.put('/change', async (req, res) => {
             { ...req.body }) 
         
         if (!chandedAirport) {
-            return res.send({ error: "This airport doesn't exists" })
+            return res.send({ error: "Данный аэрапорт не существует" })
         }
 
         return res.send({ message: `Airport ${chandedAirport.airportName}: ${airportId} changed` })
@@ -86,7 +86,7 @@ airportRouter.delete('/remove/:airportId', async (req, res) => {
         const removedAirport = await Airport.findOneAndRemove({ airportId }) 
         
         if (!removedAirport) {
-            return res.send({ error: "This airport doesn't exists" })
+            return res.send({ error: "Данный аэрапорт не существует" })
         }
 
         return res.send({ message: `airport ${airportId} successfully removed` })

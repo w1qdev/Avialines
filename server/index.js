@@ -48,7 +48,6 @@ connectToDatabase()
 
 // starting up the server
 server.listen(port, () => {
-    console.clear()
     console.log(success(`[server] [success] Server has been started... \n[server] [success] URL: http://localhost:${port}`))
-    checkFlightStatusByTime()
+    // checkFlightStatusByTime() FIXME: в разработке
 })

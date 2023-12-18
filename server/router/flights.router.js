@@ -4,8 +4,6 @@ import { createFlightNumber } from "../utils/createFlightNumber.js";
 import Flight from "../models/Flight.js";
 import Plane from '../models/Plane.js'
 import Airport from "../models/Airport.js";
-import saveAdminActions from "../db/saveAdminActions.js";
-
 
 
 export const flightRouter = Router()
@@ -16,7 +14,7 @@ flightRouter.get('/', async (req, res) => {
         const allFlights = await Flight.find()
 
         if (!allFlights) {
-            return res.send({ error: "There is no flights now" })
+            return res.send({ error: "Рейсов не найдено" })
         }
 
         return res.send({ 
@@ -67,10 +65,7 @@ flightRouter.post('/create', async (req, res) => {
 
         await newFlight.save()
         .then(async result => {
-            
-            saveAdminActions(req.body.adminFullName, `Создание нового рейса: ${newFlight.flightNumber}`, req.body.timestamp)
-
-            return res.send({ message: "New flight has been seccessfully created" })
+            return res.send({ message: "Новый рейс был успешно создан" })
         })
         .catch(error => {
             console.error(error)
@@ -93,10 +88,8 @@ flightRouter.put('/change', async (req, res) => {
         { ...req.body })
 
         if (!changedFlight) {
-            return res.send({ error: "Not found flight" })
+            return res.send({ error: "Данный рейс не найден" })
         }
-
-        // saveAdminActions(req.body.adminFullName, `Изменение данных рейса: ${flightNumber}`, req.body.timestamp)
 
         return res.send({ message: `Flight ${flightNumber} has been successfully changed` })
     } catch (e) {
@@ -119,11 +112,11 @@ flightRouter.delete('/remove/:itemId', async (req, res) => {
         })
 
         if (!removeFlight) {
-            return res.send({ error: "This flight is already doesn't exists" })
+            return res.send({ error: "Данный рейс не существует" })
         }
 
         if (!flightPlane) {
-            return res.send({ error: "Something gone wrong" })
+            return res.send({ error: "Что-то пошло не так, попробуйте позже" })
         }
 
         await Flight.findOneAndRemove({ flightNumber: itemId })
