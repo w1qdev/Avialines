@@ -30,17 +30,32 @@
     &__link {
         font-size: 16px;
         font-weight: 500;
-        padding: 15px;
+        height: 60px;
+        padding: 0px 15px;
         transition: 0.2s linear background-color;
         margin: 0px 5px;
         border-radius: 8px;
         display: flex;
         justify-content: start;
+        align-items: center;
         flex-direction: row;
         text-align: center;
 
         &:hover {
             background-color: #2e2e2e; // old: #2e2e2e
+
+            .title {
+                &__main {
+                    margin-bottom: 18px;
+                }
+
+                &__sub {
+
+                    opacity: 1;
+                    color: #ffffff7d;
+                    top: 29px;
+                }
+            }
         }
 
         &.active {
@@ -53,7 +68,33 @@
         }
 
         .title {
+            width: 100%;
             margin-left: 20px;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+            padding: 3px;
+
+            &__main {
+                font-size: 17px;
+                width: 100%;
+                transition: ease-in-out 0.3s margin-bottom;
+            }
+
+            &__sub {
+                width: 300px;
+                position: absolute;
+                top: 30px;
+                left: 3px;
+                font-size: 13px;
+                font-weight: 400;
+                opacity: 0;
+                color: transparent;
+                display: flex;
+                align-items: start;
+                line-height: 1.1;
+                transition: ease-in-out 0.5s opacity, ease-in-out 0.5s top, ease-in-out 0.5s color;
+            }
         }
     }
 

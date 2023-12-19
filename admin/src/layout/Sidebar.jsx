@@ -46,28 +46,46 @@ const Sidebar = () => {
                 ) : null} */}
                 <NavLink to="/register-passenger" className={activeLinkHandler}>
                     <img src={NewPassenger} alt="Регистрация пассажира на рейс" />
-                    <div className="title">Регистрация пассажира</div>
+                    <div className="title">
+                        <div className="title__main">Управление пассажирами</div>
+                        <div className="title__sub">Регистрация пассажиров</div>
+                    </div>
                 </NavLink>
                 <NavLink to="/passengers" className={activeLinkHandler}>
                     <img src={Passenger} alt="Управление пассажирами" />
-                    <div className="title">Пассажиры</div>
+                    <div className="title">
+                        <div className="title__main">Пассажиры</div>
+                        <div className="title__sub">Редактирование пассажиров</div>
+                    </div>
                 </NavLink>
                 <NavLink to="/flights" className={activeLinkHandler}>
                     <img src={Flight} alt="Управление рейсами" />
-                    <div className="title">Рейсы</div>
+                    <div className="title">
+                        <div className="title__main">Рейсы</div>
+                        <div className="title__sub">Создание рейсов</div>
+                    </div>
                 </NavLink>
                 <NavLink to="/planes" className={activeLinkHandler}>
                     <img src={Plane} alt="Управление самолетами" />
-                    <div className="title">Самолеты</div>
+                    <div className="title">
+                        <div className="title__main">Самолеты</div>
+                        <div className="title__sub">Создание самолетов</div>
+                    </div>
                 </NavLink>
                 <NavLink to="/airports" className={activeLinkHandler}>
                     <img src={Airport} alt="Управление аэрапортами" />
-                    <div className="title">Аэрапорты</div>
+                    <div className="title">
+                        <div className="title__main">Аэрапорты</div>
+                        <div className="title__sub">Создание аэрапортов</div>
+                    </div>
                 </NavLink>
                 {adminType === "mainAdmin" ? (
                     <NavLink to="/admins" className={activeLinkHandler}>
                         <img src={Admin} alt="Управление администраторами" />
-                        <div className="title">Администраторы</div>
+                        <div className="title">
+                        <div className="title__main">Администраторы</div>
+                        <div className="title__sub">Добавление администраторов</div>
+                    </div>
                     </NavLink>
                 ) : null}
 
