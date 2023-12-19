@@ -3,7 +3,6 @@ import { error } from '../utils/chalk.js'
 import Admin from '../models/Admin.js'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import jwtVerification from '../middlewares/jwt.middleware.js'
 
 
 export const adminRouter = Router()
@@ -22,8 +21,7 @@ adminRouter.get('/', async (req, res) => {
 })
 
 // [POST] http://localhost:3000/api/admins/create
-// adminRouter.use(jwtVerification)
-adminRouter.post('/create', jwtVerification, async (req, res) => {
+adminRouter.post('/create', async (req, res) => {
     try {
         const { fullName, password } = req.body
 

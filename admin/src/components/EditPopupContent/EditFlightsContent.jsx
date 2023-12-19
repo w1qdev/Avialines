@@ -4,8 +4,9 @@ import { ChevronDownIcon } from '@chakra-ui/icons';
 import { useState, useEffect } from "react";
 import { endpoints } from "../../api";
 import { isDataFilled } from "../../utils/isDataFilled";
-import { toastError } from "../../utils/toasts";
+import { toastError, toastSuccess } from "../../utils/toasts";
 import axios from "axios";
+import { socket } from "../../socket";
 
 
 const EditFlightsContent = ({ data, popupHandlerFunc }) => {
@@ -62,7 +63,17 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
             toastError("Не удалось загрузить список доступных самолетов")
             return
         })
-    }, [])
+
+        const departureAirport = formData.departureAirport
+        const destinationAirport = formData.destinationAirport
+
+        if ((departureAirport != "" && destinationAirport != "") && (departureAirport === destinationAirport)) {
+            toastError("Место назначения и вылета одинаковые!")
+            setFormData({ ...formData, destinationAirport: "" })
+        }  
+
+
+    }, [formData])
 
 
 
@@ -88,8 +99,10 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
     const selectPlane = (plane) => {
         setFormData({ 
             ...formData,
+            lastFlightPlaneType: formData.flightPlaneType,
+            lastFlightPlane: formData.flightPlane,
             flightPlaneType: plane.planeType,
-            flightPlane: plane.id
+            flightPlane: plane.id,
         })
     } 
 
@@ -100,16 +113,27 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
 
         const isFormDataFilled = isDataFilled(formData)
 
-        if (isFormDataFilled) {
+        if (!isFormDataFilled) {
             toastError("Кажется, вы что-то не указали")
             return
         } 
 
         // TODO: add functionality
+        axios.put(`${endpoints.SERVER_ORIGIN_URI}${endpoints.FLIGHTS.ROUTE}${endpoints.FLIGHTS.CHANGE}`, formData)
+        .then(res => {
+            if (res.data.error) {
+                toastError("Что-то пошло не так, попробуйте позже")
+                return
+            }
+
+            toastSuccess("Данные рейса успешно изменены")
+            popupHandlerFunc(prev => !prev)
+            socket.emit("isFlightsUpdate", { status: true })
+        })
     }
 
     return (
-        <form className="form">
+        <form className="form" onSubmit={saveChanges}>
             <div className="body__input">
                 <div className="item">
                     <div className="body__input__title">Аэрапорт вылеты</div>
@@ -198,7 +222,6 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
                 <motion.button 
                     type='submit'
                     className="save"
-                    onClick={saveChanges}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                     transition={{ duration: 0.3 }}

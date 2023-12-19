@@ -5,12 +5,17 @@ import './AdminsPage.scss'
 import AdminTableItemCard from '../../components/TableItemCard/AdminTableItemCard';
 import CreateAdmin from '../../components/Popups/CreateAdmin';
 import { socket } from '../../socket.js';
-import { useState, useEffect } from 'react';
+import { Kbd } from '@chakra-ui/react'
+import { useKeyPress } from '../../hooks/useKeyPress';
+import { useState, useEffect, useRef } from 'react';
 
 
 const AdminsPage = () => {
     // Страница со списком всех администраторов, а также их данных 
 
+    const searchInputRef = useRef()
+    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [searchValue, setSearchValue] = useState('')
     const [admins, setAdmins] = useState([])
     const [unChangedAdmins, setUnchangedAdmins] = useState([])
@@ -84,12 +89,24 @@ const AdminsPage = () => {
                             <div className='title'>Администраторы</div>
                         </div>
                         <div className="search" style={{ width: '50%' }}>
-                            <input 
-                                type="text" 
-                                placeholder='Поиск администратора' 
-                                value={searchValue}
-                                onChange={searchHandler}
-                            />
+                        <div 
+                                className="search__input"
+                                style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
+                            >
+                                <input 
+                                    type="text" 
+                                    name="search"
+                                    placeholder='Поиск администраторов'
+                                    value={searchValue} 
+                                    ref={searchInputRef}
+                                    onChange={searchHandler}
+                                    onFocus={() => setIsSearchValueFocused(true)}
+                                    onBlur={() => setIsSearchValueFocused(false)}
+                                />
+                                <span className='keybind'>
+                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                </span>
+                            </div>
                         </div>
                         <button 
                             className="create-new-button" 

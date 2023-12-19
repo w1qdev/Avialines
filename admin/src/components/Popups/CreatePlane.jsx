@@ -52,7 +52,7 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
             title={title} 
             popupHandlerFunc={popupHandlerFunc}
         >
-            <div className="form">
+            <div className="form" onSubmit={createPlane}>
                 <div className="body__input">
                     <div className="item">
                         <div className="body__input__title">Название самолета</div>
@@ -89,7 +89,6 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
                 <div className="body__lower">
                     <motion.button 
                         type='submit'
-                        onClick={createPlane}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}

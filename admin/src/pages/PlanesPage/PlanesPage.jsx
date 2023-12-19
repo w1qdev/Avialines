@@ -1,15 +1,20 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion'
 import { socket } from '../../socket';
 import PlaneTableItemCard from '../../components/TableItemCard/PlaneTableItemCard';
 import CreatePlane from '../../components/Popups/CreatePlane';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import NoItems from '../../components/NoItems/NoItems';
+import { Kbd } from '@chakra-ui/react'
+import { useKeyPress } from '../../hooks/useKeyPress';
 import './PlanesPage.scss'
 
 const PlanesPage = () => {
     // Страница со списком всех самолетов, а также их данных
 
+    const searchInputRef = useRef()
+    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [planes, setPlanes] = useState([])
     const [unChangedPlanes, setUnChangedPlanes] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -82,14 +87,26 @@ const PlanesPage = () => {
                             <div className='title'>Самолеты</div>
                         </div>
                         <div className="search">
-                            <input 
-                                type="text" 
-                                name="plane_search"
-                                placeholder='Поиск самолета '
-                                value={searchValue}
-                                onChange={searchHandler}
-                            />
+                            <div 
+                                className="search__input"
+                                style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
+                            >
+                                <input 
+                                    type="text" 
+                                    name="search"
+                                    placeholder='Поиск самолета'
+                                    value={searchValue} 
+                                    ref={searchInputRef}
+                                    onChange={searchHandler}
+                                    onFocus={() => setIsSearchValueFocused(true)}
+                                    onBlur={() => setIsSearchValueFocused(false)}
+                                />
+                                <span className='keybind'>
+                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                </span>
+                            </div>
                         </div>
+                        
                         <button 
                             className="create-new-button"
                             onClick={() => setIsOpenPopup(prev => !prev)}    

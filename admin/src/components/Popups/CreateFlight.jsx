@@ -144,7 +144,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
 
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc}>
-            <form className='form'>
+            <form className='form' onSubmit={createFlight}>
                 <div className="body__input">
                     <div className="item">
                         <div className="body__input__title">Аэрапорт вылета</div>
@@ -281,7 +281,6 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
                 <div className="body__lower">
                     <motion.button 
                         type='submit'
-                        onClick={createFlight}
                         // className={isSubmitDisabled ? `disabled` : ``}
                         // disabled={isSubmitDisabled}
                         whileHover={{ scale: 1.02 }}

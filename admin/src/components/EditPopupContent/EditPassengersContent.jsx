@@ -35,7 +35,7 @@ const EditPassengersContent = ({ data, popupHandlerFunc }) => {
     }
 
     return (
-        <form className="form">
+        <form className="form" onSubmit={saveChanges}>
             <div className="body__input">
                 <div className="item">
                     <div className="body__input__title">ФИО пассажира</div>
@@ -52,7 +52,6 @@ const EditPassengersContent = ({ data, popupHandlerFunc }) => {
                 <motion.button 
                     type='submit'
                     className="save"
-                    onClick={saveChanges}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                     transition={{ duration: 0.3 }}

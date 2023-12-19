@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
 import { socket } from '../../socket.js';
 import { motion } from 'framer-motion';
+import { Kbd } from '@chakra-ui/react'
+import { useKeyPress } from '../../hooks/useKeyPress';
 import NoItems from '../../components/NoItems/NoItems';
 import CreateAirport from '../../components/Popups/CreateAirport';
 import './AirportsPage.scss'
@@ -11,6 +13,9 @@ import './AirportsPage.scss'
 const AirportsPage = () => {
     // Страница со списком всех аэрапортов, а также их данных
 
+    const searchInputRef = useRef()
+    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [airports, setAirports] = useState([])
     const [unChangedAirports, setUnChangedAirports] = useState([])
     const [isFetching, setIsFetching] = useState(false)
@@ -85,12 +90,24 @@ const AirportsPage = () => {
                             <div className='title'>Аэрапорты</div>
                         </div>
                         <div className="search">
-                            <input 
-                                type="text" 
-                                placeholder='Поиск аэрапорта' 
-                                value={searchValue}
-                                onChange={searchHandler}
-                            />
+                            <div 
+                                className="search__input"
+                                style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
+                            >
+                                <input 
+                                    type="text" 
+                                    name="search"
+                                    placeholder='Поиск аэрапорта'
+                                    value={searchValue} 
+                                    ref={searchInputRef}
+                                    onChange={searchHandler}
+                                    onFocus={() => setIsSearchValueFocused(true)}
+                                    onBlur={() => setIsSearchValueFocused(false)}
+                                />
+                                <span className='keybind'>
+                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                </span>
+                            </div>
                         </div>
                         <button 
                             className="create-new-button"

@@ -5,7 +5,7 @@ import { toastError, toastSuccess } from "../../utils/toasts";
 import { endpoints } from "../../api";
 import { isDataFilled } from "../../utils/isDataFilled";
 import { socket } from "../../socket";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import './EditContent.scss'
 import axios from "axios";
 
@@ -14,6 +14,10 @@ const EditAdminsContent = ({ data, popupHandlerFunc }) => {
     // Компонент редактирования данных выбранного админа 
 
     // Инициализация данных
+    const submitButton = useRef()
+
+    console.log(submitButton.current)
+    
     const [formData, setFormData] = useState({
         ...data,
         role: data.role === 'mainAdmin' ? 'Главный администратор' : 'Администратор'
@@ -55,7 +59,7 @@ const EditAdminsContent = ({ data, popupHandlerFunc }) => {
 
     // HTML структура компонента 
     return (
-        <form className="form">
+        <form className="form" onSubmit={saveChanges}>
             <div className="body__input">
                 <div className="item">
                     <div className="body__input__title">ФИО Администратора</div>
@@ -94,7 +98,7 @@ const EditAdminsContent = ({ data, popupHandlerFunc }) => {
                 <motion.button 
                     type='submit'
                     className="save"
-                    onClick={saveChanges}
+                    ref={submitButton}
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.99 }}
                     transition={{ duration: 0.3 }}

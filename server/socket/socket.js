@@ -3,7 +3,7 @@ import Admin from "../models/Admin.js";
 import Passenger from "../models/Passenger.js";
 import Plane from "../models/Plane.js";
 import Flight from "../models/Flight.js";
-import { info } from "../utils/chalk.js";
+import { info, error } from "../utils/chalk.js";
 
 
 

@@ -20,7 +20,9 @@ export default function AuthPage() {
 
     const submitAllData = (e) => {
         e.preventDefault()
-        if (formData.fullName && formData.password && formData.secretWord) {
+
+        const isFormDataFilled = formData.fullName && formData.password && formData.secretWord
+        if (isFormDataFilled) {
             setIsFetching(prev => !prev)
             axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.ADMINS.ROUTE}${endpoints.ADMINS.LOGIN}`,
             { 
@@ -37,9 +39,13 @@ export default function AuthPage() {
                     localStorage.setItem('token', res.data.adminData.token)
                     localStorage.setItem('admin-type', res.data.adminData.role)
                     localStorage.setItem('fullName', res.data.adminData.fullName)
+
+                    window.location = "/register-passenger"
+                } else {
+                    toastError("Что-то пошло не так, попробуйте позже")
                 }
+
                 setIsFetching(prev => !prev)
-                window.location = "/register-passenger"
             })
             .catch(() => {
                 toastError("Похоже введеные вами данные оказались не верными")

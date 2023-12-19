@@ -41,7 +41,7 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc}>
 
-            <form className="form">
+            <form className="form" onSubmit={createAirport}>
                 <div className="body__input">
                     <div className="item">
                         <div className="body__input__title">Введите название аэрапорта</div>
@@ -67,7 +67,6 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
                 <div className="body__lower">
                     <motion.button 
                         type='submit'
-                        onClick={createAirport}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}

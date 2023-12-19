@@ -80,7 +80,7 @@ flightRouter.post('/create', async (req, res) => {
 // [PUT] http://localhost:5000/api/flights/change
 flightRouter.put('/change', async (req, res) => {
     try {
-        const { flightNumber } = req.body
+        const { flightNumber, lastFlightPlane, flightPlane } = req.body
         
         const changedFlight = await Flight.findOneAndUpdate({ 
             flightNumber 
@@ -90,6 +90,16 @@ flightRouter.put('/change', async (req, res) => {
         if (!changedFlight) {
             return res.send({ error: "Данный рейс не найден" })
         }
+
+        await Plane.findOneAndUpdate({ id: flightPlane }, {
+            status: 'busy'
+        })
+
+        await Plane.findOneAndUpdate({ id: lastFlightPlane }, {
+            status: 'free',
+            busySeatCount: 0
+        })
+
 
         return res.send({ message: `Flight ${flightNumber} has been successfully changed` })
     } catch (e) {

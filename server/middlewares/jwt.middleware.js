@@ -4,26 +4,36 @@ import jwt from 'jsonwebtoken'
 const jwtVerification = (req, res, next) => {
     // FIXME: В разработке, не работает
     try {
-        const jwtToken = req.headers.token.split(' ')[1]
+        if (req.headers.token) {
+            // const jwtToken = req.cookies.token
+            console.log(req)
+            
+            console.log("jwt verification")
 
-        if (!jwtToken) {
-            return res.send({ 
-                error: "Токен авторизации не найден", 
-                isRemoveAdminData: true  
-            })
-        }
+            if (!jwtToken) {
+                return res.send({ 
+                    error: "Токен авторизации не найден", 
+                    isRemoveAdminData: true  
+                })
+            }
 
-        const isJWTVerified = jwt.verify(jwtToken, process.env.JWT_SECRET)
+            const isJWTVerified = jwt.verify(jwtToken, process.env.JWT_SECRET)
 
-        if (!isJWTVerified) {
-            return res.send({ 
+            if (!isJWTVerified) {
+                return res.send({ 
+                    error: "Токен авторизации истек", 
+                    isRemoveAdminData: true  
+                })
+            }
+
+            console.log("jwt is verified successfuly")
+            next()
+        } else {
+            return res.send({
                 error: "Токен авторизации истек", 
-                isRemoveAdminData: true  
+                isRemoveAdminData: true
             })
-        }
-
-        next()
-        
+        }        
     } catch (err) {
         console.log(err)
     }

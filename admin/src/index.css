@@ -72,18 +72,30 @@ body {
 .dashboard__container__header .search {
   width: 60%;
 }
-.dashboard__container__header .search input {
-  padding: 6px 20px;
+.dashboard__container__header .search .search__input {
   width: 100%;
   height: 45px;
-  border: 1px solid #b8b8b8;
+  background-color: #f1f1f1a7;
+  border: 3px solid #f1f1f1a7;
   margin-left: 4px;
   border-radius: 6px;
-  transition: 0.2s linear border-color;
+  transition: 0.2s linear border;
+  display: flex;
+  align-items: center;
 }
-.dashboard__container__header .search input:focus {
-  border-color: #546fff;
+
+.dashboard__container__header .search .search__input:hover {
+  background-color:#a8b5ff17;
+  border-color: #a8b5ff6d;
 }
+
+.dashboard__container__header .search .search__input input {
+  margin: 6px 20px;
+  width: 69%;
+  height: 100%;
+  background: transparent;
+}
+
 .dashboard__container__header .create-new-button {
   width: 20%;
   height: 43px;

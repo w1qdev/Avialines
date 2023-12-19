@@ -53,7 +53,7 @@ const CreateAdmin = ({ title, popupHandlerFunc }) => {
 
     return (
         <Popup title={title} popupHandlerFunc={popupHandlerFunc}>
-            <form className="form">
+            <form className="form" onSubmit={createAdmin}>
                 <div className="body__input">
                     <div className="item">
                         <div className="body__input__title">ФИО Администратора</div>
@@ -113,7 +113,6 @@ const CreateAdmin = ({ title, popupHandlerFunc }) => {
                 <div className="body__lower">
                     <motion.button 
                         type='submit'
-                        onClick={createAdmin}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}
