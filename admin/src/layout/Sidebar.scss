@@ -9,13 +9,6 @@
     flex-direction: column;
     color: #fff;
 
-    &:hover {
-        .sidebar__hide {
-            opacity: 1;
-            margin-left: 342px;
-        }
-    }
-
     &__logo {
         padding: 20px 0px;
         margin-bottom: 20px;
@@ -59,7 +52,7 @@
         }
 
         &.active {
-            background-color: #982bff;
+            background-color: #792bff;
         }
 
         img {
