@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import AirportTableItemCard from '../../components/TableItemCard/AirportTableItemCard';
 import { socket } from '../../socket.js';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { Kbd } from '@chakra-ui/react'
 import { useKeyPress } from '../../hooks/useKeyPress';
 import NoItems from '../../components/NoItems/NoItems';
@@ -78,7 +78,9 @@ const AirportsPage = () => {
 
     return (
         <>
-            {isCreateAirportPopupOpen ? <CreateAirport title="Добавление аэрапорта" popupHandlerFunc={popupHandler} /> : null}
+            <AnimatePresence>
+                {isCreateAirportPopupOpen ? <CreateAirport title="Добавление аэрапорта" popupHandlerFunc={popupHandler} /> : null}
+            </AnimatePresence>
             <div className="dashboard">
                 <motion.div 
                     className="dashboard__container"

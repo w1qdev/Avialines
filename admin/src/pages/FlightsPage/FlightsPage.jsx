@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import CreateFlightPopup from '../../components/Popups/CreateFlight'
 import FlightTableItemCard from '../../components/TableItemCard/FlightTableItemCard';
 import NoItems from '../../components/NoItems/NoItems';
@@ -90,7 +90,9 @@ const FlightsPage = () => {
 
     return (
         <>
-            {isCreateFlightOpenPopup ? <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsCreateFlightOpenPopup} /> : null}
+            <AnimatePresence>
+                {isCreateFlightOpenPopup ? <CreateFlightPopup title="Создание нового рейса" popupHandlerFunc={setIsCreateFlightOpenPopup} /> : null}
+            </AnimatePresence>
             <div className="dashboard">
                 <motion.div 
                     className="dashboard__container"

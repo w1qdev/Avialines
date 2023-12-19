@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import NoItems from '../../components/NoItems/NoItems';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
 import './AdminsPage.scss'
@@ -77,7 +77,9 @@ const AdminsPage = () => {
 
     return (
         <>
-            {isCreateAdminPopupOpen ? <CreateAdmin title="Добавление админа" popupHandlerFunc={popupHandler} /> : null}
+            <AnimatePresence>
+                {isCreateAdminPopupOpen ? <CreateAdmin title="Добавление админа" popupHandlerFunc={popupHandler} /> : null}
+            </AnimatePresence>
             <div className="dashboard">
                 <motion.div 
                     className="dashboard__container"

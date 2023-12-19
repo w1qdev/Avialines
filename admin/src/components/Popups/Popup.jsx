@@ -19,8 +19,8 @@ const Popup = ({ title, popupHandlerFunc, children }) => {
                 onClick={e => e.stopPropagation()}
                 // framer-motion
                 initial={{ y: 10, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 10, opacity: 0 }}
+                animate={{ y: 0, opacity: 1, transition: 0.3 }}
+                exit={{ y: 10, opacity: 0, transition: 0.2 }}
                 transition={{ duration: 0.4 }}
 
             >
