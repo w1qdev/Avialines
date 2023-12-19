@@ -8,6 +8,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Kbd } from '@chakra-ui/react'
 import './PassengersPage.scss'
 import { useKeyPress } from '../../hooks/useKeyPress.js'
+import Magnifier from '../../components/Icons/Magnifier.jsx'
 
 const PassengersPage = () => {
     // Страница со списком всех пассажиров, а также их данных
@@ -94,6 +95,9 @@ const PassengersPage = () => {
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
+                                <span className='magnifier'>
+                                    <Magnifier className="magnifier__item" />
+                                </span>
                                 <input 
                                     type="text" 
                                     name="search"

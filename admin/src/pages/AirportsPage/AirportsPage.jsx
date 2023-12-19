@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Kbd } from '@chakra-ui/react'
 import { useKeyPress } from '../../hooks/useKeyPress';
 import NoItems from '../../components/NoItems/NoItems';
+import Magnifier from '../../components/Icons/Magnifier.jsx';
 import CreateAirport from '../../components/Popups/CreateAirport';
 import './AirportsPage.scss'
 
@@ -94,6 +95,9 @@ const AirportsPage = () => {
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
+                                <span className='magnifier'>
+                                    <Magnifier className="magnifier__item" />
+                                </span>
                                 <input 
                                     type="text" 
                                     name="search"

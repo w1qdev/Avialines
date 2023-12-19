@@ -7,6 +7,7 @@ import { socket } from '../../socket.js';
 import { Kbd } from '@chakra-ui/react'
 import { useKeyPress } from '../../hooks/useKeyPress.js';
 import CircularProgressItem from '../../components/CircularProgress/CircularProgressItem';
+import Magnifier from '../../components/Icons/Magnifier.jsx';
 import './FlightsPage.scss'
 
 
@@ -106,6 +107,9 @@ const FlightsPage = () => {
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
+                                <span className='magnifier'>
+                                    <Magnifier className="magnifier__item" />
+                                </span>
                                 <input 
                                     type="text" 
                                     name="search"

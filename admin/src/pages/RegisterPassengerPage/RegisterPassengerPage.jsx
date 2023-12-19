@@ -8,7 +8,7 @@ import {
     StepStatus,
     StepTitle,
     Stepper,
-    Box
+    Box,
   } from '@chakra-ui/react'
 import { registerFormValidator } from '../../utils/registerFormValidator.js'
 import { useState, useEffect, useRef } from 'react'
@@ -147,8 +147,9 @@ const FormContent = (props) => {
                 <div className="search__item">
                     <input 
                         className='input' 
+                        name='search'
                         type="text" 
-                        placeholder='Поиск рейса' 
+                        placeholder='Поиск рейсов' 
                         value={flightsSearchValue}
                         onChange={e => searchHandler(e)}
                     />

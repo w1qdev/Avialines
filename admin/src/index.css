@@ -90,7 +90,7 @@ body {
 }
 
 .dashboard__container__header .search .search__input input {
-  margin: 6px 20px;
+  margin: 6px 0px;
   width: 67%;
   height: 100%;
   background: transparent;

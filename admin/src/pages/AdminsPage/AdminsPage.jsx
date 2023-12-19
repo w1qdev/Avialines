@@ -7,6 +7,7 @@ import CreateAdmin from '../../components/Popups/CreateAdmin';
 import { socket } from '../../socket.js';
 import { Kbd } from '@chakra-ui/react'
 import { useKeyPress } from '../../hooks/useKeyPress';
+import Magnifier from '../../components/Icons/Magnifier.jsx';
 import { useState, useEffect, useRef } from 'react';
 
 
@@ -93,6 +94,9 @@ const AdminsPage = () => {
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
+                                <span className='magnifier'>
+                                    <Magnifier className="magnifier__item" />
+                                </span>
                                 <input 
                                     type="text" 
                                     name="search"

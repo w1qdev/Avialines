@@ -7,6 +7,7 @@ import CircularProgressItem from '../../components/CircularProgress/CircularProg
 import NoItems from '../../components/NoItems/NoItems';
 import { Kbd } from '@chakra-ui/react'
 import { useKeyPress } from '../../hooks/useKeyPress';
+import Magnifier from '../../components/Icons/Magnifier';
 import './PlanesPage.scss'
 
 const PlanesPage = () => {
@@ -91,6 +92,9 @@ const PlanesPage = () => {
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
+                                <span className='magnifier'>
+                                    <Magnifier className="magnifier__item" />
+                                </span>
                                 <input 
                                     type="text" 
                                     name="search"
