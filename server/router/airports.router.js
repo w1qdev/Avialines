@@ -31,11 +31,12 @@ airportRouter.get('/', async (req, res) => {
 airportRouter.post("/create", async (req, res) => {
     try {
         const { airportName } = req.body
-
+        
+        console.log(airportName)
         const AirportExists = await Airport.findOne({ airportName })
 
         if (AirportExists) {
-            return res.send({ error: `The airport with id: ${AirportExists.airportId} already created` })
+            return res.send({ error: `Аэропорт "${airportName}" уже создан` })
         }
 
         const newAirport = new Airport({

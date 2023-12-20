@@ -79,7 +79,7 @@ const AirportsPage = () => {
     return (
         <>
             <AnimatePresence>
-                {isCreateAirportPopupOpen ? <CreateAirport title="Добавление аэрапорта" popupHandlerFunc={popupHandler} /> : null}
+                {isCreateAirportPopupOpen ? <CreateAirport title="Добавление аэропорта" popupHandlerFunc={popupHandler} /> : null}
             </AnimatePresence>
             <div className="dashboard">
                 <motion.div 
@@ -111,7 +111,7 @@ const AirportsPage = () => {
                                     onBlur={() => setIsSearchValueFocused(false)}
                                 />
                                 <span className='keybind'>
-                                    <Kbd colorScheme=''>enter</Kbd> or <Kbd>+</Kbd>
+                                    <Kbd colorScheme=''>enter</Kbd> <span>or</span> <Kbd>+</Kbd>
                                 </span>
                             </div>
                         </div>

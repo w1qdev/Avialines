@@ -28,11 +28,11 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
         axios.post(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.CREATE}`, formData)
         .then(res => {
             if (res.data.error) {
-                toastError("Что-то пошло не так, самолет не удалось сохранить, попробуйте позже")
+                toastError(res.data.error)
                 return
             }
 
-            toastSuccess("Самолет успешно добавлен")
+            toastSuccess("Аэропорт успешно добавлен")
             popupHandlerFunc(prev => !prev)
             socket.emit('isAirportsUpdate', { status: true })
         })
@@ -44,20 +44,20 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
             <form className="form" onSubmit={createAirport}>
                 <div className="body__input">
                     <div className="item">
-                        <div className="body__input__title">Введите название аэрапорта</div>
+                        <div className="body__input__title">Введите название аэропорта</div>
                         <input 
                             className='input'
                             type="text" 
-                            placeholder="Название аэрапорта"
+                            placeholder="Название аэропорта"
                             value={formData.airportName}
                             onChange={e => setFormData({ ...formData, airportName: e.target.value })}
                         />
                     </div>
                     <div className="item">
-                        <div className="body__input__title">Введите местоположение аэрапорта (город)</div>
+                        <div className="body__input__title">Введите местоположение аэропорта (город)</div>
                         <input 
                             type="text" 
-                            placeholder='Местоположение аэрапорта'
+                            placeholder='Местоположение аэропорта'
                             value={formData.airportPlace}
                             onChange={e => setFormData({ ...formData, airportPlace: e.target.value })} 
                         />
@@ -70,7 +70,7 @@ const CreateAirport = ({ title, popupHandlerFunc }) => {
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}
-                        >Добавить новый аэрапорт
+                        >Добавить новый аэропорт
                     </motion.button>
                 </div>
             </form>
