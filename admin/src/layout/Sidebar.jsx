@@ -75,8 +75,8 @@ const Sidebar = () => {
                 <NavLink to="/airports" className={activeLinkHandler}>
                     <img src={Airport} alt="Управление аэрапортами" />
                     <div className="title">
-                        <div className="title__main">Аэрапорты</div>
-                        <div className="title__sub">Создание аэрапортов</div>
+                        <div className="title__main">Аэропорты</div>
+                        <div className="title__sub">Создание аэропортов</div>
                     </div>
                 </NavLink>
                 {adminType === "mainAdmin" ? (

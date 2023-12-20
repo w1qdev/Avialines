@@ -22,7 +22,7 @@ import './RegisterPassengerPage.scss'
 import axios from 'axios'
 import { toastError, toastInfo, toastSuccess } from '../../utils/toasts.js'
 import { endpoints } from '../../api/index.js'
-import { Spinner } from '@chakra-ui/react'
+import { Spinner, Tooltip } from '@chakra-ui/react'
 import { useReactToPrint } from 'react-to-print'
 
 
@@ -183,13 +183,29 @@ const FormContent = (props) => {
                 <div className="plane__seats">
                     {formData.planeSeatPlaces?.length ? formData.planeSeatPlaces.map(place => {
                         return (
-                            <div 
-                                key={place.id} 
-                                className={`${place.status === 'free' ? 'item' : 'item busy'}`}
-                                onClick={() => addPassengerPlace(place)}
-                            >
-                                {place.seatName}
-                            </div>
+                            <>
+                                {place.status === 'free' ? (
+                                    <Tooltip hasArrow label={`Место ${place.seatName} свободно`} bg='#2c2c2c' color='#fff' placement='top'>
+                                        <div 
+                                            key={place.id} 
+                                            className="item"
+                                            onClick={() => addPassengerPlace(place)}
+                                        >
+                                            {place.seatName}
+                                        </div>
+                                    </Tooltip>
+                                ) : (
+                                    <Tooltip hasArrow label={`Место ${place.seatName} занято`} bg='#2c2c2c' color='#fff' placement='top'>
+                                        <div 
+                                            key={place.id} 
+                                            className="item busy"
+                                            onClick={() => addPassengerPlace(place)}
+                                        >
+                                            {place.seatName}
+                                        </div>
+                                    </Tooltip>
+                                )}
+                            </>
                         )
                         
                     }) : null}

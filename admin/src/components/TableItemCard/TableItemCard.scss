@@ -156,7 +156,6 @@
         border-radius: 4px;
         text-align: center !important;
 
-
         &.active {
             border-color: #7d7d7d;
             color: #7d7d7d !important;
@@ -231,6 +230,7 @@
 
 
 .table-item__category {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
@@ -249,5 +249,20 @@
         margin-top: 0px;
         line-height: 1.1;
         transition: color linear 0.2s;
+    }
+}
+
+.table-item__badge {
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &.green {
+        background-color: #35aa3bd6;
+        padding: 2px 4px;
+        border-radius: 8px 0px 8px 8px;
+        font-size: 16px;
+        font-weight: 400;
+        color: #fff;
     }
 }

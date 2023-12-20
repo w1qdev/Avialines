@@ -15,7 +15,7 @@ const AdminsPage = () => {
     // Страница со списком всех администраторов, а также их данных 
 
     const searchInputRef = useRef()
-    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const isSearchKeyPressed = useKeyPress(['=', '+', 'Enter'], searchInputRef)
     const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [searchValue, setSearchValue] = useState('')
     const [admins, setAdmins] = useState([])
@@ -91,8 +91,9 @@ const AdminsPage = () => {
                         <div className="header__title">
                             <div className='title'>Администраторы</div>
                         </div>
+
                         <div className="search" style={{ width: '50%' }}>
-                        <div 
+                            <div 
                                 className="search__input"
                                 style={{ border: `${isSearchValueFocused ? "3px solid #778bff" : ""}` }}
                             >
@@ -110,7 +111,7 @@ const AdminsPage = () => {
                                     onBlur={() => setIsSearchValueFocused(false)}
                                 />
                                 <span className='keybind'>
-                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                    <Kbd colorScheme=''>enter</Kbd> or <Kbd>+</Kbd>
                                 </span>
                             </div>
                         </div>

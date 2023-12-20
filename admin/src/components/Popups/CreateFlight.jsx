@@ -73,7 +73,7 @@ const CreateFlight = ({ title, popupHandlerFunc }) => {
         // 'http://localhost:5000/api/airports/'
         axios.get(`${endpoints.SERVER_ORIGIN_URI}${endpoints.AIRPORTS.ROUTE}${endpoints.AIRPORTS.GET_ALL}`)
         .then(res => {
-            setResponseData(res.data.body)
+            setResponseData(res.data.body.sort((a, b) => a.airportName.localeCompare(b.airportName)))
         })
         .catch(() => {
             toastError("Не удалось загрузить список аэрапортов")

@@ -4,6 +4,7 @@ import Pencil from '../../assets/card/pencil.svg'
 import RemoveItem from '../Popups/RemoveItem'
 import { Tooltip } from '@chakra-ui/react'
 import { useState } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import './TableItemCard.scss'
 
 
@@ -17,9 +18,11 @@ const TableItemCard = ({ children, itemId, itemCategory, data }) => {
     const editPopupHandler = () => setIsEditOpenPopup(prev => !prev)
     
     return (
-        <>
-            {isEditOpenPopup ? <EditItem data={data} itemCategory={itemCategory} title="Редактирование" popupHandlerFunc={setIsEditOpenPopup} /> : null}
-            {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
+        <>  
+            <AnimatePresence>
+                {isEditOpenPopup ? <EditItem data={data} itemCategory={itemCategory} title="Редактирование" popupHandlerFunc={setIsEditOpenPopup} /> : null}
+                {isRemovePopupOpen ? (<RemoveItem itemCategory={itemCategory} itemId={itemId} title="Удаление элемента" popupHandlerFunc={setIsRemovePopupOpen}  />) : null}
+            </AnimatePresence>
             <div className="body__item">
                 <div className="body__item__tools">
                     <Tooltip hasArrow label='Удалить' bg='#2c2c2c' color='#fff' placement='right'>

@@ -15,7 +15,7 @@ const AirportsPage = () => {
     // Страница со списком всех аэрапортов, а также их данных
 
     const searchInputRef = useRef()
-    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const isSearchKeyPressed = useKeyPress(['=', '+', 'Enter'], searchInputRef)
     const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [airports, setAirports] = useState([])
     const [unChangedAirports, setUnChangedAirports] = useState([])
@@ -90,7 +90,7 @@ const AirportsPage = () => {
                 >
                     <div className="dashboard__container__header">
                         <div className="header__title">
-                            <div className='title'>Аэрапорты</div>
+                            <div className='title'>Аэропорты</div>
                         </div>
                         <div className="search">
                             <div 
@@ -103,7 +103,7 @@ const AirportsPage = () => {
                                 <input 
                                     type="text" 
                                     name="search"
-                                    placeholder='Поиск аэрапорта'
+                                    placeholder='Поиск аэропорта'
                                     value={searchValue} 
                                     ref={searchInputRef}
                                     onChange={searchHandler}
@@ -111,14 +111,14 @@ const AirportsPage = () => {
                                     onBlur={() => setIsSearchValueFocused(false)}
                                 />
                                 <span className='keybind'>
-                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                    <Kbd colorScheme=''>enter</Kbd> or <Kbd>+</Kbd>
                                 </span>
                             </div>
                         </div>
                         <button 
                             className="create-new-button"
                             onClick={popupHandler}
-                            >Добавить аэрапорт
+                            >Добавить аэропорт
                         </button>
                     </div>
                     <div className="dashboard__container__body airport">
@@ -126,7 +126,7 @@ const AirportsPage = () => {
                             <AirportTableItemCard key={airport.airportId} {...airport} />
                         )) : (
                             <NoItems 
-                                title="Аэрапортов не найдено 😔"
+                                title="Аэропортов не найдено 😔"
                             />
                         )}
                         {isFetching ? (

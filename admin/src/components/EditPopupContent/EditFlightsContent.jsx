@@ -31,8 +31,8 @@ const EditFlightsContent = ({ data, popupHandlerFunc }) => {
                 return 
             }
 
-            // Если все хорошо, обновляем список аэрапортов
-            setAirports(res.data.body)
+            // Если все хорошо, обновляем список аэрапортов с сортировкой по алфавиту
+            setAirports(res.data.body.sort((a, b) => a.airportName.localeCompare(b.airportName)))
         })
         .catch(() => {
             // Если произошла какая-то клиентская ошибка,

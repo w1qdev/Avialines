@@ -14,7 +14,7 @@ const PassengersPage = () => {
     // Страница со списком всех пассажиров, а также их данных
 
     const searchInputRef = useRef()
-    const isSearchKeyPressed = useKeyPress(['Shift', 'Enter'], searchInputRef)
+    const isSearchKeyPressed = useKeyPress(['=', '+', 'Enter'], searchInputRef)
     const [isSearchValueFocused, setIsSearchValueFocused] = useState(false)
     const [isFetching, setIsFetching] = useState(false)
     const [passengers, setPassengers] = useState([])
@@ -109,7 +109,7 @@ const PassengersPage = () => {
                                     onBlur={() => setIsSearchValueFocused(false)}
                                 />
                                 <span className='keybind'>
-                                    <Kbd colorScheme=''>shift</Kbd> or <Kbd>enter</Kbd>
+                                    <Kbd colorScheme=''>enter</Kbd> or <Kbd>+</Kbd>
                                 </span>
                             </div>
                         </div>

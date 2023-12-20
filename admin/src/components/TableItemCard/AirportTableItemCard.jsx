@@ -14,7 +14,7 @@ const AirportTableItemCard = ({ airportId, airportName, airportPlace }) => {
         >
             <div className='table-item'>
                 <div className='table-item__category'>
-                    <div className='table-item__category__title'>Название аэрапорта:</div>
+                    <div className='table-item__category__title'>Название аэропорта:</div>
                     <div className='table-item__category__info'>{airportName}</div>
                 </div>
                 <div className='table-item__category'>
