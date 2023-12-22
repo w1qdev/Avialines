@@ -22,13 +22,15 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
         setFormData({...formData, [name]: e.target.value})
     }
 
-    const createPlane = async () => {
+    const createPlane = async (e) => {
+        e.preventDefault()
+
         const isFormDataFilled = isDataFilled(formData)
 
         if (isFormDataFilled) {
             toastError("Кажется, вы что-то не указали")
             return
-        } 
+        }
 
         if (parseInt(formData.seatCount) > 168) {
             toastError("Количество мест превышает 168!")
@@ -89,6 +91,7 @@ const CreatePlane = ({ title, popupHandlerFunc }) => {
                 <div className="body__lower">
                     <motion.button 
                         type='submit'
+                        onClick={createPlane}
                         whileHover={{ scale: 1.02 }}
                         whileTap={{ scale: 0.99 }}
                         transition={{ duration: 0.3 }}
