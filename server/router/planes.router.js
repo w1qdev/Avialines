@@ -1,8 +1,7 @@
 import { Router } from "express";
 import { error } from '../utils/chalk.js'
 import Plane from '../models/Plane.js'
-import Flight from '../models/Flight.js'
-import { getRandomNumber } from "../utils/getRandomNumber.js";
+import Flight from '../models/Flight.js'    
 import { getPlanePlaces } from "../utils/getPlanePlaces.js";
 
 
@@ -67,10 +66,6 @@ planeRouter.get('/plane/:flightNumber', async (req, res) => {
 planeRouter.post('/create', async (req, res) => {
     try {
         const { seatCount } = req.body
-
-        // for (let i = 0; i < crew.length; i++) {
-        //     crew[i].id = Date.now().valueOf() + getRandomNumber(999)
-        // }
 
         const detailedPlanePlaces = getPlanePlaces(seatCount)
 

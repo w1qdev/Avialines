@@ -46,13 +46,7 @@ passengerRouter.post('/create', async (req, res) => {
 
         // change free and busy places in the plane
         const busySeatCount = currentPlane.busySeatCount;
-        const freeSeatCount = currentPlane.freeSeatCount;
-
-        // const newPlanePlaces = currentPlane.seatPlaces.map(place => {
-        //     if (place.seatName === seatNumber) {
-        //         return { ...place, status: 'busy' }
-        //     }
-        // })
+        const freeSeatCount = currentPlane.freeSeatCount;   
 
         for (let i = 0; i < currentPlane.seatPlaces.length; i++) {
             if (currentPlane.seatPlaces[i].seatName == req.body.seatNumber) {
@@ -116,9 +110,6 @@ passengerRouter.delete('/remove/:id', async (req, res) => {
 
         // remove the passenger
         const removePassenger = await Passenger.findOneAndRemove({ id: passenegerId })
-
-        
-
 
         if (!removePassenger) {
             return res.send({ error: "Something gone wrong, passenger hasn't removed" })

@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "web server for urtk avialines",
+  "description": "web server for urtk airport",
   "main": "index.js",
   "type": "module",
   "scripts": {

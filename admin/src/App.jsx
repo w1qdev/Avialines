@@ -2,7 +2,6 @@ import { Routes, Route } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify';
 import AuthPage from './pages/AuthPage/AuthPage.jsx'
 import Sidebar from './layout/Sidebar.jsx';
-// import PanelPage from './pages/PanelPage/PanelPage.jsx';
 import RegisterPassengerPage from './pages/RegisterPassengerPage/RegisterPassengerPage.jsx'
 import FlightsPage from './pages/FlightsPage/FlightsPage.jsx';
 import AirportsPage from './pages/AirportsPage/AirportsPage.jsx';
@@ -23,8 +22,6 @@ function App() {
         <>
             <Routes>
                 <Route path="/" element={<Sidebar />}>
-                    {/* <Route path='' element={<PanelPage />} />
-                    <Route path='panel' element={<PanelPage />} /> */}
                     <Route path='' element={<RegisterPassengerPage />} />
                     <Route path='register-passenger' element={<RegisterPassengerPage />} />
                     <Route index path='flights' element={<FlightsPage />} />

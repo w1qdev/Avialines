@@ -48,11 +48,6 @@ const PassengerSchema = new Schema({
         type: String,
         required: true,
     },
-    // TODO: if something broken, uncomment this
-    // flightStatus: {
-    //     type: String,
-    //     required: true
-    // }
 }, {timestamps: true})
 
 

@@ -23,6 +23,8 @@ const AdminTableItemCard = ({ fullName, role, id,  }) => {
                         Вы
                     </div>
                 ) : null}
+
+                
                 <div className='table-item__category'>
                     <div className='table-item__category__title'>ФИО Администратора:</div>
                     <div className='table-item__category__info'>{fullName}</div>

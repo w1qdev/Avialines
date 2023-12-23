@@ -42,12 +42,6 @@ export const endpoints = {
         CHANGE: "/change",
         GET_ALL: "/"
     },
-    BILETS_CHECK: {
-        ROUTE: "/api/bilets-check",
-        CREATE: "/create",
-        REMOVE: "/remove",
-        CHANGE: "/change",
-    },
     PASSENGERS: {
         ROUTE: "/api/passengers",
         CREATE: '/create',

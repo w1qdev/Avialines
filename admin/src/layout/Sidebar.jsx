@@ -36,7 +36,7 @@ const Sidebar = () => {
         <>
             <div className="sidebar">
                 <div className="sidebar__logo">
-                    URTK Airlines Panel
+                    URTK Airport Panel
                 </div>
                 <NavLink to="/register-passenger" className={activeLinkHandler}>
                     <img src={NewPassenger} alt="Регистрация пассажира на рейс" />

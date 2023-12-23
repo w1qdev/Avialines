@@ -35,7 +35,7 @@ adminRouter.post('/create', async (req, res) => {
         const hasedPassword = await bcrypt.hash(password, salt)
         const token = jwt.sign({
             fullName
-        }, process.env.JWT_SECRET, { expiresIn: '1m' })
+        }, process.env.JWT_SECRET, { expiresIn: '325d' })
 
         const admin = new Admin({
             ...req.body,

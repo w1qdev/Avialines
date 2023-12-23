@@ -2,13 +2,10 @@ import jwt from 'jsonwebtoken'
 
 
 const jwtVerification = (req, res, next) => {
-    // FIXME: В разработке, не работает
     try {
         if (req.headers.token) {
-            // const jwtToken = req.cookies.token
-            console.log(req)
-            
-            console.log("jwt verification")
+
+            const jwtToken = req.headers.token.split(' ')[1]
 
             if (!jwtToken) {
                 return res.send({ 
@@ -25,8 +22,7 @@ const jwtVerification = (req, res, next) => {
                     isRemoveAdminData: true  
                 })
             }
-
-            console.log("jwt is verified successfuly")
+            
             next()
         } else {
             return res.send({

@@ -13,9 +13,8 @@ const FlightSchema = new Schema({
         required: true,
     },
     departureAirportId: {
-        type: String, // FIXME: Schema.Types.ObjectId
+        type: String,
         required: true,
-        // FIXME: ref: "Airport"
     },
     departureAirport: {
         type: String,
@@ -29,7 +28,7 @@ const FlightSchema = new Schema({
         type: String,
         required: false
     },
-    flightDuration: {   // FIXME: add functionality or remove it!!!
+    flightDuration: { 
         type: Number,
         required: false 
     },
