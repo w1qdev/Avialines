@@ -67,7 +67,7 @@ export default function AuthPage() {
                 transition={{ duration: 0.3 }} 
             >
                 <div className="auth__container__header">
-                    <div className="header__company-logo">URTK Airlines</div>
+                    <div className="header__company-logo">URTK Airport</div>
                     <div className="header__container-name">Вход</div>
                 </div>
 

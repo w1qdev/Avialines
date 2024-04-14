@@ -1,5 +1,3 @@
-
-
 export const endpoints = {
     SERVER_ORIGIN_URI: "http://localhost:5000",
     ADMINS: {
